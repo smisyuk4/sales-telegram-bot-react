@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import { AiOutlineUser } from 'react-icons/ai';
-import { CheckBox } from './CheckBox/CheckBox';
 import {
   FormStyled,
   LabelStyled,
@@ -11,9 +10,21 @@ import {
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
+  DivStyled,
+  CheckBoxStyled,
+  RulsLink,
 } from './Form.styled';
 
 const user = '@alex_m9913';
+
+const DEFAULT_VALUES = {
+  isAccept: false,
+  title: '',
+  description: '',
+  cost: '',
+  contact: '',
+  // photo: {},
+};
 
 export const Form = () => {
   const {
@@ -22,21 +33,22 @@ export const Form = () => {
     getValues,
     setValue,
     reset,
+    formState,
     formState: { errors, isValid },
   } = useForm({
-    defaultValues: {
-      isAccept: false,
-      isOpenRuls: false,
-      title: '',
-      description: '',
-      cost: '',
-      contact: '',
-      // photo: {},
-    },
+    defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
   const [descLength, setDescLength] = useState(0);
+  const [isOpenRuls, setIsOpenRuls] = useState(false);
+  const [isChecked, setIsChecked] = useState(getValues('isAccept'));
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset(DEFAULT_VALUES);
+    }
+  }, [formState, reset]);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -48,37 +60,41 @@ export const Form = () => {
     setValue('contact', user);
   };
 
-  const setCheckBoxValue = value => {
-    console.log('change check box', value);
-    setValue('isAccept', value);
-  };
-
-  const readRuls = () => {
-    console.log('open modal');
-    setValue('isOpenRuls', true);
+  const openRulsModal = () => {
+    console.log('open modal', isOpenRuls);
+    setIsOpenRuls(prev => !prev);
   };
 
   const onSubmit = data => {
-    console.log('data', data);
+    console.log('form data ===>', data);
 
-    reset();
+    // reset(DEFAULT_VALUES);
     setDescLength(0);
   };
 
   const onErrors = data => {
     console.log('data onErrors', data);
   };
-  // console.log('isAccept', getValues('isAccept'));
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
-      <CheckBox
-        register={register}
-        errors={errors}
-        readRuls={readRuls}
-        checked={getValues('isAccept')}
-        setCheckBoxValue={setCheckBoxValue}
-      />
+      <DivStyled>
+        <h2>Правила</h2>
+
+        <div>
+          <CheckBoxStyled
+            {...register('isAccept', {
+              // onChange: () => setIsChecked(prev => !prev),
+            })}
+            // checked={isChecked}
+            // onChange={() => setIsChecked(prev => !prev)}
+            className={isChecked ? 'checked' : ''}
+            type="checkbox"
+          />
+          <RulsLink onClick={openRulsModal}>Прочитав/ла та погоджуюсь</RulsLink>
+        </div>
+        <ErrorStyled>{errors.isAccept?.message}</ErrorStyled>
+      </DivStyled>
 
       <LabelStyled>
         <h2>Заголовок</h2>
@@ -118,7 +134,6 @@ export const Form = () => {
         <button onClick={setContact} type="button" aria-label="Contact">
           <AiOutlineUser size="2em" />
         </button>
-
         <ErrorStyled>{errors.contact?.message}</ErrorStyled>
       </LabelStyled>
 
@@ -128,9 +143,7 @@ export const Form = () => {
         <ErrorStyled>{errors.description?.message}</ErrorStyled>
       </LabelStyled> */}
 
-      <ButtonStyled 
-      // disabled={!isValid}
-       type="submit" aria-label="Send">
+      <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
         Відправити
       </ButtonStyled>
     </FormStyled>
