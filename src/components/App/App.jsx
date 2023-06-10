@@ -1,6 +1,11 @@
-export const App = () => {
+import { Form } from '../Form';
+import { Container, Title } from './App. styled';
 
+export const App = () => {
   return (
-    <h1> hello everyone!</h1>
+    <Container>
+      <Title> Об'ява </Title>
+      <Form/>
+    </Container>
   );
 };
