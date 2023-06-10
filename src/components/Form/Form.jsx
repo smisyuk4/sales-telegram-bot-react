@@ -33,7 +33,6 @@ export const Form = () => {
     getValues,
     setValue,
     reset,
-    formState,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
@@ -44,20 +43,15 @@ export const Form = () => {
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
 
-  useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      reset(DEFAULT_VALUES);
-    }
-  }, [formState, reset]);
-
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
-
     setDescLength(prev => differenceLen);
   };
 
   const setContact = () => {
-    setValue('contact', user);
+    setValue('contact', user, {
+      shouldValidate: true,
+    });
   };
 
   const openRulsModal = () => {
@@ -68,8 +62,9 @@ export const Form = () => {
   const onSubmit = data => {
     console.log('form data ===>', data);
 
-    // reset(DEFAULT_VALUES);
+    reset(DEFAULT_VALUES);
     setDescLength(0);
+    setIsChecked(false);
   };
 
   const onErrors = data => {
@@ -84,10 +79,8 @@ export const Form = () => {
         <div>
           <CheckBoxStyled
             {...register('isAccept', {
-              // onChange: () => setIsChecked(prev => !prev),
+              onChange: () => setIsChecked(prev => !prev),
             })}
-            // checked={isChecked}
-            // onChange={() => setIsChecked(prev => !prev)}
             className={isChecked ? 'checked' : ''}
             type="checkbox"
           />
@@ -123,19 +116,22 @@ export const Form = () => {
         <ErrorStyled>{errors.cost?.message}</ErrorStyled>
       </LabelStyled>
 
-      <LabelStyled>
-        <h2>Контактна інформація</h2>
+      <div>
+        <LabelStyled>
+          <h2>Контактна інформація</h2>
 
-        <InputStyled
-          {...register('contact')}
-          placeholder="Номер телефону/Telegram"
-        />
+          <InputStyled
+            {...register('contact')}
+            placeholder="Номер телефону/Telegram"
+            className={'contact'}
+          />
 
-        <button onClick={setContact} type="button" aria-label="Contact">
-          <AiOutlineUser size="2em" />
-        </button>
+          <button onClick={setContact} type="button" aria-label="Contact">
+            <AiOutlineUser size="2em" />
+          </button>
+        </LabelStyled>
         <ErrorStyled>{errors.contact?.message}</ErrorStyled>
-      </LabelStyled>
+      </div>
 
       {/* <LabelStyled>
         <h2>Фото</h2>
