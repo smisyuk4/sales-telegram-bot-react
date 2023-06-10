@@ -23,6 +23,8 @@ const forbiddenWords = [
 
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 
+export const LIMIT_CHAR_DESC = 100;
+
 export const schema = yup
   .object({
     title: yup
@@ -45,7 +47,10 @@ export const schema = yup
         'Забороняються посилання на інші сайти',
         value => !URL_REGEX.test(value)
       )
-      .max(100, 'Довжина має бути не більше 100 символів')
+      .max(
+        LIMIT_CHAR_DESC,
+        `Довжина має бути не більше ${LIMIT_CHAR_DESC} символів`
+      )
       .test(
         'test contain forbidden words',
         'Заборонені слова',

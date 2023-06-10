@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from './validationSchema';
+import { schema, LIMIT_CHAR_DESC } from './validationSchema';
+import { AiOutlineUser } from 'react-icons/ai';
 import {
   FormStyled,
   LabelStyled,
@@ -9,6 +11,8 @@ import {
   ErrorStyled,
   ButtonStyled,
 } from './Form.styled';
+
+const user = '@alex_m9913';
 
 export const Form = () => {
   const {
@@ -27,28 +31,44 @@ export const Form = () => {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+  const [descLength, setDescLength] = useState(0);
+
+  const checkLength = ({ target }) => {
+    console.log(target.value);
+
+    const differenceLen = LIMIT_CHAR_DESC - target.value.length;
+
+    setDescLength(prev => differenceLen);
+  };
+
+  const setContact = () => {
+    console.log('set contact');
+  };
+
   const onSubmit = data => {
     console.log(data);
 
     reset();
+    setDescLength(0);
   };
 
+  console.log('descLength', descLength);
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <LabelStyled>
         <h2>Заголовок</h2>
-        <InputStyled {...register('title')} placeholder="Телефон apple 7+" />
+        <InputStyled {...register('title')} placeholder="Куплю/Продам Iphone 12 256 GB" />
         <ErrorStyled>{errors.title?.message}</ErrorStyled>
       </LabelStyled>
 
       <LabelStyled>
         <h2>Опис товару</h2>
-        <p>До {88} символів</p>
+        {descLength > 0 && <p>До {descLength} символів</p>}
         <TextAreaStyled
-          {...register('description')}
+          {...register('description', { onChange: e => checkLength(e) })}
           rows="6"
           cols="50"
-          placeholder="2020 року випуску, 256 GB, рожевий"
+          placeholder="Колір чорний, памʼять 256 GB..."
         />
         <ErrorStyled>{errors.description?.message}</ErrorStyled>
       </LabelStyled>
@@ -61,7 +81,13 @@ export const Form = () => {
 
       <LabelStyled>
         <h2>Контактна інформація</h2>
-        <InputStyled {...register('contact')} placeholder="050-34-34-000" />
+
+        <InputStyled {...register('contact')} placeholder="Номер телефону/Telegram" />
+
+        <button onClick={setContact} type="button" aria-label="Contact">
+          <AiOutlineUser size="2em" />
+        </button>
+
         <ErrorStyled>{errors.contact?.message}</ErrorStyled>
       </LabelStyled>
 
