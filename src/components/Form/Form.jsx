@@ -18,6 +18,7 @@ export const Form = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors, isValid },
   } = useForm({
@@ -43,6 +44,7 @@ export const Form = () => {
 
   const setContact = () => {
     console.log('set contact');
+    setValue('contact', user);
   };
 
   const onSubmit = data => {
@@ -57,7 +59,10 @@ export const Form = () => {
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <LabelStyled>
         <h2>Заголовок</h2>
-        <InputStyled {...register('title')} placeholder="Куплю/Продам Iphone 12 256 GB" />
+        <InputStyled
+          {...register('title')}
+          placeholder="Куплю/Продам Iphone 12 256 GB"
+        />
         <ErrorStyled>{errors.title?.message}</ErrorStyled>
       </LabelStyled>
 
@@ -82,7 +87,10 @@ export const Form = () => {
       <LabelStyled>
         <h2>Контактна інформація</h2>
 
-        <InputStyled {...register('contact')} placeholder="Номер телефону/Telegram" />
+        <InputStyled
+          {...register('contact')}
+          placeholder="Номер телефону/Telegram"
+        />
 
         <button onClick={setContact} type="button" aria-label="Contact">
           <AiOutlineUser size="2em" />

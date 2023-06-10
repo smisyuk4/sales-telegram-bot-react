@@ -4,7 +4,7 @@ import { Container, Title } from './App. styled';
 export const App = () => {
   return (
     <Container>
-      <Title> Об'ява </Title>
+      <Title> Оголошення </Title>
       <Form/>
     </Container>
   );
