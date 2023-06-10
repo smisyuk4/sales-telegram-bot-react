@@ -112,7 +112,5 @@ export const ButtonStyled = styled.button`
   &:focus {
     background-color: black;
     color: white;
-    /* border-color: #61616170;
-    outline: none; */
   }
 `;

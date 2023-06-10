@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import { AiOutlineUser } from 'react-icons/ai';
+import { CheckBox } from './CheckBox/CheckBox';
 import {
   FormStyled,
   LabelStyled,
@@ -18,11 +19,14 @@ export const Form = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     setValue,
     reset,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
+      isAccept: false,
+      isOpenRuls: false,
       title: '',
       description: '',
       cost: '',
@@ -35,28 +39,47 @@ export const Form = () => {
   const [descLength, setDescLength] = useState(0);
 
   const checkLength = ({ target }) => {
-    console.log(target.value);
-
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
 
     setDescLength(prev => differenceLen);
   };
 
   const setContact = () => {
-    console.log('set contact');
     setValue('contact', user);
   };
 
+  const setCheckBoxValue = value => {
+    console.log('change check box', value);
+    setValue('isAccept', value);
+  };
+
+  const readRuls = () => {
+    console.log('open modal');
+    setValue('isOpenRuls', true);
+  };
+
   const onSubmit = data => {
-    console.log(data);
+    console.log('data', data);
 
     reset();
     setDescLength(0);
   };
 
-  console.log('descLength', descLength);
+  const onErrors = data => {
+    console.log('data onErrors', data);
+  };
+  // console.log('isAccept', getValues('isAccept'));
+
   return (
-    <FormStyled onSubmit={handleSubmit(onSubmit)}>
+    <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
+      <CheckBox
+        register={register}
+        errors={errors}
+        readRuls={readRuls}
+        checked={getValues('isAccept')}
+        setCheckBoxValue={setCheckBoxValue}
+      />
+
       <LabelStyled>
         <h2>Заголовок</h2>
         <InputStyled
@@ -105,7 +128,9 @@ export const Form = () => {
         <ErrorStyled>{errors.description?.message}</ErrorStyled>
       </LabelStyled> */}
 
-      <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
+      <ButtonStyled 
+      // disabled={!isValid}
+       type="submit" aria-label="Send">
         Відправити
       </ButtonStyled>
     </FormStyled>

@@ -27,11 +27,15 @@ export const LIMIT_CHAR_DESC = 100;
 
 export const schema = yup
   .object({
+    isAccept: yup
+      .bool()
+      .oneOf([true], 'Має бути погоджено')
+      .required('Обов`язкове поле'),
     title: yup
       .string('Має бути текстовим')
       .trim()
       .min(3, 'Довжина має бути більше 3 символів')
-      .max(10, 'Довжина має бути не більше 10 символів')
+      .max(10, 'Довжина має бути не більше 30 символів')
       .test(
         'test contain forbidden words',
         'Заборонені слова',
@@ -67,7 +71,7 @@ export const schema = yup
       .string('Має бути текстовим')
       .trim()
       .min(5, 'Довжина має бути більше 5 символів')
-      .max(10, 'Довжина має бути не більше 10 символів')
+      .max(10, 'Довжина має бути не більше 30 символів')
       .required('Обов`язкове поле'),
     // photo: {},
   })
