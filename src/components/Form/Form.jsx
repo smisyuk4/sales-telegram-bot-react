@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox } from './CheckBox';
-import { Contact } from './Contact';
-import { Modal } from '../Modal';
-import { Ruls } from '../Ruls';
+import { Checkbox } from './CheckBox/CheckBox';
+import { Contact } from './Contact/Contact';
+import { Modal } from '../Modal/Modal';
+import { Ruls } from '../Ruls/Ruls';
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
   FormStyled,
