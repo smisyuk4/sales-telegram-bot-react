@@ -7,13 +7,23 @@ export const FormStyled = styled.form`
 `;
 
 export const LabelStyled = styled.label`
-  p {
+  position: relative;
+  h2 {
     margin-bottom: 5px;
     font-size: 24px;
     font-weight: 600;
     line-height: 18px;
   }
+
+  p {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-style: italic;
+    color: blue;
+  }
 `;
+
 
 export const InputStyled = styled.input`
   padding: 10px 15px;

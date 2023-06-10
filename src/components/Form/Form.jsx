@@ -14,7 +14,8 @@ export const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       title: '',
@@ -24,42 +25,55 @@ export const Form = () => {
       // photo: {},
     },
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    console.log(data);
+
+    reset();
+  };
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <LabelStyled>
-        <p>Заголовок</p>
-        <InputStyled {...register('title')} />
+        <h2>Заголовок</h2>
+        <InputStyled {...register('title')} placeholder="Телефон apple 7+" />
         <ErrorStyled>{errors.title?.message}</ErrorStyled>
       </LabelStyled>
 
       <LabelStyled>
-        <p>Опис товару</p>
-        <TextAreaStyled {...register('description')} rows="6" cols="50" />
+        <h2>Опис товару</h2>
+        <p>До {88} символів</p>
+        <TextAreaStyled
+          {...register('description')}
+          rows="6"
+          cols="50"
+          placeholder="2020 року випуску, 256 GB, рожевий"
+        />
         <ErrorStyled>{errors.description?.message}</ErrorStyled>
       </LabelStyled>
 
       <LabelStyled>
-        <p>Вартість</p>
-        <InputStyled {...register('cost', { required: true })} />
+        <h2>Вартість, грн</h2>
+        <InputStyled {...register('cost')} placeholder="14000" />
         <ErrorStyled>{errors.cost?.message}</ErrorStyled>
       </LabelStyled>
 
       <LabelStyled>
-        <p>Контактна інформація</p>
-        <InputStyled {...register('contact', { required: true })} />
+        <h2>Контактна інформація</h2>
+        <InputStyled {...register('contact')} placeholder="050-34-34-000" />
         <ErrorStyled>{errors.contact?.message}</ErrorStyled>
       </LabelStyled>
 
       {/* <LabelStyled>
-        <p>Фото</p>
-        <InputStyled {...register('photo', { required: true })} />
+        <h2>Фото</h2>
+        <InputStyled {...register('photo')} />
         <ErrorStyled>{errors.description?.message}</ErrorStyled>
       </LabelStyled> */}
 
-      <ButtonStyled type="submit">Відправити</ButtonStyled>
+      <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
+        Відправити
+      </ButtonStyled>
     </FormStyled>
   );
 };
