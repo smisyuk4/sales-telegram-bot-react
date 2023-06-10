@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Checkbox } from './CheckBox';
 import { Contact } from './Contact';
+import { Modal } from '../Modal';
+import { Ruls } from '../Ruls';
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
   FormStyled,
@@ -52,8 +54,7 @@ export const Form = () => {
     });
   };
 
-  const openRulsModal = () => {
-    console.log('open modal', isOpenRuls);
+  const toggleRulsModal = () => {
     setIsOpenRuls(prev => !prev);
   };
 
@@ -66,16 +67,22 @@ export const Form = () => {
   };
 
   const onErrors = data => {
-    console.log('data onErrors', data);
+    console.log('form onErrors', data);
   };
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
+      {isOpenRuls && (
+        <Modal toggleRulsModal={toggleRulsModal}>
+          <Ruls />
+        </Modal>
+      )}
+
       <Checkbox
         register={register}
         setIsChecked={setIsChecked}
         isChecked={isChecked}
-        openRulsModal={openRulsModal}
+        toggleRulsModal={toggleRulsModal}
         errors={errors}
       />
 

@@ -10,7 +10,7 @@ export const Checkbox = ({
   register,
   setIsChecked,
   isChecked,
-  openRulsModal,
+  toggleRulsModal,
   errors,
 }) => {
   return (
@@ -25,7 +25,7 @@ export const Checkbox = ({
           className={isChecked ? 'checked' : ''}
           type="checkbox"
         />
-        <RulsLink onClick={openRulsModal}>Прочитав/ла та погоджуюсь</RulsLink>
+        <RulsLink onClick={toggleRulsModal}>Прочитав/ла та погоджуюсь</RulsLink>
       </div>
       <ErrorStyled>{errors.isAccept?.message}</ErrorStyled>
     </DivStyled>
@@ -36,6 +36,6 @@ Checkbox.propTypes = {
   register: PropTypes.func.isRequired,
   setIsChecked: PropTypes.func.isRequired,
   isChecked: PropTypes.bool.isRequired,
-  openRulsModal: PropTypes.func.isRequired,
+  toggleRulsModal: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
