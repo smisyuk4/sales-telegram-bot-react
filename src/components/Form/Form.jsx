@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Checkbox } from './CheckBox';
+import { Contact } from './Contact';
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
-import { AiOutlineUser } from 'react-icons/ai';
 import {
   FormStyled,
   LabelStyled,
@@ -10,9 +11,6 @@ import {
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
-  DivStyled,
-  CheckBoxStyled,
-  RulsLink,
 } from './Form.styled';
 
 const user = '@alex_m9913';
@@ -73,21 +71,13 @@ export const Form = () => {
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
-      <DivStyled>
-        <h2>Правила</h2>
-
-        <div>
-          <CheckBoxStyled
-            {...register('isAccept', {
-              onChange: () => setIsChecked(prev => !prev),
-            })}
-            className={isChecked ? 'checked' : ''}
-            type="checkbox"
-          />
-          <RulsLink onClick={openRulsModal}>Прочитав/ла та погоджуюсь</RulsLink>
-        </div>
-        <ErrorStyled>{errors.isAccept?.message}</ErrorStyled>
-      </DivStyled>
+      <Checkbox
+        register={register}
+        setIsChecked={setIsChecked}
+        isChecked={isChecked}
+        openRulsModal={openRulsModal}
+        errors={errors}
+      />
 
       <LabelStyled>
         <h2>Заголовок</h2>
@@ -116,22 +106,7 @@ export const Form = () => {
         <ErrorStyled>{errors.cost?.message}</ErrorStyled>
       </LabelStyled>
 
-      <div>
-        <LabelStyled>
-          <h2>Контактна інформація</h2>
-
-          <InputStyled
-            {...register('contact')}
-            placeholder="Номер телефону/Telegram"
-            className={'contact'}
-          />
-
-          <button onClick={setContact} type="button" aria-label="Contact">
-            <AiOutlineUser size="2em" />
-          </button>
-        </LabelStyled>
-        <ErrorStyled>{errors.contact?.message}</ErrorStyled>
-      </div>
+      <Contact register={register} setContact={setContact} errors={errors} />
 
       {/* <LabelStyled>
         <h2>Фото</h2>
