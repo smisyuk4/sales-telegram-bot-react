@@ -8,9 +8,22 @@ import {
   ErrorStyled,
 } from './Photo.styled';
 
-export const Photo = ({ control, register, errors }) => {
-  const [multipleImages, setMultipleImages] = useState([]);
+export const Photo = ({
+  control,
+  register,
+  errors,
+  setMultipleImages,
+  multipleImages,
+}) => {
+  const [picture, setPicture] = useState(null);
 
+  const onChangePicture = e => {
+    setPicture(URL.createObjectURL(e.target.files[0]));
+  };
+
+  // const [multipleImages, setMultipleImages] = useState([]);
+
+  // Functions to preview multiple images
   const changeMultipleFiles = e => {
     if (e.target.files) {
       const imageArray = Array.from(e.target.files).map(file =>
@@ -20,47 +33,37 @@ export const Photo = ({ control, register, errors }) => {
     }
   };
 
-  console.log(multipleImages);
+  // console.log('picture', picture);
+  console.log('picture', multipleImages);
   return (
     <DivStyled>
-      {/* <LabelStyled>
-        <h2>Фото (до 5шт)</h2>
-        <Controller
-          control={control}
-          name={'photo'}
-          rules={{ required: 'Recipe picture is required' }}
-          render={({ field: { value, onChange, ...field } }) => {
-            return (
-              <>
-                <InputStyled
-                  {...field}
-                  value={value?.fileName}
-                  onChange={event => {
-                    onChange(event.target.files[0]);
-                  }}
-                  type="file"
-                  multiple
-                  accept="image/*"
-                />
-                <ErrorStyled>{errors.photo?.message}</ErrorStyled>
-              </>
-            );
-          }}
-        />
-      </LabelStyled> */}
       <LabelStyled>
         <h2>Фото (до 5шт)</h2>
         <InputStyled
           {...register('photo')}
-          // , { onChange: e => changeMultipleFiles(e) }
+          // onChange={onChangePicture}
           onChange={changeMultipleFiles}
           type="file"
-          // accept="image/*"
-
+          accept="image/*"
           multiple
         />
         <ErrorStyled>{errors.photo?.message}</ErrorStyled>
       </LabelStyled>
+      {/* <div>
+        <img src={picture} alt="Girl in a jacket" width="100" height="100" />
+      </div> */}
+      <div>
+        {multipleImages?.map(image => (
+          <img
+            className="image"
+            src={image}
+            alt=""
+            key={image}
+            width="100"
+            height="100"
+          />
+        ))}
+      </div>
     </DivStyled>
   );
 };

@@ -16,6 +16,7 @@ import {
   ErrorStyled,
   ButtonStyled,
 } from './Form.styled';
+import { salesApi } from '../../salesApi';
 
 const user = '@alex_m9913';
 
@@ -45,6 +46,7 @@ export const Form = () => {
   const [descLength, setDescLength] = useState(0);
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
+  const [multipleImages, setMultipleImages] = useState([]);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -61,12 +63,20 @@ export const Form = () => {
     setIsOpenRuls(prev => !prev);
   };
 
-  const onSubmit = data => {
-    console.log('form data ===>', data);
+  const onSubmit = async data => {
+    console.log('form data ===>', data.photo);
+    const formData = new FormData();
+    // formData.append('file', data.photo[0]);
+    for (const key of Object.keys(multipleImages)) {
+      formData.append('file1', data.file[key]);
+    }
 
-    //   reset(DEFAULT_VALUES);
-    //   setDescLength(0);
-    //   setIsChecked(false);
+    const result = await salesApi(formData);
+    console.log('result', result);
+
+    // reset(DEFAULT_VALUES);
+    // setDescLength(0);
+    // setIsChecked(false);
   };
 
   const onErrors = data => {
@@ -118,7 +128,13 @@ export const Form = () => {
 
       <Contact register={register} setContact={setContact} errors={errors} />
 
-      <Photo register={register} control={control} errors={errors} />
+      <Photo
+        register={register}
+        control={control}
+        errors={errors}
+        setMultipleImages={setMultipleImages}
+        multipleImages={multipleImages}
+      />
 
       <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
         Відправити
