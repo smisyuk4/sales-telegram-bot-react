@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox } from './CheckBox';
+import { Checkbox } from './Checkbox/Checkbox';
 import { Contact } from './Contact';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
