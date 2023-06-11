@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox } from './Checkbox/Checkbox';
+import { Checkbox } from './Checkbox';
 import { Contact } from './Contact';
+import { Photo } from './Photo';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
+
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
   FormStyled,
@@ -23,7 +25,7 @@ const DEFAULT_VALUES = {
   description: '',
   cost: '',
   contact: '',
-  // photo: {},
+  photo: null,
 };
 
 export const Form = () => {
@@ -33,6 +35,7 @@ export const Form = () => {
     getValues,
     setValue,
     reset,
+    control,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
@@ -61,9 +64,9 @@ export const Form = () => {
   const onSubmit = data => {
     console.log('form data ===>', data);
 
-    reset(DEFAULT_VALUES);
-    setDescLength(0);
-    setIsChecked(false);
+    //   reset(DEFAULT_VALUES);
+    //   setDescLength(0);
+    //   setIsChecked(false);
   };
 
   const onErrors = data => {
@@ -115,11 +118,7 @@ export const Form = () => {
 
       <Contact register={register} setContact={setContact} errors={errors} />
 
-      {/* <LabelStyled>
-        <h2>Фото</h2>
-        <InputStyled {...register('photo')} />
-        <ErrorStyled>{errors.description?.message}</ErrorStyled>
-      </LabelStyled> */}
+      <Photo register={register} control={control} errors={errors} />
 
       <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
         Відправити

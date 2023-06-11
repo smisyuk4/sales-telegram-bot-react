@@ -9,7 +9,7 @@ export const ModalDiv = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: grey;
-  padding: 50px;
+  padding: 50px 10px;
 
   div {
     position: relative;
