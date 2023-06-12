@@ -26,7 +26,8 @@ const DEFAULT_VALUES = {
   description: '',
   cost: '',
   contact: '',
-  photo: null,
+  photo1: null,
+  photo5: null,
 };
 
 export const Form = () => {
@@ -66,13 +67,11 @@ export const Form = () => {
   const onSubmit = async data => {
     console.log('form data ===>', data.photo);
     const formData = new FormData();
-    // formData.append('file', data.photo[0]);
-    for (const key of Object.keys(multipleImages)) {
-      formData.append('file1', data.file[key]);
-    }
 
-    const result = await salesApi(formData);
-    console.log('result', result);
+    // formData.append('file', data.photo);
+
+    // const result1 = await salesApi('/onefile', formData);
+    // console.log('result1', result1);
 
     // reset(DEFAULT_VALUES);
     // setDescLength(0);
