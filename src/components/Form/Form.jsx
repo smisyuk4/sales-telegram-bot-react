@@ -26,8 +26,7 @@ const DEFAULT_VALUES = {
   description: '',
   cost: '',
   contact: '',
-  photo1: null,
-  photo5: null,
+  photos: null,
 };
 
 export const Form = () => {

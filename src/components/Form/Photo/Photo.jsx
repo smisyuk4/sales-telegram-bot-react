@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { ImageList } from '../../ImageList/ImageList';
 import {
   DivStyled,
   LabelStyled,
@@ -9,75 +10,54 @@ import {
 import { salesApi } from '../../../salesApi';
 
 export const Photo = ({ register, errors }) => {
-  const [picture, setPicture] = useState(null);
+  const [multipleImages, setMultipleImages] = useState([]);
+  const [previewImage, setPreviewImage] = useState([]);
 
   useEffect(() => {
-    if (picture === null || picture === undefined) {
+    if (
+      multipleImages === null ||
+      multipleImages === undefined ||
+      multipleImages.length === 0
+    ) {
       return;
     }
     const fetch = async () => {
-      console.log('picture', picture);
-      const formData = new FormData();
-
-      formData.append('file', picture);
-      const result = await salesApi('/onefile', formData);
+      const result = await salesApi('/photos/upload', multipleImages);
       console.log('result', result);
     };
     fetch();
-  }, [picture]);
+  }, [multipleImages]);
 
-  const onChangePicture = e => {
-    setPicture(e.target.files[0]);
+  const changeMultipleFiles = e => {
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    const fileList = e.target.files;
+
+    for (const key of Object.keys(fileList)) {
+      formData.append('photos', fileList[key]);
+      setPreviewImage(prev => [...prev, URL.createObjectURL(fileList[key])]);
+    }
+
+    setMultipleImages(formData);
   };
 
   return (
     <DivStyled>
-      <div>
-        <LabelStyled>
-          <h2>Фото (1шт)</h2>
-          <InputStyled
-            {...register('photo1')}
-            onChange={onChangePicture}
-            type="file"
-            accept="image/jpeg image/png"
-          />
-          <ErrorStyled>{errors.photo?.message}</ErrorStyled>
-        </LabelStyled>
-        {picture && (
-          <div>
-            <img
-              src={URL.createObjectURL(picture)}
-              alt="Girl in a jacket"
-              width="100"
-              height="100"
-            />
-          </div>
-        )}
-      </div>
-      <div>
-        <LabelStyled>
-          <h2>Фото (до 5шт)</h2>
-          <InputStyled
-            {...register('photo5')}
-            onChange={onChangePicture}
-            type="file"
-            accept="image/jpeg image/png"
-            // multiple
-          />
-          <ErrorStyled>{errors.photo?.message}</ErrorStyled>
-        </LabelStyled>
+      <LabelStyled>
+        <h2>Фото (до 5шт)</h2>
+        <InputStyled
+          {...register('photos')}
+          onChange={changeMultipleFiles}
+          type="file"
+          accept="image/jpeg image/png"
+          multiple
+        />
+        <ErrorStyled>{errors.photos?.message}</ErrorStyled>
+      </LabelStyled>
 
-        {/* {multipleImages?.map(image => (
-          <img
-            className="image"
-            src={image}
-            alt=""
-            key={image}
-            width="100"
-            height="100"
-          />
-        ))} */}
-      </div>
+      {previewImage.length > 0 && <ImageList array={previewImage} />}
     </DivStyled>
   );
 };
