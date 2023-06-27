@@ -6,6 +6,8 @@ import { Contact } from './Contact';
 import { Photo } from './Photo';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
+import { myStorage } from '../../firebase/firebase.config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
@@ -64,12 +66,30 @@ export const Form = () => {
   };
 
   const onSubmit = async data => {
-    console.log('form data ===>', data.photo);
-    const formData = new FormData();
+    // console.log('form data ===>', data);
+    // console.log('form data.photos ===>', data.photos);
 
-    // formData.append('file', data.photo);
+    const uniquePhotoId = Date.now().toString();
 
-    // const result1 = await salesApi('/onefile', formData);
+    const imageRef = ref(
+      myStorage,
+      `photo/${'june'}/${uniquePhotoId}-${data.photos[0].name}`
+    );
+
+    await uploadBytes(imageRef, data.photos[0]).then(() => {
+      console.log(`Фото завантажено в базу`);
+    });
+
+    const photoURL = await getDownloadURL(imageRef);
+    console.log('photoURL', photoURL);
+
+    // const formData = new FormData();
+
+    // formData.append('files', data.photos);
+    // formData.append('other', { ...data });
+    const checkContent = await salesApi('/check', photoURL);
+    console.log('checkContent', checkContent);
+    // const result1 = await salesApi('/form/upload', formData);
     // console.log('result1', result1);
 
     // reset(DEFAULT_VALUES);
