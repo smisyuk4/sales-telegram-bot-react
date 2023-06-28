@@ -22,7 +22,7 @@ export const Photo = ({ register, errors }) => {
       return;
     }
     const fetch = async () => {
-      const result = await salesApi('/photos/upload', multipleImages);
+      const result = await salesApi('/check-photos', multipleImages);
       console.log('result', result);
     };
     fetch();
