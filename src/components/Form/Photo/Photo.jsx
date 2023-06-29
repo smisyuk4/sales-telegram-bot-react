@@ -31,7 +31,7 @@ export const Photo = ({ register, errors }) => {
         setImagesAfterCheck(resultCheck);
       } catch (error) {
         console.log('salesApi ===>', error);
-        alert('salesApi ===>', error)
+        alert('salesApi ===>', error.message);
         setError(error.message);
       }
       setIsFinishCheck(true);
