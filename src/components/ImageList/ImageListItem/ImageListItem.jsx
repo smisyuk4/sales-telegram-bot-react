@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { LiStyled } from './ImageListItem.styled';
 
-export const ImageListItem = ({ link }) => {
+export const ImageListItem = ({ link, isPermitted }) => {
   return (
     <LiStyled>
+      {isPermitted !== undefined && <p>{isPermitted}</p>}
+
       <img
         className="image"
         src={link}
@@ -18,4 +20,6 @@ export const ImageListItem = ({ link }) => {
 
 ImageListItem.propTypes = {
   link: PropTypes.string,
+  // isPermitted: PropTypes.bool
+  isPermitted: PropTypes.string,
 };

@@ -12,6 +12,9 @@ import { salesApi } from '../../../salesApi';
 export const Photo = ({ register, errors }) => {
   const [multipleImages, setMultipleImages] = useState([]);
   const [previewImage, setPreviewImage] = useState([]);
+  const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
+  const [isFinishCheck, setIsFinishCheck] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (
@@ -22,8 +25,15 @@ export const Photo = ({ register, errors }) => {
       return;
     }
     const fetch = async () => {
-      const result = await salesApi('/check-photos', multipleImages);
-      console.log('result', result);
+      setIsFinishCheck(false);
+      try {
+        const { resultCheck } = await salesApi('/check-photos', multipleImages);
+        setImagesAfterCheck(resultCheck);
+      } catch (error) {
+        console.log('salesApi ===>', error);
+        setError(error.message);
+      }
+      setIsFinishCheck(true);
     };
     fetch();
   }, [multipleImages]);
@@ -32,6 +42,12 @@ export const Photo = ({ register, errors }) => {
     if (!e.target.files) {
       return;
     }
+
+    if (e.target.files.length > 5) {
+      setError('Можна лише до 5 фото');
+      return;
+    }
+
     const formData = new FormData();
     const fileList = e.target.files;
 
@@ -47,6 +63,7 @@ export const Photo = ({ register, errors }) => {
     <DivStyled>
       <LabelStyled>
         <h2>Фото (до 5шт)</h2>
+        {error && <p>{error}</p>}
         <InputStyled
           {...register('photos')}
           onChange={changeMultipleFiles}
@@ -57,7 +74,12 @@ export const Photo = ({ register, errors }) => {
         <ErrorStyled>{errors.photos?.message}</ErrorStyled>
       </LabelStyled>
 
-      {previewImage.length > 0 && <ImageList array={previewImage} />}
+      {previewImage.length > 0 && (
+        <>
+          {!isFinishCheck && <p>Перевірка фото змісту...</p>}
+          <ImageList array={previewImage} imagesAfterCheck={imagesAfterCheck} />
+        </>
+      )}
     </DivStyled>
   );
 };
