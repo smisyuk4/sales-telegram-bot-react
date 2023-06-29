@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://telegram-bot-d339c.ew.r.appspot.com';
 
 export const salesApi = async (path, data) => {
   return await axios
