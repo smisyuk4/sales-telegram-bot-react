@@ -8,6 +8,7 @@ import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
 import { myStorage } from '../../firebase/firebase.config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useTelegram } from '../../hooks/telegramHook';
 
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
@@ -49,6 +50,7 @@ export const Form = () => {
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [multipleImages, setMultipleImages] = useState([]);
+  const { onSend } = useTelegram();
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -67,6 +69,9 @@ export const Form = () => {
 
   const onSubmit = async data => {
     console.log('form data ===>', data);
+    onSend(data); // to bot
+
+    
     // console.log('form data.photos ===>', data.photos);
 
     // const uniquePhotoId = Date.now().toString();

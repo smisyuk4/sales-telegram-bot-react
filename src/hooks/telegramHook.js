@@ -2,20 +2,21 @@ const tg = window.Telegram.WebApp;
 
 export const useTelegram = () => {
   const onClose = () => {
-    alert('close')
+    alert('close');
     tg.close();
-    alert('after close')
+    alert('after close');
   };
 
-  const onSend = (data) =>{
-    alert('send')
-    tg.sendData(data)
-    alert('after send')
-  }
+  const onSend = data => {
+    alert('send');
+    tg.sendData(data);
+    alert('after send');
+  };
 
   return {
     onClose,
+    onSend,
     tg,
-    user: tg.initDataUnsafe?.user?.username
+    user: tg.initDataUnsafe?.user?.username,
   };
 };
