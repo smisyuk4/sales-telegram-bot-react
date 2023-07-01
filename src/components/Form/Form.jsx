@@ -50,7 +50,7 @@ export const Form = () => {
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [multipleImages, setMultipleImages] = useState([]);
-  const { onSend, queryId } = useTelegram();
+  const { onClose, queryId } = useTelegram();
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -71,9 +71,16 @@ export const Form = () => {
     console.log('form data ===>', data);
     // onSend(data); // to bot
 
-     const checkContent = await salesApi('/web-data', { ...data, queryId });
+    const checkContent = await salesApi('/web-data', { ...data, queryId });
 
-      console.log('checkContent', checkContent);
+    if (checkContent) {
+      alert('close');
+      onClose();
+    }
+
+    if (!checkContent) {
+      alert(`error ==> ${checkContent}`);
+    }
     // fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'aplication/json' },
