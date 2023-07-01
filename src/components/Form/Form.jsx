@@ -50,7 +50,7 @@ export const Form = () => {
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [multipleImages, setMultipleImages] = useState([]);
-  const { onSend } = useTelegram();
+  const { onSend, queryId } = useTelegram();
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -69,9 +69,14 @@ export const Form = () => {
 
   const onSubmit = async data => {
     console.log('form data ===>', data);
-    onSend(data); // to bot
+    // onSend(data); // to bot
 
-    
+    fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'aplication/json' },
+      body: JSON.stringify({ ...data, queryId }),
+    });
+
     // console.log('form data.photos ===>', data.photos);
 
     // const uniquePhotoId = Date.now().toString();
