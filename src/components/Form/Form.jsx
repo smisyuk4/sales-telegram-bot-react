@@ -58,7 +58,7 @@ export const Form = () => {
   };
 
   const setContact = () => {
-    setValue('contact', user, {
+    setValue('contact', `@${user}`, {
       shouldValidate: true,
     });
   };
@@ -69,12 +69,10 @@ export const Form = () => {
 
   const onSubmit = async data => {
     console.log('form data ===>', data);
-    // onSend(data); // to bot
 
     const checkContent = await salesApi('/web-data', { ...data, queryId });
 
     if (checkContent) {
-      alert('close');
       onClose();
     }
 
