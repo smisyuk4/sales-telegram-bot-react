@@ -3,11 +3,12 @@ import { useTelegram } from '../../hooks/telegramHook';
 import { Container, Title } from './App. styled';
 
 export const App = () => {
-  const { user } = useTelegram();
+  const { user, onClose } = useTelegram();
   return (
     <Container>
       <Title> Оголошення </Title>
-      <p>Привіт {user}</p>
+      {/* <p>Привіт {user}</p> */}
+      <button onClick={onClose}>Вийти</button>
       <Form />
     </Container>
   );
