@@ -71,11 +71,14 @@ export const Form = () => {
     console.log('form data ===>', data);
     // onSend(data); // to bot
 
-    fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
-      method: 'POST',
-      headers: { 'Content-Type': 'aplication/json' },
-      body: JSON.stringify({ ...data, queryId }),
-    });
+     const checkContent = await salesApi('/web-data', { ...data, queryId });
+
+      console.log('checkContent', checkContent);
+    // fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'aplication/json' },
+    //   body: JSON.stringify({ ...data, queryId }),
+    // });
 
     // console.log('form data.photos ===>', data.photos);
 
