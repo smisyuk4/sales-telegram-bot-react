@@ -9,7 +9,7 @@ export const useTelegram = () => {
 
   const onSend = data => {
     alert('send');
-    tg.sendData(data);
+    tg.sendData(JSON.stringify(data));
     alert('after send');
   };
 
