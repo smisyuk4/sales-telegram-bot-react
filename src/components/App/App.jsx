@@ -7,10 +7,10 @@ export const App = () => {
   return (
     <Container>
       <Title> Оголошення </Title>
-      <p>Привіт {user}</p>
+      {/* <p>Привіт {user}</p>
       <button onClick={onClose} type="button">
         Вийти
-      </button>
+      </button> */}
       <Form />
     </Container>
   );
