@@ -7,9 +7,15 @@ export const useTelegram = () => {
     alert('after close')
   };
 
+  const onSend = (data) =>{
+    alert('send')
+    tg.sendData(data)
+    alert('after send')
+  }
+
   return {
     onClose,
     tg,
-    user: tg?.initDataUnsafe?.user,
+    user: tg.initDataUnsafe?.user?.username
   };
 };
