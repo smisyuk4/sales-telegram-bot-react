@@ -16,6 +16,11 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+}
+
 body,
 h1,
 h2,

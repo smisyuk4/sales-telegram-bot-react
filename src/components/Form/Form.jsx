@@ -66,35 +66,35 @@ export const Form = () => {
   };
 
   const onSubmit = async data => {
-    // console.log('form data ===>', data);
+    console.log('form data ===>', data);
     // console.log('form data.photos ===>', data.photos);
 
-    const uniquePhotoId = Date.now().toString();
+    // const uniquePhotoId = Date.now().toString();
 
-    const imageRef = ref(
-      myStorage,
-      `photo/${'june'}/${uniquePhotoId}-${data.photos[0].name}`
-    );
+    // const imageRef = ref(
+    //   myStorage,
+    //   `photo/${'june'}/${uniquePhotoId}-${data.photos[0].name}`
+    // );
 
-    await uploadBytes(imageRef, data.photos[0]).then(() => {
-      console.log(`Фото завантажено в базу`);
-    });
+    // await uploadBytes(imageRef, data.photos[0]).then(() => {
+    //   console.log(`Фото завантажено в базу`);
+    // });
 
-    const photoURL = await getDownloadURL(imageRef);
-    console.log('photoURL', photoURL);
+    // const photoURL = await getDownloadURL(imageRef);
+    // console.log('photoURL', photoURL);
 
-    // const formData = new FormData();
+    // // const formData = new FormData();
 
-    // formData.append('files', data.photos);
-    // formData.append('other', { ...data });
-    const checkContent = await salesApi('/check', photoURL);
-    console.log('checkContent', checkContent);
-    // const result1 = await salesApi('/form/upload', formData);
-    // console.log('result1', result1);
+    // // formData.append('files', data.photos);
+    // // formData.append('other', { ...data });
+    // const checkContent = await salesApi('/check', photoURL);
+    // console.log('checkContent', checkContent);
+    // // const result1 = await salesApi('/form/upload', formData);
+    // // console.log('result1', result1);
 
-    // reset(DEFAULT_VALUES);
-    // setDescLength(0);
-    // setIsChecked(false);
+    // // reset(DEFAULT_VALUES);
+    // // setDescLength(0);
+    // // setIsChecked(false);
   };
 
   const onErrors = data => {
