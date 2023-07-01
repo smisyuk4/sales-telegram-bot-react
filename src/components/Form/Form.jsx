@@ -21,7 +21,7 @@ import {
 } from './Form.styled';
 import { salesApi } from '../../salesApi';
 
-const user = '@alex_m9913';
+// const user = '@alex_m9913';
 
 const DEFAULT_VALUES = {
   isAccept: false,
@@ -50,7 +50,7 @@ export const Form = () => {
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [multipleImages, setMultipleImages] = useState([]);
-  const { onClose, queryId } = useTelegram();
+  const { user, onClose, queryId } = useTelegram();
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
