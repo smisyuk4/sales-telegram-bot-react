@@ -81,19 +81,19 @@ export const schema = yup
       // .test('test name', "Треба ім'я наприклад  @qweqwe_3", value =>
       //   CONTACT_NAME_REGEX.test(value)
       // )
-      .test(
-        'test name and number',
-        "Треба ім'я наприклад  @qweqwe_3 або номер наприклад 0503523445",
-        value => {
-          const phone = CONTACT_PHONE_REGEX.test(value);
-          const name = CONTACT_NAME_REGEX.test(value);
+      // .test(
+      //   'test name and number',
+      //   "Треба ім'я наприклад  @qweqwe_3 або номер наприклад 0503523445",
+      //   value => {
+      //     const phone = CONTACT_PHONE_REGEX.test(value);
+      //     const name = CONTACT_NAME_REGEX.test(value);
 
-          if (phone || name) {
-            return true;
-          }
-          return false;
-        }
-      )
+      //     if (phone || name) {
+      //       return true;
+      //     }
+      //     return false;
+      //   }
+      // )
       .required('Обов`язкове поле'),
     // photos: {},
   })
