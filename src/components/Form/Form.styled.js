@@ -79,7 +79,7 @@ export const TextAreaStyled = styled.textarea`
   width: 100%;
 
   font-size: 18px;
-  line-height: 14px;
+  line-height: 1.2;
 
   border-radius: 12px;
   border: 1px solid;
