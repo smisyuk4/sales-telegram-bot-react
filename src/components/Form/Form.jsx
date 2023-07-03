@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Audio } from  'react-loader-spinner'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { myStorage } from '../../firebase/firebase.config';
 
@@ -11,6 +10,7 @@ import { Contact } from './Contact';
 import { Photo } from './Photo';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
+import { Loader } from '../Loader';
 
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
@@ -51,7 +51,7 @@ export const Form = () => {
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [multipleImages, setMultipleImages] = useState([]);
   const { user, onClose, queryId } = useTelegram();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -69,22 +69,26 @@ export const Form = () => {
   };
 
   const onSubmit = async data => {
-    setIsLoading(true)
+    setIsLoading(true);
     console.log('form data ===>', data);
 
-    const checkContent = await salesApi('/web-data', { ...data, queryId });
+    try {
+      const checkContent = await salesApi('/web-data', { ...data, queryId });
 
-    if (checkContent) {
-      onClose();
-      setIsLoading(false)
-      return
+      if (checkContent) {
+        onClose();
+        reset();
+        setIsChecked(false);
+        setIsLoading(false);
+        setDescLength(0);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      alert(`error ==> ${error.message}`);
+      setIsLoading(false);
     }
 
-    if (!checkContent) {
-      alert(`error ==> ${checkContent}`);
-      setIsLoading(false)
-      return
-    }
     // fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'aplication/json' },
@@ -126,73 +130,65 @@ export const Form = () => {
   };
 
   return (
-<>
-{isLoading && <Audio
-    height = "80"
-    width = "80"
-    radius = "9"
-    color = 'green'
-    ariaLabel = 'three-dots-loading'     
-    wrapperStyle
-    wrapperClass
-  />}
+    <>
+      {isLoading && <Loader />}
 
-<FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
-      {isOpenRuls && (
-        <Modal toggleRulsModal={toggleRulsModal}>
-          <Ruls />
-        </Modal>
-      )}
+      <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
+        {isOpenRuls && (
+          <Modal toggleRulsModal={toggleRulsModal}>
+            <Ruls />
+          </Modal>
+        )}
 
-      <Checkbox
-        register={register}
-        setIsChecked={setIsChecked}
-        isChecked={isChecked}
-        toggleRulsModal={toggleRulsModal}
-        errors={errors}
-      />
-
-      <LabelStyled>
-        <h2>Заголовок</h2>
-        <InputStyled
-          {...register('title')}
-          placeholder="Куплю/Продам Iphone 12 256 GB"
+        <Checkbox
+          register={register}
+          setIsChecked={setIsChecked}
+          isChecked={isChecked}
+          toggleRulsModal={toggleRulsModal}
+          errors={errors}
         />
-        <ErrorStyled>{errors.title?.message}</ErrorStyled>
-      </LabelStyled>
 
-      <LabelStyled>
-        <h2>Опис товару</h2>
-        {descLength > 0 && <p>До {descLength} символів</p>}
-        <TextAreaStyled
-          {...register('description', { onChange: e => checkLength(e) })}
-          rows="6"
-          cols="50"
-          placeholder="Колір чорний, памʼять 256 GB..."
+        <LabelStyled>
+          <h2>Заголовок</h2>
+          <InputStyled
+            {...register('title')}
+            placeholder="Куплю/Продам Iphone 12 256 GB"
+          />
+          <ErrorStyled>{errors.title?.message}</ErrorStyled>
+        </LabelStyled>
+
+        <LabelStyled>
+          <h2>Опис товару</h2>
+          {descLength > 0 && <p>До {descLength} символів</p>}
+          <TextAreaStyled
+            {...register('description', { onChange: e => checkLength(e) })}
+            rows="6"
+            cols="50"
+            placeholder="Колір чорний, памʼять 256 GB..."
+          />
+          <ErrorStyled>{errors.description?.message}</ErrorStyled>
+        </LabelStyled>
+
+        <LabelStyled>
+          <h2>Вартість, грн</h2>
+          <InputStyled {...register('cost')} placeholder="14000" />
+          <ErrorStyled>{errors.cost?.message}</ErrorStyled>
+        </LabelStyled>
+
+        <Contact register={register} setContact={setContact} errors={errors} />
+
+        <Photo
+          register={register}
+          control={control}
+          errors={errors}
+          setMultipleImages={setMultipleImages}
+          multipleImages={multipleImages}
         />
-        <ErrorStyled>{errors.description?.message}</ErrorStyled>
-      </LabelStyled>
 
-      <LabelStyled>
-        <h2>Вартість, грн</h2>
-        <InputStyled {...register('cost')} placeholder="14000" />
-        <ErrorStyled>{errors.cost?.message}</ErrorStyled>
-      </LabelStyled>
-
-      <Contact register={register} setContact={setContact} errors={errors} />
-
-      <Photo
-        register={register}
-        control={control}
-        errors={errors}
-        setMultipleImages={setMultipleImages}
-        multipleImages={multipleImages}
-      />
-
-      <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
-        Відправити
-      </ButtonStyled>
-    </FormStyled>
-</>
+        <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
+          Відправити
+        </ButtonStyled>
+      </FormStyled>
+    </>
   );
 };
