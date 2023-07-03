@@ -3,8 +3,7 @@ import * as yup from 'yup';
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
 
-const CONTACT_PHONE_REGEX = /^\d{10}$/gm;
-const CONTACT_NAME_REGEX = /^@[a-zA-Z0-9_-]*|@[a-zA-Z0-9]*/gm;
+const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s]+)/;
 
 const forbiddenWords = [
   'хуй',
@@ -73,27 +72,13 @@ export const schema = yup
     contact: yup
       .string('Має бути текстовим')
       .trim()
+
       .min(5, 'Довжина має бути більше 5 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
-      // .test('test number', 'Треба номер наприклад 0503523445', value =>
-      //   CONTACT_PHONE_REGEX.test(value)
-      // )
-      // .test('test name', "Треба ім'я наприклад  @qweqwe_3", value =>
-      //   CONTACT_NAME_REGEX.test(value)
-      // )
-      // .test(
-      //   'test name and number',
-      //   "Треба ім'я наприклад  @qweqwe_3 або номер наприклад 0503523445",
-      //   value => {
-      //     const phone = CONTACT_PHONE_REGEX.test(value);
-      //     const name = CONTACT_NAME_REGEX.test(value);
-
-      //     if (phone || name) {
-      //       return true;
-      //     }
-      //     return false;
-      //   }
-      // )
+      .matches(
+        PHONE_OR_CONTACT_REGEX,
+        "Приклад номера 0503523445, тільки 10 цифр\nПриклад ім'я @qweqwe_3, обов'язково @"
+      )
       .required('Обов`язкове поле'),
     // photos: {},
   })

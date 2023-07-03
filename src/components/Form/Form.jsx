@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Audio } from  'react-loader-spinner'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { myStorage } from '../../firebase/firebase.config';
+
+import { useTelegram } from '../../hooks/telegramHook';
 import { Checkbox } from './Checkbox';
 import { Contact } from './Contact';
 import { Photo } from './Photo';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
-import { myStorage } from '../../firebase/firebase.config';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { useTelegram } from '../../hooks/telegramHook';
 
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
@@ -20,8 +22,6 @@ import {
   ButtonStyled,
 } from './Form.styled';
 import { salesApi } from '../../salesApi';
-
-// const user = '@alex_m9913';
 
 const DEFAULT_VALUES = {
   isAccept: false,
@@ -51,6 +51,7 @@ export const Form = () => {
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [multipleImages, setMultipleImages] = useState([]);
   const { user, onClose, queryId } = useTelegram();
+  const [isLoading, setIsLoading] = useState(false)
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -68,16 +69,21 @@ export const Form = () => {
   };
 
   const onSubmit = async data => {
+    setIsLoading(true)
     console.log('form data ===>', data);
 
     const checkContent = await salesApi('/web-data', { ...data, queryId });
 
     if (checkContent) {
       onClose();
+      setIsLoading(false)
+      return
     }
 
     if (!checkContent) {
       alert(`error ==> ${checkContent}`);
+      setIsLoading(false)
+      return
     }
     // fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
     //   method: 'POST',
@@ -120,7 +126,18 @@ export const Form = () => {
   };
 
   return (
-    <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
+<>
+{isLoading && <Audio
+    height = "80"
+    width = "80"
+    radius = "9"
+    color = 'green'
+    ariaLabel = 'three-dots-loading'     
+    wrapperStyle
+    wrapperClass
+  />}
+
+<FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
       {isOpenRuls && (
         <Modal toggleRulsModal={toggleRulsModal}>
           <Ruls />
@@ -176,5 +193,6 @@ export const Form = () => {
         Відправити
       </ButtonStyled>
     </FormStyled>
+</>
   );
 };

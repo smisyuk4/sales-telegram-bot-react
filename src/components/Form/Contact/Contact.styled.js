@@ -69,4 +69,5 @@ export const InputStyled = styled.input`
 export const ErrorStyled = styled.span`
   font-style: italic;
   color: red;
+  white-space: pre-wrap;
 `;
