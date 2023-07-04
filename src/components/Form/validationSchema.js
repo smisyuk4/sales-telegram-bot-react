@@ -67,6 +67,7 @@ export const schema = yup
       .number()
       .positive('Має бути додатнє число')
       .integer('Має бути ціле число')
+      .max(1000000, `Має бути не більше 1 мільона`)
       .typeError('Має бути ціле число')
       .required('Обов`язкове поле'),
     contact: yup
