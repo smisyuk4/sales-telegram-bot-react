@@ -32,6 +32,12 @@ const DEFAULT_VALUES = {
   photos: null,
 };
 
+const AXIOS_CONFIG = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
 export const Form = () => {
   const {
     register,
@@ -73,7 +79,14 @@ export const Form = () => {
     console.log('form data ===>', data);
 
     try {
-      const checkContent = await salesApi('/web-data', { ...data, queryId });
+
+      const dataPackage = JSON.stringify({ ...data, queryId });
+
+      const checkContent = await salesApi(
+        '/web-data',
+        dataPackage,
+        AXIOS_CONFIG
+      );
 
       if (checkContent) {
         onClose();
