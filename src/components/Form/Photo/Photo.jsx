@@ -27,7 +27,7 @@ export const Photo = ({ register, errors }) => {
     const fetch = async () => {
       setIsFinishCheck(false);
       try {
-        // alert('before salesApi ===> ', multipleImages[0]);
+        console.log('before salesApi ===> ', multipleImages[0]);
         const { resultCheck } = await salesApi(
           '/uploads-some-photos',
           multipleImages
@@ -59,9 +59,9 @@ export const Photo = ({ register, errors }) => {
 
     for (const key of Object.keys(fileList)) {
       const photo = fileList[key];
-      const newName = `${Date.now()}_${photo.name}`;
-      formData.append('photos', photo, newName);
-      setPreviewImage(prev => [...prev, URL.createObjectURL(fileList[key])]);
+      // const newName = `${Date.now()}_${photo.name}`;
+      formData.append('photos', photo);
+      setPreviewImage(prev => [...prev, URL.createObjectURL(photo)]);
     }
 
     setMultipleImages(formData);
