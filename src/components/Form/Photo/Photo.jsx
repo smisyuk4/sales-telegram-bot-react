@@ -28,7 +28,10 @@ export const Photo = ({ register, errors }) => {
       setIsFinishCheck(false);
       try {
         // alert('before salesApi ===> ', multipleImages[0]);
-        const { resultCheck } = await salesApi('/uploads-some-photos', multipleImages);
+        const { resultCheck } = await salesApi(
+          '/uploads-some-photos',
+          multipleImages
+        );
         // alert('after salesApi ');
         setImagesAfterCheck(resultCheck);
       } catch (error) {
@@ -55,7 +58,9 @@ export const Photo = ({ register, errors }) => {
     const fileList = e.target.files;
 
     for (const key of Object.keys(fileList)) {
-      formData.append('photos', fileList[key]);
+      const photo = fileList[key];
+      const newName = `${Date.now()}_${photo.name}`;
+      formData.append('photos', photo, newName);
       setPreviewImage(prev => [...prev, URL.createObjectURL(fileList[key])]);
     }
 
