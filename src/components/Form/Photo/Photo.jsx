@@ -28,7 +28,7 @@ export const Photo = ({ register, errors }) => {
       setIsFinishCheck(false);
       try {
         const { resultCheck } = await salesApi(
-          '/uploads-some-photos',
+          '/check-photo/some',
           multipleImages
         );
 
