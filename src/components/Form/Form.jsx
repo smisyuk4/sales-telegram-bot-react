@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { myStorage } from '../../firebase/firebase.config';
 
 import { useTelegram } from '../../hooks/telegramHook';
 import { Checkbox } from './Checkbox';
@@ -45,7 +43,7 @@ export const Form = () => {
     getValues,
     setValue,
     reset,
-    control,
+    // control,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
@@ -55,7 +53,7 @@ export const Form = () => {
   const [descLength, setDescLength] = useState(0);
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
-  const [multipleImages, setMultipleImages] = useState([]);
+  // const [multipleImages, setMultipleImages] = useState([]);
   const { user, onClose, queryId } = useTelegram();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,6 +64,12 @@ export const Form = () => {
 
   const setContact = () => {
     setValue('contact', `@${user}`, {
+      shouldValidate: true,
+    });
+  };
+
+  const setPhotos = () => {
+    setValue('photos', [], {
       shouldValidate: true,
     });
   };
@@ -102,40 +106,6 @@ export const Form = () => {
       setIsLoading(false);
     }
 
-    // fetch('https://telegram-bot-d339c.ew.r.appspot.com/web-data', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'aplication/json' },
-    //   body: JSON.stringify({ ...data, queryId }),
-    // });
-
-    // console.log('form data.photos ===>', data.photos);
-
-    // const uniquePhotoId = Date.now().toString();
-
-    // const imageRef = ref(
-    //   myStorage,
-    //   `photo/${'june'}/${uniquePhotoId}-${data.photos[0].name}`
-    // );
-
-    // await uploadBytes(imageRef, data.photos[0]).then(() => {
-    //   console.log(`Фото завантажено в базу`);
-    // });
-
-    // const photoURL = await getDownloadURL(imageRef);
-    // console.log('photoURL', photoURL);
-
-    // // const formData = new FormData();
-
-    // // formData.append('files', data.photos);
-    // // formData.append('other', { ...data });
-    // const checkContent = await salesApi('/check', photoURL);
-    // console.log('checkContent', checkContent);
-    // // const result1 = await salesApi('/form/upload', formData);
-    // // console.log('result1', result1);
-
-    // // reset(DEFAULT_VALUES);
-    // // setDescLength(0);
-    // // setIsChecked(false);
   };
 
   const onErrors = data => {
@@ -192,10 +162,11 @@ export const Form = () => {
 
         <Photo
           register={register}
-          control={control}
+          // control={control}
           errors={errors}
-          setMultipleImages={setMultipleImages}
-          multipleImages={multipleImages}
+          setPhotos={setPhotos}
+          // setMultipleImages={setMultipleImages}
+          // multipleImages={multipleImages}
         />
 
         <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">

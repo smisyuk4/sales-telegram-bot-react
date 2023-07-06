@@ -9,7 +9,7 @@ import {
 } from './Photo.styled';
 import { salesApi } from '../../../salesApi';
 
-export const Photo = ({ register, errors }) => {
+export const Photo = ({ register, errors, setPhotos }) => {
   const [multipleImages, setMultipleImages] = useState([]);
   const [previewImage, setPreviewImage] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
@@ -32,7 +32,10 @@ export const Photo = ({ register, errors }) => {
           multipleImages
         );
 
+        const photoURL = resultCheck.map(({ imageURL }) => imageURL);
+        // console.log('photoURL', photoURL);
         setImagesAfterCheck(resultCheck);
+        setPhotos(photoURL);
       } catch (error) {
         console.log('salesApi ===>', error);
         setError(error.message);
@@ -43,6 +46,8 @@ export const Photo = ({ register, errors }) => {
   }, [multipleImages]);
 
   const changeMultipleFiles = e => {
+    // setPreviewImage([]);
+
     if (!e.target.files) {
       return;
     }
@@ -54,17 +59,21 @@ export const Photo = ({ register, errors }) => {
 
     const formData = new FormData();
     const fileList = e.target.files;
+    let previewPhotoURL = [];
 
     for (const key of Object.keys(fileList)) {
       const photo = fileList[key];
       const newName = `${Date.now()}_${photo.name}`;
 
       formData.append('photos', photo, newName);
-      setPreviewImage(prev => [...prev, URL.createObjectURL(photo)]);
+      previewPhotoURL = [...previewPhotoURL, URL.createObjectURL(photo)];
     }
 
+    setPreviewImage(previewPhotoURL);
     setMultipleImages(formData);
   };
+
+  // console.log(imagesAfterCheck);
 
   return (
     <DivStyled>
@@ -94,4 +103,5 @@ export const Photo = ({ register, errors }) => {
 Photo.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
+  setPhotos: PropTypes.func.isRequired,
 };

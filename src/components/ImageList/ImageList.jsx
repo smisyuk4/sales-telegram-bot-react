@@ -2,6 +2,7 @@ import { ImageListItem } from './ImageListItem/ImageListItem';
 import PropTypes from 'prop-types';
 import { UlStyled } from './ImageList.styled';
 
+// написати гарну логіку перевірки фото
 export const ImageList = ({ array, imagesAfterCheck }) => {
   const check = index => {
     const res = imagesAfterCheck[index]?.isPermitted;
