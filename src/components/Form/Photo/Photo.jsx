@@ -33,7 +33,7 @@ export const Photo = ({ register, errors, setPhotos }) => {
         );
 
         const photoURL = resultCheck.map(({ imageURL }) => imageURL);
-        // console.log('photoURL', photoURL);
+        console.log('photoURL', photoURL);
         setImagesAfterCheck(resultCheck);
         setPhotos(photoURL);
       } catch (error) {

@@ -68,8 +68,8 @@ export const Form = () => {
     });
   };
 
-  const setPhotos = () => {
-    setValue('photos', [], {
+  const setPhotos = (value) => {
+    setValue('photos', value, {
       shouldValidate: true,
     });
   };
