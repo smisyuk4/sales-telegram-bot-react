@@ -28,7 +28,7 @@ export const Photo = ({ register, errors }) => {
       setIsFinishCheck(false);
       try {
         // alert('before salesApi ===> ', multipleImages[0]);
-        const { resultCheck } = await salesApi('/check-photos', multipleImages);
+        const { resultCheck } = await salesApi('/uploads-some-photos', multipleImages);
         // alert('after salesApi ');
         setImagesAfterCheck(resultCheck);
       } catch (error) {
