@@ -28,6 +28,7 @@ const DEFAULT_VALUES = {
   cost: '',
   contact: '',
   photos: null,
+  photoURL: [],
 };
 
 const AXIOS_CONFIG = {
@@ -69,7 +70,9 @@ export const Form = () => {
   };
 
   const setPhotos = (value) => {
-    setValue('photos', value, {
+    console.log('setPhotos', value);
+
+    setValue('photoURL', value, {
       shouldValidate: true,
     });
   };
