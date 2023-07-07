@@ -9,12 +9,17 @@ import {
 } from './Photo.styled';
 import { salesApi } from '../../../salesApi';
 
-export const Photo = ({ register, errors, setPhotos }) => {
+export const Photo = ({
+  register,
+  photoError,
+  setPhotos,
+  setPhotoError,
+  previewImage,
+  setPreviewImage,
+}) => {
   const [multipleImages, setMultipleImages] = useState([]);
-  const [previewImage, setPreviewImage] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
   const [isFinishCheck, setIsFinishCheck] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (
@@ -26,19 +31,25 @@ export const Photo = ({ register, errors, setPhotos }) => {
     }
     const fetch = async () => {
       setIsFinishCheck(false);
+      setPhotoError('');
+
       try {
         const { resultCheck } = await salesApi(
           '/check-photo/some',
           multipleImages
         );
 
-        const photoURL = resultCheck.map(({ imageURL }) => imageURL);
-        console.log('photoURL', photoURL);
+        const status = resultCheck.map(({ isPermitted }) => isPermitted);
+        const checkStatus = status.find(element => element === false);
+
+        if (checkStatus === undefined) {
+          const photoURL = resultCheck.map(({ imageURL }) => imageURL);
+          setPhotos(photoURL);
+        }
+
         setImagesAfterCheck(resultCheck);
-        setPhotos(photoURL);
       } catch (error) {
-        console.log('salesApi ===>', error);
-        setError(error.message);
+        setPhotoError(error.message);
       }
       setIsFinishCheck(true);
     };
@@ -46,14 +57,14 @@ export const Photo = ({ register, errors, setPhotos }) => {
   }, [multipleImages]);
 
   const changeMultipleFiles = e => {
-    // setPreviewImage([]);
+    setPreviewImage([]);
 
     if (!e.target.files) {
       return;
     }
 
     if (e.target.files.length > 5) {
-      setError('Можна лише до 5 фото');
+      setPhotoError('Має бути 5 або менше фото');
       return;
     }
 
@@ -73,13 +84,10 @@ export const Photo = ({ register, errors, setPhotos }) => {
     setMultipleImages(formData);
   };
 
-  // console.log(imagesAfterCheck);
-
   return (
     <DivStyled>
       <LabelStyled>
         <h2>Фото (до 5шт)</h2>
-        {error && <p>{error}</p>}
         <InputStyled
           {...register('photos')}
           onChange={changeMultipleFiles}
@@ -87,7 +95,7 @@ export const Photo = ({ register, errors, setPhotos }) => {
           accept="image/jpeg image/png"
           multiple
         />
-        <ErrorStyled>{errors.photos?.message}</ErrorStyled>
+        <ErrorStyled>{photoError}</ErrorStyled>
       </LabelStyled>
 
       {previewImage.length > 0 && (
@@ -102,6 +110,9 @@ export const Photo = ({ register, errors, setPhotos }) => {
 
 Photo.propTypes = {
   register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  photoError: PropTypes.string.isRequired,
   setPhotos: PropTypes.func.isRequired,
+  setPhotoError: PropTypes.func.isRequired,
+  previewImage: PropTypes.array.isRequired,
+  setPreviewImage: PropTypes.func.isRequired,
 };

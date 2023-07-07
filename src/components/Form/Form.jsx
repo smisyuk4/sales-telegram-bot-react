@@ -9,6 +9,7 @@ import { Photo } from './Photo';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
+import { Alert } from '../Alert';
 
 import { schema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
@@ -44,7 +45,6 @@ export const Form = () => {
     getValues,
     setValue,
     reset,
-    // control,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
@@ -54,9 +54,11 @@ export const Form = () => {
   const [descLength, setDescLength] = useState(0);
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
-  // const [multipleImages, setMultipleImages] = useState([]);
+  const [previewImage, setPreviewImage] = useState([]);
+  const [photoError, setPhotoError] = useState('');
   const { user, onClose, queryId } = useTelegram();
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowAlert, setIsShowAlert] = useState(false);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -69,9 +71,7 @@ export const Form = () => {
     });
   };
 
-  const setPhotos = (value) => {
-    console.log('setPhotos', value);
-
+  const setPhotos = value => {
     setValue('photoURL', value, {
       shouldValidate: true,
     });
@@ -83,12 +83,9 @@ export const Form = () => {
 
   const onSubmit = async data => {
     setIsLoading(true);
-    console.log('form data ===>', data);
+    const dataPackage = JSON.stringify({ ...data, queryId });
 
     try {
-
-      const dataPackage = JSON.stringify({ ...data, queryId });
-
       const checkContent = await salesApi(
         '/web-data',
         dataPackage,
@@ -96,28 +93,36 @@ export const Form = () => {
       );
 
       if (checkContent) {
+        setIsShowAlert(true);
         onClose();
         reset();
         setIsChecked(false);
         setIsLoading(false);
         setDescLength(0);
+        setPreviewImage([]);
+
+        const timerId = setTimeout(() => {
+          setIsShowAlert(false);
+          clearTimeout(timerId);
+        }, 1500);
+
         return;
       }
     } catch (error) {
-      console.log(error);
       alert(`error ==> ${error.message}`);
       setIsLoading(false);
     }
-
   };
 
   const onErrors = data => {
     console.log('form onErrors', data);
+    setPhotoError(data.photoURL.message);
   };
 
   return (
     <>
       {isLoading && <Loader />}
+      {isShowAlert && <Alert text={'Ваше оголошення відправлено'} />}
 
       <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
         {isOpenRuls && (
@@ -165,14 +170,18 @@ export const Form = () => {
 
         <Photo
           register={register}
-          // control={control}
-          errors={errors}
+          photoError={photoError}
+          setPhotoError={setPhotoError}
           setPhotos={setPhotos}
-          // setMultipleImages={setMultipleImages}
-          // multipleImages={multipleImages}
+          setPreviewImage={setPreviewImage}
+          previewImage={previewImage}
         />
 
-        <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
+        <ButtonStyled
+          disabled={!isValid && !errors}
+          type="submit"
+          aria-label="Send"
+        >
           Відправити
         </ButtonStyled>
       </FormStyled>

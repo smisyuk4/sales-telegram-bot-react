@@ -19,7 +19,7 @@ export const RulsLink = styled.h3`
   font-size: 18px;
   line-height: 14px;
   text-decoration: underline;
-  color: blue;
+  color: #0057b8;
 `;
 
 export const CheckBoxStyled = styled.input`

@@ -17,6 +17,7 @@ export const ImageList = ({ array, imagesAfterCheck }) => {
     }
     return 'Заборонено';
   };
+  console.log(status);
   return (
     <UlStyled>
       {array.map((item, index) => (

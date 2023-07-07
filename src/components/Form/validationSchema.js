@@ -33,6 +33,7 @@ export const schema = yup
       .bool()
       .oneOf([true], 'Має бути погоджено')
       .required('Обов`язкове поле'),
+
     title: yup
       .string('Має бути текстовим')
       .trim()
@@ -44,6 +45,7 @@ export const schema = yup
         value => !WORDS_REGEX.test(value)
       )
       .required('Обов`язкове поле'),
+
     description: yup
       .string('Має бути текстовим')
       .trim()
@@ -63,6 +65,7 @@ export const schema = yup
         value => !WORDS_REGEX.test(value)
       )
       .required('Обов`язкове поле'),
+
     cost: yup
       .number()
       .positive('Має бути додатнє число')
@@ -70,6 +73,7 @@ export const schema = yup
       .max(1000000, `Має бути не більше 1 мільона`)
       .typeError('Має бути ціле число')
       .required('Обов`язкове поле'),
+
     contact: yup
       .string('Має бути текстовим')
       .trim()
@@ -81,6 +85,10 @@ export const schema = yup
         "Приклад номера 0503523445, тільки 10 цифр\nПриклад ім'я @qweqwe_3, обов'язково @"
       )
       .required('Обов`язкове поле'),
-    // photos: {},
+
+    photoURL: yup
+      .array()
+      .min(1, 'Має бути 1 або більше фото')
+      .required('Обов`язкове поле'),
   })
   .required();
