@@ -180,6 +180,7 @@ export const Form = () => {
           setPhotos={setPhotos}
           setPreviewImage={setPreviewImage}
           previewImage={previewImage}
+          setIsLoading={setIsLoading}
         />
 
         <PayButton onClick={openPayService} type="button" aria-label="Send">

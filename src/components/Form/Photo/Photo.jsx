@@ -17,6 +17,7 @@ export const Photo = ({
   setPhotoError,
   previewImage,
   setPreviewImage,
+  setIsLoading,
 }) => {
   const [multipleImages, setMultipleImages] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
@@ -32,6 +33,7 @@ export const Photo = ({
     }
     const fetch = async () => {
       setIsFinishCheck(false);
+      setIsLoading(true);
       setPhotoError('');
 
       try {
@@ -53,6 +55,7 @@ export const Photo = ({
         setPhotoError(error.message);
       }
       setIsFinishCheck(true);
+      setIsLoading(false);
     };
     fetch();
   }, [multipleImages]);
@@ -93,7 +96,8 @@ export const Photo = ({
   return (
     <DivStyled>
       <LabelStyled>
-        <h2>Фото (до 5шт)</h2>
+        <h2>Фото</h2>
+        <span>* до 5 шт i не більше 10мб кожна</span>
 
         <InputStyled
           id="upfile"

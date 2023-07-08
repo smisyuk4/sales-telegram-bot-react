@@ -70,6 +70,7 @@ export const InputStyled = styled.input`
   &::placeholder {
     font-size: 18px;
     line-height: 1.2;
+    font-style: italic;
   }
 
   &:focus {
@@ -94,6 +95,7 @@ export const TextAreaStyled = styled.textarea`
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 18px;
     line-height: 1.2;
+    font-style: italic;
   }
 
   &:focus {

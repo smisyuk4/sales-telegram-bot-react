@@ -31,9 +31,10 @@ export const LabelStyled = styled.label`
 
     border-radius: 50%;
     background-color: buttonface;
-    border: 1px solid;
+    border: 1px solid black;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    color: black;
     cursor: pointer;
 
     &:active {
@@ -62,6 +63,7 @@ export const InputStyled = styled.input`
   &::placeholder {
     font-size: 18px;
     line-height: 1.2;
+    font-style: italic;
   }
 
   &:focus {

@@ -9,10 +9,15 @@ export const DivStyled = styled.div`
 export const LabelStyled = styled.label`
   position: relative;
   h2 {
-    margin-bottom: 5px;
     font-size: 24px;
     font-weight: 600;
     line-height: 1.4;
+  }
+
+  span {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-style: italic;
   }
 
   p {
