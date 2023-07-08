@@ -13,7 +13,7 @@ export const DivStyled = styled.div`
   z-index: 1500;
 
   font-size: 18px;
-  line-height: 14px;
+  line-height: 1.2;
   font-weight: 600;
   border-radius: 12px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,

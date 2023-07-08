@@ -19,6 +19,7 @@ import {
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
+  PayButton,
 } from './Form.styled';
 import { salesApi } from '../../salesApi';
 
@@ -119,6 +120,10 @@ export const Form = () => {
     setPhotoError(data.photoURL.message);
   };
 
+  const openPayService = () => {
+    alert('Розробка ще триває');
+  };
+
   return (
     <>
       {isLoading && <Loader />}
@@ -150,10 +155,10 @@ export const Form = () => {
 
         <LabelStyled>
           <h2>Опис товару</h2>
-          {descLength > 0 && <p>До {descLength} символів</p>}
+          {descLength > 0 && <p>до {descLength} символів</p>}
           <TextAreaStyled
             {...register('description', { onChange: e => checkLength(e) })}
-            rows="6"
+            rows="4"
             cols="50"
             placeholder="Колір чорний, памʼять 256 GB..."
           />
@@ -176,6 +181,10 @@ export const Form = () => {
           setPreviewImage={setPreviewImage}
           previewImage={previewImage}
         />
+
+        <PayButton onClick={openPayService} type="button" aria-label="Send">
+          Оплата послуги
+        </PayButton>
 
         <ButtonStyled
           disabled={!isValid && !errors}

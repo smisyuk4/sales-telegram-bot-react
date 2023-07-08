@@ -7,7 +7,7 @@ export const LabelStyled = styled.label`
     margin-bottom: 5px;
     font-size: 24px;
     font-weight: 600;
-    line-height: 18px;
+    line-height: 1.4;
   }
 
   p {
@@ -22,16 +22,19 @@ export const LabelStyled = styled.label`
     position: absolute;
     bottom: 0;
     right: 0;
-    transform: translate(-5px, 7px);
+    transform: translate(-5px, 8px);
 
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 3px;
 
-    border: 0;
     border-radius: 50%;
-    background-color: #61616170;
+    background-color: buttonface;
+    border: 1px solid;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    cursor: pointer;
 
     &:active {
       background-color: black;
@@ -45,7 +48,7 @@ export const InputStyled = styled.input`
   width: 100%;
 
   font-size: 18px;
-  line-height: 14px;
+  line-height: 1.2;
 
   border-radius: 12px;
   border: 1px solid;
@@ -58,7 +61,7 @@ export const InputStyled = styled.input`
 
   &::placeholder {
     font-size: 18px;
-    line-height: 14px;
+    line-height: 1.2;
   }
 
   &:focus {

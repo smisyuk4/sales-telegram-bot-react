@@ -6,7 +6,7 @@ export const DivStyled = styled.div`
     margin-bottom: 5px;
     font-size: 24px;
     font-weight: 600;
-    line-height: 18px;
+    line-height: 1.4;
   }
 
   div {
@@ -18,7 +18,7 @@ export const DivStyled = styled.div`
 
 export const RulsLink = styled.h3`
   font-size: 18px;
-  line-height: 14px;
+  line-height: 1.2;
   text-decoration: underline;
   color: #0057b8;
 `;

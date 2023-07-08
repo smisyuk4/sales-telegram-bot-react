@@ -6,6 +6,7 @@ import {
   LabelStyled,
   InputStyled,
   ErrorStyled,
+  ButtonStyled,
 } from './Photo.styled';
 import { salesApi } from '../../../salesApi';
 
@@ -21,43 +22,44 @@ export const Photo = ({
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
   const [isFinishCheck, setIsFinishCheck] = useState(true);
 
-  // useEffect(() => {
-  //   if (
-  //     multipleImages === null ||
-  //     multipleImages === undefined ||
-  //     multipleImages.length === 0
-  //   ) {
-  //     return;
-  //   }
-  //   const fetch = async () => {
-  //     setIsFinishCheck(false);
-  //     setPhotoError('');
+  useEffect(() => {
+    if (
+      multipleImages === null ||
+      multipleImages === undefined ||
+      multipleImages.length === 0
+    ) {
+      return;
+    }
+    const fetch = async () => {
+      setIsFinishCheck(false);
+      setPhotoError('');
 
-  //     try {
-  //       const { resultCheck } = await salesApi(
-  //         '/check-photo/some',
-  //         multipleImages
-  //       );
+      try {
+        const { resultCheck } = await salesApi(
+          '/check-photo/some',
+          multipleImages
+        );
 
-  //       const status = resultCheck.map(({ isPermitted }) => isPermitted);
-  //       const checkStatus = status.find(element => element === false);
+        const status = resultCheck.map(({ isPermitted }) => isPermitted);
+        const checkStatus = status.find(element => element === false);
 
-  //       if (checkStatus === undefined) {
-  //         const photoURL = resultCheck.map(({ imageURL }) => imageURL);
-  //         setPhotos(photoURL);
-  //       }
+        if (checkStatus === undefined) {
+          const photoURL = resultCheck.map(({ imageURL }) => imageURL);
+          setPhotos(photoURL);
+        }
 
-  //       setImagesAfterCheck(resultCheck);
-  //     } catch (error) {
-  //       setPhotoError(error.message);
-  //     }
-  //     setIsFinishCheck(true);
-  //   };
-  //   fetch();
-  // }, [multipleImages]);
+        setImagesAfterCheck(resultCheck);
+      } catch (error) {
+        setPhotoError(error.message);
+      }
+      setIsFinishCheck(true);
+    };
+    fetch();
+  }, [multipleImages]);
 
   const changeMultipleFiles = e => {
     setPreviewImage([]);
+    setImagesAfterCheck([]);
 
     if (!e.target.files) {
       return;
@@ -84,25 +86,32 @@ export const Photo = ({
     setMultipleImages(formData);
   };
 
+  const getFile = () => {
+    document.getElementById('upfile').click();
+  };
+
   return (
     <DivStyled>
       <LabelStyled>
         <h2>Фото (до 5шт)</h2>
+
         <InputStyled
+          id="upfile"
           {...register('photos')}
           onChange={changeMultipleFiles}
           type="file"
           accept="image/jpeg image/png"
           multiple
         />
-        <ErrorStyled>{photoError}</ErrorStyled>
       </LabelStyled>
 
+      <ButtonStyled onClick={getFile} type="button" aria-label="Load">
+        {isFinishCheck ? <p>Завантажити</p> : <p>Перевірка фото змісту...</p>}
+      </ButtonStyled>
+      <ErrorStyled>{photoError}</ErrorStyled>
+
       {previewImage.length > 0 && (
-        <>
-          {!isFinishCheck && <p>Перевірка фото змісту...</p>}
-          <ImageList array={previewImage} imagesAfterCheck={imagesAfterCheck} />
-        </>
+        <ImageList array={previewImage} imagesAfterCheck={imagesAfterCheck} />
       )}
     </DivStyled>
   );

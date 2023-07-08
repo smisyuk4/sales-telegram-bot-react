@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { errorMessage } from '../../../mixins';
+import { errorMessage, bigButton } from '../../../mixins';
 
 export const DivStyled = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const LabelStyled = styled.label`
     margin-bottom: 5px;
     font-size: 24px;
     font-weight: 600;
-    line-height: 18px;
+    line-height: 1.4;
   }
 
   p {
@@ -46,30 +46,11 @@ export const LabelStyled = styled.label`
 `;
 
 export const InputStyled = styled.input`
-  padding: 10px 15px;
-  width: 100%;
+  display: none;
+`;
 
-  font-size: 18px;
-  line-height: 14px;
-
-  border-radius: 12px;
-  border: 1px solid;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-
-  &.contact {
-    padding-right: 40px;
-  }
-
-  &::placeholder {
-    font-size: 18px;
-    line-height: 14px;
-  }
-
-  &:focus {
-    border-color: #61616170;
-    outline: none;
-  }
+export const ButtonStyled = styled.button`
+  ${bigButton}
 `;
 
 export const ErrorStyled = styled.span`

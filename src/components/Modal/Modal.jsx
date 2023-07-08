@@ -20,7 +20,7 @@ export const Modal = ({ toggleRulsModal, children }) => {
   return createPortal(
     <ModalDiv id="modalClose" onClick={closeModal}>
       <div>
-        <button onClick={toggleRulsModal} type="button">
+        <button onClick={toggleRulsModal} type="button" aria-label="Close">
           Х
         </button>
         {children}
