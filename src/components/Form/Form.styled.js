@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { errorMessage } from '../../mixins';
 
 export const FormStyled = styled.form`
   display: flex;
@@ -99,8 +100,7 @@ export const TextAreaStyled = styled.textarea`
 `;
 
 export const ErrorStyled = styled.span`
-  font-style: italic;
-  color: red;
+  ${errorMessage}
 `;
 
 export const ButtonStyled = styled.button`

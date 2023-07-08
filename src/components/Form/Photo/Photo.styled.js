@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
+import { errorMessage } from '../../../mixins';
 
-export const DivStyled = styled.div``;
+export const DivStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const LabelStyled = styled.label`
   position: relative;
@@ -69,6 +73,5 @@ export const InputStyled = styled.input`
 `;
 
 export const ErrorStyled = styled.span`
-  font-style: italic;
-  color: red;
+  ${errorMessage}
 `;

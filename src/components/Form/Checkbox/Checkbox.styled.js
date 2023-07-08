@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { errorMessage } from '../../../mixins';
 
 export const DivStyled = styled.div`
   h2 {
@@ -49,6 +50,5 @@ export const CheckBoxStyled = styled.input`
 `;
 
 export const ErrorStyled = styled.span`
-  font-style: italic;
-  color: red;
+  ${errorMessage}
 `;

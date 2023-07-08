@@ -21,40 +21,40 @@ export const Photo = ({
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
   const [isFinishCheck, setIsFinishCheck] = useState(true);
 
-  useEffect(() => {
-    if (
-      multipleImages === null ||
-      multipleImages === undefined ||
-      multipleImages.length === 0
-    ) {
-      return;
-    }
-    const fetch = async () => {
-      setIsFinishCheck(false);
-      setPhotoError('');
+  // useEffect(() => {
+  //   if (
+  //     multipleImages === null ||
+  //     multipleImages === undefined ||
+  //     multipleImages.length === 0
+  //   ) {
+  //     return;
+  //   }
+  //   const fetch = async () => {
+  //     setIsFinishCheck(false);
+  //     setPhotoError('');
 
-      try {
-        const { resultCheck } = await salesApi(
-          '/check-photo/some',
-          multipleImages
-        );
+  //     try {
+  //       const { resultCheck } = await salesApi(
+  //         '/check-photo/some',
+  //         multipleImages
+  //       );
 
-        const status = resultCheck.map(({ isPermitted }) => isPermitted);
-        const checkStatus = status.find(element => element === false);
+  //       const status = resultCheck.map(({ isPermitted }) => isPermitted);
+  //       const checkStatus = status.find(element => element === false);
 
-        if (checkStatus === undefined) {
-          const photoURL = resultCheck.map(({ imageURL }) => imageURL);
-          setPhotos(photoURL);
-        }
+  //       if (checkStatus === undefined) {
+  //         const photoURL = resultCheck.map(({ imageURL }) => imageURL);
+  //         setPhotos(photoURL);
+  //       }
 
-        setImagesAfterCheck(resultCheck);
-      } catch (error) {
-        setPhotoError(error.message);
-      }
-      setIsFinishCheck(true);
-    };
-    fetch();
-  }, [multipleImages]);
+  //       setImagesAfterCheck(resultCheck);
+  //     } catch (error) {
+  //       setPhotoError(error.message);
+  //     }
+  //     setIsFinishCheck(true);
+  //   };
+  //   fetch();
+  // }, [multipleImages]);
 
   const changeMultipleFiles = e => {
     setPreviewImage([]);
