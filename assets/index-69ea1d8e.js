@@ -1,4 +1,4 @@
-import{N as s,j as e,r as a,O as n}from"./index-17107950.js";import{n as r}from"./emotion-styled.browser.esm-5fa3f61f.js";import{f as i}from"./mixins-1e7646ac.js";const l=r.div`
+import{N as s,j as e,r as a,O as n}from"./index-eb27f526.js";import{n as r}from"./emotion-styled.browser.esm-292ac0f9.js";import{f as i}from"./mixins-1e7646ac.js";const l=r.div`
   padding: 0 15px;
   margin: 0 auto;
   height: 100vh;
@@ -60,4 +60,4 @@ import{N as s,j as e,r as a,O as n}from"./index-17107950.js";import{n as r}from"
       background-color: #ffd700;
     }
   }
-`,m=()=>e.jsxs(l,{children:[e.jsxs("header",{children:[e.jsx(c,{children:"Оголошення"}),e.jsxs(d,{children:[e.jsx(t,{children:e.jsx(o,{to:"/buy","aria-label":"buy",children:"Хочу купити"})}),e.jsx(t,{children:e.jsx(o,{to:"/sale","aria-label":"sale",children:"Хочу продати"})}),e.jsx(t,{children:e.jsx(o,{to:"/ruls","aria-label":"ruls",children:"Правила"})})]})]}),e.jsx(a.Suspense,{fallback:e.jsx("div",{children:"Зараз будуть сприятливі умови для торгівлі..."}),children:e.jsx("main",{children:e.jsx(n,{})})}),e.jsx("footer",{children:e.jsxs(x,{children:[e.jsx("p",{children:"Розроблено"}),e.jsx("a",{href:"mailto:smisyuk@gmail.com",children:"smisyuk@gmail.com"})]})})]});export{m as default};
+`,m=()=>e.jsxs(l,{children:[e.jsxs("div",{children:[e.jsxs("header",{children:[e.jsx(c,{children:"Оголошення"}),e.jsxs(d,{children:[e.jsx(t,{children:e.jsx(o,{to:"/buy","aria-label":"buy",children:"Хочу купити"})}),e.jsx(t,{children:e.jsx(o,{to:"/sale","aria-label":"sale",children:"Хочу продати"})}),e.jsx(t,{children:e.jsx(o,{to:"/ruls","aria-label":"ruls",children:"Правила"})})]})]}),e.jsx(a.Suspense,{fallback:e.jsx("div",{children:"Зараз будуть сприятливі умови для торгівлі..."}),children:e.jsx("main",{children:e.jsx(n,{})})})]}),e.jsx("footer",{children:e.jsxs(x,{children:[e.jsx("p",{children:"Розроблено"}),e.jsx("a",{href:"mailto:smisyuk@gmail.com",children:"smisyuk@gmail.com"})]})})]});export{m as default};
