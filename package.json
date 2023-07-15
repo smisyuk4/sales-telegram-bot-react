@@ -1,11 +1,11 @@
 {
   "name": "react-app",
-  "homepage": "https://smisyuk4.github.io/sales-telegram-bot-react/",
+  "homepage": "https://smisyuk4.github.io/sales-telegram-bot-react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite src/*.html",
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "predeploy": "npm run build",
