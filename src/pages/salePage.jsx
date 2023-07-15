@@ -1,7 +1,7 @@
-import { Form } from '../components/Form';
+import { SaleForm } from '../components/SaleForm';
 
 const salePage = () => {
-  return <Form />;
+  return <SaleForm />;
 };
 
 export default salePage;

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-const Header = lazy(() => import('../Header'));
+const Layout = lazy(() => import('../Layout'));
 const BuyPage = lazy(() => import('../../pages/buyPage'));
 const SalePage = lazy(() => import('../../pages/salePage'));
 const ErrorPage = lazy(() => import('../../pages/errorPage'));
@@ -11,7 +11,7 @@ export const App = () => {
   return (
     <Suspense fallback={<div>Підтягуємо гроші...</div>}>
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="buy" element={<BuyPage />} redirectTo="/" />
           <Route path="sale" element={<SalePage />} redirectTo="/" />

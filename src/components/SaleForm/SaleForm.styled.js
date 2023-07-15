@@ -81,6 +81,7 @@ export const TextAreaStyled = styled.textarea`
   padding: 10px 15px;
   width: 100%;
 
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 18px;
   line-height: 1.2;
 

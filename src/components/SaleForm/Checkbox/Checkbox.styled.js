@@ -39,15 +39,13 @@ export const CheckBoxStyled = styled.input`
   cursor: pointer;
 
   &.checked {
-    background-color: green;
-    border-color: green;
-    color: #fff;
+    background-color: #4cde4c;
+    border-color: #4cde4c;
   }
 
   &.checked::before {
     content: '\u2714';
     font-size: 24px;
-    color: #fff;
   }
 `;
 

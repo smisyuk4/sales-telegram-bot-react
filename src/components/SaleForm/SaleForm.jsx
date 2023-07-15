@@ -11,7 +11,7 @@ import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
 import { Alert } from '../Alert';
 
-import { schema, LIMIT_CHAR_DESC } from './validationSchema';
+import { SaleSchema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
   FormStyled,
   LabelStyled,
@@ -19,8 +19,8 @@ import {
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
-  PayButton,
-} from './Form.styled';
+  // PayButton,
+} from './SaleForm.styled';
 import { salesApi } from '../../salesApi';
 
 const DEFAULT_VALUES = {
@@ -39,7 +39,7 @@ const AXIOS_CONFIG = {
   },
 };
 
-export const Form = () => {
+export const SaleForm = () => {
   const {
     register,
     handleSubmit,
@@ -49,7 +49,7 @@ export const Form = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SaleSchema),
     mode: 'onChange',
   });
   const [descLength, setDescLength] = useState(0);
@@ -120,9 +120,9 @@ export const Form = () => {
     setPhotoError(data.photoURL.message);
   };
 
-  const openPayService = () => {
-    alert('Розробка ще триває');
-  };
+  // const openPayService = () => {
+  //   alert('Розробка ще триває');
+  // };
 
   return (
     <>
@@ -148,7 +148,7 @@ export const Form = () => {
           <h2>Заголовок</h2>
           <InputStyled
             {...register('title')}
-            placeholder="Куплю/Продам Iphone 12 256 GB"
+            placeholder="Продам Iphone 12 256 GB"
           />
           <ErrorStyled>{errors.title?.message}</ErrorStyled>
         </LabelStyled>
@@ -183,9 +183,9 @@ export const Form = () => {
           setIsLoading={setIsLoading}
         />
 
-        <PayButton onClick={openPayService} type="button" aria-label="Send">
+        {/* <PayButton onClick={openPayService} type="button" aria-label="Send">
           Оплата послуги
-        </PayButton>
+        </PayButton> */}
 
         <ButtonStyled
           disabled={!isValid && !errors}
