@@ -1,0 +1,1 @@
+import{j as r}from"./index-bd340e7a.js";import{H as t,T as e}from"./pagesStyle-7d2b7e24.js";import"./emotion-styled.browser.esm-a2068291.js";import"./mixins-1e7646ac.js";const x=()=>r.jsx(t,{children:r.jsxs(e,{children:["Вітаємо у нашому ",r.jsx("br",{})," телеграм каналі ",r.jsx("br",{}),"з купівлі / продажу"]})});export{x as default};
