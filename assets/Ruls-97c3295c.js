@@ -1,4 +1,4 @@
-import{j as i}from"./index-6e6d1792.js";import{n as l}from"./emotion-styled.browser.esm-2ffd868c.js";const r=l.div`
+import{j as i}from"./index-352d873b.js";import{n as l}from"./emotion-styled.browser.esm-049d1f7d.js";const r=l.div`
   padding: 10px;
 
   border-radius: 12px;

@@ -1,4 +1,4 @@
-import{n as e}from"./emotion-styled.browser.esm-2ffd868c.js";import{f as r}from"./mixins-1e7646ac.js";const a="/sales-telegram-bot-react/assets/wall-a0138653.jpeg",o="/sales-telegram-bot-react/assets/errorIcon-f343573f.svg",t=e.div`
+import{n as e}from"./emotion-styled.browser.esm-049d1f7d.js";import{f as r}from"./mixins-1e7646ac.js";const a="/sales-telegram-bot-react/assets/wall-a0138653.jpeg",o="/sales-telegram-bot-react/assets/errorIcon-f343573f.svg",t=e.div`
   ${r}
   align-items: flex-start;
   padding-top: 70px;
