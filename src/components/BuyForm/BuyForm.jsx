@@ -76,7 +76,7 @@ export const BuyForm = () => {
 
     try {
       const checkContent = await salesApi(
-        '/web-data',
+        '/web-data-buy',
         dataPackage,
         AXIOS_CONFIG
       );
