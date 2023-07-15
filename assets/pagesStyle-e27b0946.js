@@ -1,19 +1,19 @@
-import{n as e}from"./emotion-styled.browser.esm-ce36fc0d.js";import{f as r}from"./mixins-1e7646ac.js";const a="/sales-telegram-bot-react/assets/wall-a0138653.jpeg",o="/sales-telegram-bot-react/assets/errorIcon-f343573f.svg",t=e.div`
+import{n as o}from"./emotion-styled.browser.esm-73387026.js";import{f as r}from"./mixins-1e7646ac.js";const e="/assets/wall-a0138653.jpeg",a="/assets/errorIcon-f343573f.svg",t=o.div`
   ${r}
   align-items: flex-start;
   padding-top: 70px;
 
-  background-image: url(${a});
+  background-image: url(${e});
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 
   height: 600px;
-`,p=e(t)`
-  background-image: url(${o});
+`,p=o(t)`
+  background-image: url(${a});
   background-size: auto;
   height: 100vh;
-`,g=e.h1`
+`,g=o.h1`
   padding: 5px;
   text-align: center;
   background-color: white;
