@@ -1,10 +1,6 @@
+import { Ruls } from '../components/Ruls';
 const rulsPage = () => {
-    return (
-      <>
-        <p>ruls page</p>
-      </>
-    );
-  };
-  
-  export default rulsPage;
-  
+  return <Ruls />;
+};
+
+export default rulsPage;

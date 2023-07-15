@@ -10,3 +10,13 @@ export const DivStyled = styled.div`
 
   background-color: white;
 `;
+
+export const ExampleStyled = styled.ul`
+  padding: 5px;
+  border-radius: 12px;
+  background-color: #0057b836;
+
+  h3 {
+    text-align: center;
+  }
+`;

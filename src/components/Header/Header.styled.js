@@ -5,6 +5,15 @@ import { flexBox } from '../../mixins';
 export const Container = styled.div`
   padding: 0 15px;
   margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  header,
+  main {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -15,7 +24,7 @@ export const Title = styled.h1`
 export const NavList = styled.ul`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border-bottom: 2px solid black;
 `;
 
@@ -38,11 +47,15 @@ export const NavLinkStyled = styled(NavLink)`
   &.active {
     color: #ffd700;
     background-color: #0057b8;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
   }
 
   &:hover {
     color: #0057b8;
     background-color: #ffd700;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
   }
 `;
 
@@ -56,9 +69,9 @@ export const DevInfo = styled.div`
   a {
     text-decoration: underline;
     color: #0057b8;
-  }
-
-  &:hover {
-    background-color: #ffd700;
+    
+    &:hover {
+      background-color: #ffd700;
+    }
   }
 `;

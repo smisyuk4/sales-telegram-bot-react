@@ -21,6 +21,7 @@ export const RulsLink = styled.h3`
   line-height: 1.2;
   text-decoration: underline;
   color: #0057b8;
+  cursor: pointer;
 `;
 
 export const CheckBoxStyled = styled.input`
@@ -40,6 +41,7 @@ export const CheckBoxStyled = styled.input`
   &.checked {
     background-color: green;
     border-color: green;
+    color: #fff;
   }
 
   &.checked::before {
