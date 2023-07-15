@@ -1,15 +1,5 @@
-const HomeStyle = {
-  backgroundImage: `url(../src/assets/wall.jpeg)`,
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
+import { HomeStyled } from "./pagesStyle";
 
-  height: '600px',
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
 
 const TitleStyle = {
   padding: '5px',
@@ -20,11 +10,11 @@ const TitleStyle = {
 
 const HomePage = () => {
   return (
-    <div style={HomeStyle}>
+    <HomeStyled >
       <h1 style={TitleStyle}>
         Вітаємо у нашому <br /> телеграм каналі <br />з купівлі / продажу
       </h1>
-    </div>
+    </HomeStyled>
   );
 };
 
