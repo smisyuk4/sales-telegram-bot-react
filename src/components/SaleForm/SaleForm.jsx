@@ -158,7 +158,7 @@ export const SaleForm = () => {
           {descLength > 0 && <p>до {descLength} символів</p>}
           <TextAreaStyled
             {...register('description', { onChange: e => checkLength(e) })}
-            rows="4"
+            rows="2"
             cols="50"
             placeholder="Колір чорний, памʼять 256 GB..."
           />
