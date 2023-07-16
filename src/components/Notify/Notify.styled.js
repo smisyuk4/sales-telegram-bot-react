@@ -10,7 +10,7 @@ export const MessageStyled = styled.div`
   ${flexBox}
   padding: 7px;
   height: 150px;
-  background-color: #fff;
+  background-color: #fffdc3;
 `;
 
 export const ListStyled = styled.ul`
@@ -26,19 +26,14 @@ export const ItemStyled = styled.li`
   padding: 3px;
 
   width: 90px;
+  text-align: center;
   /* transform: rotate(-90deg); */
 
-  background-color: #fff;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 6px 6px 6px;
+  background-color: #fffdc3;
+  box-shadow: 0px 15px 10px -15px #111;
 
   &:hover {
     color: #0057b8;
     background-color: #ffd700;
   }
-`;
-
-export const TextStyled = styled.p`
-  /* transform: rotate(-90deg); */
-  text-align: center;
 `;

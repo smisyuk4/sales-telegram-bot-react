@@ -22,9 +22,8 @@ export const ErrorStyled = styled(HomeStyled)`
   height: 100vh;
 `;
 
-
 export const TitleStyle = styled.h1`
-    padding: 5px;
+  padding: 5px;
   text-align: center;
   background-color: white;
   border-radius: 12px;

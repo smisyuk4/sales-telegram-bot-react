@@ -3,7 +3,6 @@ import {
   MessageStyled,
   ListStyled,
   ItemStyled,
-  TextStyled,
 } from './Notify.styled';
 
 export const Notify = () => {
@@ -17,25 +16,19 @@ export const Notify = () => {
 
       <ListStyled>
         <ItemStyled>
-          <TextStyled>
-            Куплю мопед
-            <br />
-            050-22-22-222
-          </TextStyled>
+          Куплю мопед
+          <br />
+          050-22-22-222
         </ItemStyled>
         <ItemStyled>
-          <TextStyled>
-            Продам мясорубку
-            <br />
-            050-45-22-782
-          </TextStyled>
+          Продам м'ясорубку
+          <br />
+          050-45-22-782
         </ItemStyled>
         <ItemStyled>
-          <TextStyled>
-            Куплю диван
-            <br />
-            050-22-00-211
-          </TextStyled>
+          Куплю диван
+          <br />
+          050-22-00-211
         </ItemStyled>
       </ListStyled>
     </div>
