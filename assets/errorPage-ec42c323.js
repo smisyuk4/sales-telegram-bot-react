@@ -1,1 +1,0 @@
-import{j as r}from"./index-bf6b4850.js";import{E as t,T as e}from"./pagesStyle-83752854.js";import"./emotion-styled.browser.esm-ec5f7d06.js";import"./mixins-1e7646ac.js";const a=()=>r.jsx(t,{children:r.jsx(e,{children:"Сторінка не знайдена"})});export{a as default};
