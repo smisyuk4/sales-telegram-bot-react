@@ -1,4 +1,4 @@
-import{n as e}from"./emotion-styled.browser.esm-09b0f99d.js";import{f as r}from"./mixins-1e7646ac.js";const a="/sales-telegram-bot-react/assets/wall-a0138653.jpeg",o="/sales-telegram-bot-react/assets/errorIcon-f343573f.svg",t=e.div`
+import{n as e}from"./emotion-styled.browser.esm-3c8eb009.js";import{f as r}from"./mixins-1e7646ac.js";const a="/sales-telegram-bot-react/assets/wall-a0138653.jpeg",o="/sales-telegram-bot-react/assets/errorIcon-f343573f.svg",t=e.div`
   ${r}
   align-items: flex-start;
   padding-top: 70px;
@@ -14,7 +14,7 @@ import{n as e}from"./emotion-styled.browser.esm-09b0f99d.js";import{f as r}from"
   background-size: auto;
   height: 100vh;
 `,g=e.h1`
-    padding: 5px;
+  padding: 5px;
   text-align: center;
   background-color: white;
   border-radius: 12px;
