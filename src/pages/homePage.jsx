@@ -1,11 +1,10 @@
-import { HomeStyled, TitleStyle } from './pagesStyle';
+import { Notify } from '../components/Notify';
+import { HomeStyled } from './pagesStyle';
 
 const HomePage = () => {
   return (
     <HomeStyled>
-      <TitleStyle>
-        Вітаємо у нашому <br /> телеграм каналі <br />з купівлі / продажу
-      </TitleStyle>
+      <Notify />
     </HomeStyled>
   );
 };
