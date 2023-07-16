@@ -88,7 +88,7 @@ export const SaleForm = () => {
 
     try {
       const checkContent = await salesApi(
-        '/web-data',
+        '/web-data-sale',
         dataPackage,
         AXIOS_CONFIG
       );
