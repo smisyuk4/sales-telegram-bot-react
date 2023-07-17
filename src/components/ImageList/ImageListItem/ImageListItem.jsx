@@ -5,7 +5,11 @@ export const ImageListItem = ({ link, isPermitted }) => {
   return (
     <LiStyled>
       {isPermitted === false ? (
-        <ErrorStyled>Помилка</ErrorStyled>
+        <ErrorStyled>
+          Зaміни
+          <br />
+          фото
+        </ErrorStyled>
       ) : (
         <ErrorStyled></ErrorStyled>
       )}

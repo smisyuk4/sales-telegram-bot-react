@@ -8,8 +8,10 @@ export const LiStyled = styled.li`
 export const ErrorStyled = styled.span`
   ${errorMessage}
   ${flexBox}
-  height: 20px;
+  height: 30px;
   min-width: 60px;
+  text-align: center;
+  line-height: 1;
 `;
 
 export const ImageStyled = styled.img`
