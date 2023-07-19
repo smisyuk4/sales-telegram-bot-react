@@ -51,6 +51,6 @@ jobs:
       #  my env
       - name: my env
         env:
-          VITE_CHANNEL_ID: '${{  vars.VITE_CHANNEL_ID  }}'
+          VITE_CHANNEL_ID: "${{  vars.VITE_CHANNEL_ID  }}"
           HUB_BASE_URL: "007"
-        run: echo "My existing secret is"
+        run: echo "My existing secret is ${{  vars.HUB_BASE_URL  }}"
