@@ -49,9 +49,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
       #  my env
-      # - name: Tell me a secret!
-        # run: echo "My existing secret is ${{ secrets.VITE_CHANNEL_ID }}"
-      - name: Generate  Coverage
+      - name: my env
         env:
-          VITE_CHANNEL_ID: '${{  secrets.VITE_CHANNEL_ID  }}'
+          VITE_CHANNEL_ID: '${{  vars.VITE_CHANNEL_ID  }}'
         run: echo "My existing secret is"
