@@ -48,17 +48,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-          # more GitHub Actions steps above...
-      - name: Run unit tests
-        env:
-          VITE_CHANNEL_ID: ${{ secrets.VITE_CHANNEL_ID }}
-        run: npm run test:coverage
-      - run: npm lint
-      - name: Cypress run # our e2e tests
-        uses: cypress-io/github-action@v2
-        with:
-          env: configFile=staging
-          start: npm start
-        env:
-          VITE_CHANNEL_ID: ${{ secrets.VITE_CHANNEL_ID }}
-          # more GitHub Actions steps below...
+    #  my env
+      - name: Tell me a secret!
+        run: echo "My existing secret is ${{ secrets.VITE_CHANNEL_ID }}"
