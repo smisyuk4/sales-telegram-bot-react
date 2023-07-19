@@ -53,5 +53,5 @@ jobs:
         # run: echo "My existing secret is ${{ secrets.VITE_CHANNEL_ID }}"
       - name: Generate  Coverage
         env:
-          VITE_CHANNEL_ID: ${{  secrets.VITE_CHANNEL_ID  }}
+          VITE_CHANNEL_ID: '${{  secrets.VITE_CHANNEL_ID  }}'
         run: echo "My existing secret is"
