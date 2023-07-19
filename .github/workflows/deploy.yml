@@ -6,8 +6,8 @@ on:
   push:
     branches: ['main']
 
-env:
-  VITE_CHANNEL_ID: ${{  vars.VITE_CHANNEL_ID  }}
+# env:
+#   VITE_CHANNEL_ID: ${{  vars.VITE_CHANNEL_ID  }}
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
@@ -30,6 +30,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: create env file
+        run: |
+          touch .env
+          echo VITE_CHANNEL_ID=${{ secrets.VITE_CHANNEL_ID }} >> .env
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
