@@ -48,6 +48,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-    #  my env
-      - name: Tell me a secret!
-        run: echo "My existing secret is ${{ secrets.VITE_CHANNEL_ID }}"
+      #  my env
+      # - name: Tell me a secret!
+        # run: echo "My existing secret is ${{ secrets.VITE_CHANNEL_ID }}"
+      - name: Generate  Coverage
+        env:
+          VITE_CHANNEL_ID: ${{  secrets.VITE_CHANNEL_ID  }}
+        run: echo "My existing secret is"
