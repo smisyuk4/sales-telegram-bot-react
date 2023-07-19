@@ -52,8 +52,8 @@ jobs:
       - name: Run unit tests
         env:
           VITE_CHANNEL_ID: ${{ secrets.VITE_CHANNEL_ID }}
-        run: npm test:coverage
-      - run: npm lint
+        run: yarn test:coverage
+      - run: yarn lint
       - name: Cypress run # our e2e tests
         uses: cypress-io/github-action@v2
         with:
