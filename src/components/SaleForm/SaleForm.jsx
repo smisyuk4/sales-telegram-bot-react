@@ -84,7 +84,7 @@ export const SaleForm = () => {
 
   const onSubmit = async data => {
     setIsLoading(true);
-    const dataPackage = JSON.stringify({ ...data, queryId });
+    const dataPackage = JSON.stringify({ ...data, user, queryId });
 
     try {
       const checkContent = await salesApi(
