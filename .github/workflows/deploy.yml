@@ -37,7 +37,17 @@ jobs:
 
       - name: Build and set env
         env:
-          VITE_CHANNEL_ID: ${{  vars.VITE_CHANNEL_ID  }}
+          VITE_TYPE_BUCKET: ${{  vars.VITE_TYPE_BUCKET  }}
+          VITE_PROJECT_ID_BUCKET: ${{  vars.VITE_PROJECT_ID_BUCKET  }}
+          VITE_PRIVATE_KEY_ID_BUCKET: ${{  vars.VITE_PRIVATE_KEY_ID_BUCKET  }}
+          VITE_PRIVATE_KEY_BUCKET: ${{  vars.VITE_PRIVATE_KEY_BUCKET  }}
+          VITE_CLIENT_MAIL_BUCKET: ${{  vars.VITE_CLIENT_MAIL_BUCKET  }}
+          VITE_CLIENT_ID_BUCKET: ${{  vars.VITE_CLIENT_ID_BUCKET  }}
+          VITE_AUTH_URI_BUCKET: ${{  vars.VITE_AUTH_URI_BUCKET  }}
+          VITE_TOKEN_URI_BUCKET: ${{  vars.VITE_TOKEN_URI_BUCKET  }}
+          VITE_AUTH_PROVIDER_BUCKET: ${{  vars.VITE_AUTH_PROVIDER_BUCKET  }}
+          VITE_CLIENT_URL_BUCKET: ${{  vars.VITE_CLIENT_URL_BUCKET  }}
+          VITE_UNIVERSE_DOMAIN_BUCKET: ${{  vars.VITE_UNIVERSE_DOMAIN_BUCKET  }}
         run: npm run build
 
       - name: Copy index.html to 404.html
