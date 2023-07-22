@@ -1,7 +1,7 @@
 import { SaleForm } from '../components/SaleForm';
 
-const salePage = () => {
+const SalePage = () => {
   return <SaleForm />;
 };
 
-export default salePage;
+export default SalePage;

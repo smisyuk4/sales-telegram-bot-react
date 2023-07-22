@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
 
-import { useTelegram } from '../../hooks/telegramHook';
+// import { useTelegram } from '../../hooks/telegramHook';
 import { Checkbox } from '../SaleForm/Checkbox';
 import { Contact } from '../SaleForm/Contact';
 import { Modal } from '../Modal';
@@ -35,7 +36,7 @@ const AXIOS_CONFIG = {
   },
 };
 
-export const BuyForm = () => {
+export const BuyForm = ({ user, queryId, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -51,7 +52,7 @@ export const BuyForm = () => {
   const [descLength, setDescLength] = useState(0);
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
-  const { user, onClose, queryId } = useTelegram();
+  // const { user, onClose, queryId } = useTelegram();
   const [isLoading, setIsLoading] = useState(false);
   const [isShowAlert, setIsShowAlert] = useState(false);
 
@@ -166,4 +167,10 @@ export const BuyForm = () => {
       </FormStyled>
     </>
   );
+};
+
+BuyForm.propTypes = {
+  user: PropTypes.string,
+  queryId: PropTypes.string,
+  onClose: PropTypes.func,
 };

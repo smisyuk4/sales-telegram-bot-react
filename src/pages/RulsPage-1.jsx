@@ -1,6 +1,6 @@
 import { Ruls } from '../components/Ruls';
-const rulsPage = () => {
+const RulsPage = () => {
   return <Ruls />;
 };
 
-export default rulsPage;
+export default RulsPage;

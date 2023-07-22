@@ -1,6 +1,6 @@
 import { ErrorStyled, TitleStyle } from './pagesStyle';
 
-const errorPage = () => {
+const ErrorPage = () => {
   return (
     <ErrorStyled>
       <TitleStyle>Сторінка не знайдена</TitleStyle>
@@ -8,4 +8,4 @@ const errorPage = () => {
   );
 };
 
-export default errorPage;
+export default ErrorPage;
