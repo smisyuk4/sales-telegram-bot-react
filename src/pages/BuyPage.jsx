@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
+
+import { checkPermission } from '../firebase/services';
 import { useTelegram } from '../hooks/telegramHook';
 import { BuyForm } from '../components/BuyForm/BuyForm';
-import { getDatafromDb, checkPermission } from '../firebase/services';
 import { MessageVisit } from './pagesStyle';
 
 const BuyPage = () => {
   const { user, onClose, queryId } = useTelegram();
-  // const [data, setData] = useState([]);
   const [permissionMsg, setPermissionMsg] = useState({});
-  const [isShowAlert, setIsShowAlert] = useState(false);
+  const [isShowAlert, setIsShowAlert] = useState(true);
 
   useEffect(() => {
     const get = async () => {
-      // const msg = await getDatafromDb('smisyuk');
+      // const permResult = await checkPermission('smisyuk');
       const permResult = await checkPermission(user);
 
       console.log('checkPermission', permResult);
       setPermissionMsg(permResult);
-      // setData(msg);
     };
     get();
   }, [user, setPermissionMsg]);
@@ -28,23 +27,18 @@ const BuyPage = () => {
   }
 
   if (permissionMsg.permission === false) {
-    setIsShowAlert(true);
-
     return <MessageVisit>{permissionMsg.text}</MessageVisit>;
   }
 
   if (permissionMsg.permission === true) {
-    setIsShowAlert(true);
-
     const timerId = setTimeout(() => {
       setIsShowAlert(false);
       clearTimeout(timerId);
-    }, 1500);
+    }, 4000);
 
     return (
       <>
         {isShowAlert && <MessageVisit>{permissionMsg.text}</MessageVisit>}
-
         <BuyForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );

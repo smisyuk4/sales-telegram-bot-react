@@ -45,7 +45,7 @@ export const checkPermission = async user => {
 };
 
 const dateConverter = timestamp => {
-  const limit = 12; //hour
+  const limit = 1; //hour
   const date = new Date(timestamp * 1000);
 
   const dateLastMsg = format(Date.parse(date), 'dd MMMM yyyy о HH:mm', {
@@ -57,17 +57,23 @@ const dateConverter = timestamp => {
     locale: uk,
   });
 
+  console.log(timeBetween);
   let hour = timeBetween.split(' ');
   hour = Number(hour[0]);
-  //   hour = 11;
+//   hour = 1;
   console.log(hour);
+  const difference = limit - hour;
 
   if (hour < limit) {
     return {
       permission: false,
-      text: `Зараз не можна публікувати, треба почекати ще ${
-        limit - hour
-      } годин${hour === 11 ? 'у або менше' : ''}`,
+      text: `Зараз не можна публікувати, треба почекати ще ${difference} годин${
+        difference <= 1
+          ? 'у або менше'
+          : difference == 2 || difference == 3 || difference == 4
+          ? 'и або менше'
+          : ''
+      }`,
     };
   }
 
