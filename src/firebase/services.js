@@ -1,5 +1,7 @@
 import { db } from '../firebase/firebase.config';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { format, formatDistance } from 'date-fns';
+import { uk } from 'date-fns/locale';
 
 export const addDatatoDb = async () => {
   try {
@@ -14,20 +16,42 @@ export const addDatatoDb = async () => {
   }
 };
 
-export const getDatafromDb = async (user) => {
-    if (!user){
-        return
-    }
-  // const querySnapshot = await getDocs(collection(db, 'users'));
-  // querySnapshot.forEach(doc => {
-  //   console.log(`${doc.id}`, doc.data());
-  // });
+export const getDatafromDb = async user => {
+  if (!user) {
+    return;
+  }
 
+  let data = [];
   const querySnapshot = await getDocs(
     collection(db, 'users', user, 'messages')
   );
   querySnapshot.forEach(doc => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
+    const msg = {
+      msgId: doc.id,
+      ...doc.data(),
+    };
+    data = [...data, msg];
   });
+  return data;
 };
+
+export const checkPermission = async array => {
+  const lastMsg = array[array.length - 1];
+  return dateConverter(lastMsg.updatedAt.seconds);
+};
+
+const dateConverter = timestamp => {
+  const date = new Date(timestamp * 1000);
+
+  const timeBetween = formatDistance(new Date(), date, {
+    locale: uk,
+  });
+
+  const dateLastMsg = format(Date.parse(date), 'dd MMMM yyyy о HH:mm', {
+    locale: uk,
+  });
+
+  return `Ваше останне оголошення було ${dateLastMsg}, з того часу минуло ${timeBetween}`;
+};
+
+// https://date-fns.org/v2.30.0/docs/formatDistance

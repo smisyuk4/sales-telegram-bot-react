@@ -1,19 +1,27 @@
+import { useState, useEffect } from 'react';
 import { useTelegram } from '../hooks/telegramHook';
 import { BuyForm } from '../components/BuyForm/BuyForm';
-import { getDatafromDb } from '../firebase/services';
+import { getDatafromDb, checkPermission } from '../firebase/services';
 
 const BuyPage = () => {
   const { user, onClose, queryId } = useTelegram();
-  alert(`user - ${user}`);
+  const [data, setData] = useState([]);
 
-  const msg = getDatafromDb(user);
-  console.log(msg);
+  useEffect(() => {
+    const get = async () => {
+      const msg = await getDatafromDb('smisyuk');
+      console.log('checkPermission', await checkPermission(msg));
+      setData(msg);
+    };
+    get();
+  }, [user, setData]);
 
-  if (!user) {
+  console.log(data);
+  if (data.length === 0) {
     return <p>Немає користувача</p>;
   }
 
-  if (user) {
+  if (data.length > 0) {
     return <BuyForm user={user} queryId={queryId} onClose={onClose} />;
   }
 };
