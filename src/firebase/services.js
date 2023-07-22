@@ -16,7 +16,7 @@ export const addDatatoDb = async () => {
 
 export const getDatafromDb = async (user) => {
     if (!user){
-        return false
+        return
     }
   // const querySnapshot = await getDocs(collection(db, 'users'));
   // querySnapshot.forEach(doc => {

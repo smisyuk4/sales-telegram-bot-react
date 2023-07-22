@@ -5,7 +5,7 @@ const BuyPage = lazy(() => import('../../pages/BuyPage'));
 const SalePage = lazy(() => import('../../pages/SalePage'));
 const ErrorPage = lazy(() => import('../../pages/ErrorPage'));
 const RulsPage = lazy(() => import('../../pages/RulsPage'));
-const HomePage = lazy(() => import('../../pages/HomePage-2'));
+const HomePage = lazy(() => import('../../pages/HomePage'));
 
 export const App = () => {
   return (
