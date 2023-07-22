@@ -1,8 +1,12 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { AdminEnterance } from '../AdminEnterance/AdminEnterance';
+import { LoginForm } from '../LoginForm/LoginForm';
+
 import {
   Container,
+  TitleWrp,
   Title,
   NavList,
   NavItem,
@@ -15,7 +19,10 @@ export const Layout = () => {
     <Container>
       <div>
         <header>
-          <Title>Оголошення</Title>
+          <TitleWrp>
+            <Title>Оголошення</Title>
+            <AdminEnterance />
+          </TitleWrp>
 
           <NavList>
             <NavItem>

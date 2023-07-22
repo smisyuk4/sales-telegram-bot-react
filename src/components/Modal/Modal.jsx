@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { ModalDiv } from './Modal.styled';
+import { ModalDiv, CloseBtn } from './Modal.styled';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -19,12 +19,12 @@ export const Modal = ({ toggleRulsModal, children }) => {
 
   return createPortal(
     <ModalDiv id="modalClose" onClick={closeModal}>
-      <div>
-        <button onClick={toggleRulsModal} type="button" aria-label="Close">
+      {/* <div> */}
+        <CloseBtn onClick={toggleRulsModal} type="button" aria-label="Close">
           Х
-        </button>
+        </CloseBtn>
         {children}
-      </div>
+      {/* </div> */}
     </ModalDiv>,
     modalRoot
   );

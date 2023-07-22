@@ -115,13 +115,16 @@ export const BuyForm = ({ user, queryId, onClose }) => {
     <>
       {isLoading && <Loader />}
       {isShowAlert && <Alert text={'Ваше оголошення відправлено'} />}
-      <FormStyled onSubmit={handleSubmit(onSubmit, onErrors)}>
-        {isOpenRuls && (
-          <Modal toggleRulsModal={toggleRulsModal}>
-            <Ruls />
-          </Modal>
-        )}
+      {isOpenRuls && (
+        <Modal toggleRulsModal={toggleRulsModal}>
+          <Ruls />
+        </Modal>
+      )}
 
+      <FormStyled
+        onSubmit={handleSubmit(onSubmit, onErrors)}
+        autoComplete="off"
+      >
         <Checkbox
           register={register}
           setIsChecked={setIsChecked}

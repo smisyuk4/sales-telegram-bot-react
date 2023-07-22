@@ -6,6 +6,8 @@ const SalePage = lazy(() => import('../../pages/SalePage'));
 const ErrorPage = lazy(() => import('../../pages/ErrorPage'));
 const RulsPage = lazy(() => import('../../pages/RulsPage'));
 const HomePage = lazy(() => import('../../pages/HomePage'));
+const AdminPage = lazy(() => import('../../pages/AdminPage'));
+const LoginPage = lazy(() => import('../../pages/LoginPage'));
 
 export const App = () => {
   return (
@@ -17,6 +19,8 @@ export const App = () => {
           <Route path="sale" element={<SalePage />} redirectTo="/" />
           <Route path="ruls" element={<RulsPage />} redirectTo="/" />
         </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin-panel" element={<AdminPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Suspense>

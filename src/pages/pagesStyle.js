@@ -37,3 +37,26 @@ export const MessageVisit = styled.p`
   font-style: italic;
   color: blue;
 `;
+
+export const LoginStyled = styled.div`
+  ${flexBox}
+  height: 100vh;
+`;
+
+export const ReturnButton = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(5px, 5px);
+
+  padding: 10px;
+  cursor: pointer;
+
+  border: none;
+  background-color: inherit;
+
+  &:hover,
+  &:focus {
+    color: #0057b8;
+  }
+`;

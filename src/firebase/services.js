@@ -1,7 +1,37 @@
-import { db } from '../firebase/firebase.config';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  signOut,
+  sendPasswordResetEmail,
+  deleteUser,
+} from 'firebase/auth';
+
+import { db, auth } from '../firebase/firebase.config';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { format, formatDistanceToNowStrict } from 'date-fns';
 import { uk } from 'date-fns/locale';
+
+export const loginUser = async ({ email, password }) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    return error.code;
+  }
+};
+
+export const logoutUser = async () => {
+  const result = await signOut(auth)
+    .then(() => {
+      return 'Ви  вийшли з профілю адміністратора';
+    })
+    .catch(error => {
+      return error.code;
+    });
+
+  return result;
+};
 
 export const addDatatoDb = async () => {
   try {
@@ -60,7 +90,7 @@ const dateConverter = timestamp => {
   console.log(timeBetween);
   let hour = timeBetween.split(' ');
   hour = Number(hour[0]);
-//   hour = 1;
+  //   hour = 1;
   console.log(hour);
   const difference = limit - hour;
 

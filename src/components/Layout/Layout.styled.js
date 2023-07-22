@@ -16,6 +16,10 @@ export const Container = styled.div`
   }
 `;
 
+export const TitleWrp = styled.div`
+  ${flexBox}
+`;
+
 export const Title = styled.h1`
   text-align: center;
   text-transform: uppercase;
@@ -69,7 +73,7 @@ export const DevInfo = styled.div`
   a {
     text-decoration: underline;
     color: #0057b8;
-    
+
     &:hover {
       background-color: #ffd700;
     }
