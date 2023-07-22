@@ -4,8 +4,14 @@ import { getDatafromDb } from '../firebase/services';
 
 const BuyPage = () => {
   const { user, onClose, queryId } = useTelegram();
-  console.log(getDatafromDb());
-  return <BuyForm user={user} queryId={queryId} onClose={onClose}/>;
+
+  if (getDatafromDb(user)) {
+    return <p>Немає користувача</p>;
+  }
+
+  if (getDatafromDb(user)) {
+    return <BuyForm user={user} queryId={queryId} onClose={onClose} />;
+  }
 };
 
 export default BuyPage;

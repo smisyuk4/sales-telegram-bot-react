@@ -14,14 +14,17 @@ export const addDatatoDb = async () => {
   }
 };
 
-export const getDatafromDb = async () => {
+export const getDatafromDb = async (user) => {
+    if (!user){
+        return false
+    }
   // const querySnapshot = await getDocs(collection(db, 'users'));
   // querySnapshot.forEach(doc => {
   //   console.log(`${doc.id}`, doc.data());
   // });
 
   const querySnapshot = await getDocs(
-    collection(db, 'users', 'smisyuk', 'messages')
+    collection(db, 'users', user, 'messages')
   );
   querySnapshot.forEach(doc => {
     // doc.data() is never undefined for query doc snapshots
