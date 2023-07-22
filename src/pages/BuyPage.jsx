@@ -5,24 +5,37 @@ import { getDatafromDb, checkPermission } from '../firebase/services';
 
 const BuyPage = () => {
   const { user, onClose, queryId } = useTelegram();
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const [permissionMsg, setPermissionMsg] = useState({});
 
   useEffect(() => {
     const get = async () => {
-      const msg = await getDatafromDb('smisyuk');
-      console.log('checkPermission', await checkPermission(msg));
-      setData(msg);
+      // const msg = await getDatafromDb('smisyuk');
+      const permResult = await checkPermission(user);
+
+      console.log('checkPermission', permResult);
+      setPermissionMsg(permResult);
+      // setData(msg);
     };
     get();
-  }, [user, setData]);
+  }, [user, setPermissionMsg]);
 
-  console.log(data);
-  if (data.length === 0) {
+  if (!user) {
+    // if (user !== undefined) {
     return <p>Немає користувача</p>;
   }
 
-  if (data.length > 0) {
-    return <BuyForm user={user} queryId={queryId} onClose={onClose} />;
+  if (permissionMsg.permission === false) {
+    return <p>{permissionMsg.text}</p>;
+  }
+
+  if (permissionMsg.permission === true) {
+    return (
+      <>
+        <p>{permissionMsg.text}</p>
+        <BuyForm user={user} queryId={queryId} onClose={onClose} />
+      </>
+    );
   }
 };
 
