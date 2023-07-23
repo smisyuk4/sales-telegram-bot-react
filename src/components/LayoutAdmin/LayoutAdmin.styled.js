@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { flexBox } from '../../mixins';
 
 export const Container = styled.div`
-  padding: 0 15px;
+  padding: 15px 15px 0 15px;
   margin: 0 auto;
   height: 100vh;
   display: flex;
@@ -19,6 +19,10 @@ export const Container = styled.div`
 export const TitleWrp = styled.div`
   ${flexBox}
   justify-content: space-between;
+`;
+
+export const LeftNav = styled.div`
+  ${flexBox}
 `;
 
 export const HeaderAdminStyled = styled.header`
@@ -43,12 +47,9 @@ export const HeaderAdminStyled = styled.header`
       color: #0057b8;
     }
 
-    &.return {
-      padding-right: 15px;
-    }
-
+    &.return,
     &.home {
-      padding: 0 15px;
+      padding-right: 15px;
     }
 
     &.exit {
@@ -95,22 +96,5 @@ export const NavLinkStyled = styled(NavLink)`
     background-color: #ffd700;
     border-top-right-radius: 12px;
     border-top-left-radius: 12px;
-  }
-`;
-
-export const DevInfo = styled.div`
-  ${flexBox}
-
-  gap: 5px;
-  margin-bottom: 10px;
-  font-size: 12px;
-
-  a {
-    text-decoration: underline;
-    color: #0057b8;
-
-    &:hover {
-      background-color: #ffd700;
-    }
   }
 `;

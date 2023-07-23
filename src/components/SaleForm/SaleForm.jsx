@@ -72,7 +72,6 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
-  const { user, onClose, queryId } = useTelegram();
   const [isLoading, setIsLoading] = useState(false);
 
   const checkLength = ({ target }) => {

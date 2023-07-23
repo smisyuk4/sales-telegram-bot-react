@@ -15,14 +15,13 @@ const SalePage = () => {
       // const permResult = await checkPermission('smisyuk');
       const permResult = await checkPermission(user);
 
-      console.log('checkPermission', permResult);
       setPermissionMsg(permResult);
     };
     get();
   }, [user, setPermissionMsg]);
 
   if (!user) {
-  // if (user !== undefined) {
+    // if (user !== undefined) {
     return <p>Немає користувача</p>;
   }
 

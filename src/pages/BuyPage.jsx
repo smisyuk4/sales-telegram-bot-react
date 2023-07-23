@@ -15,7 +15,6 @@ const BuyPage = () => {
       // const permResult = await checkPermission('smisyuk');
       const permResult = await checkPermission(user);
 
-      console.log('checkPermission', permResult);
       setPermissionMsg(permResult);
     };
     get();

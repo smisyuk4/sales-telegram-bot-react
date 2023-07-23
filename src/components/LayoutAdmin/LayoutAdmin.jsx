@@ -8,10 +8,11 @@ import { RiArrowLeftLine, RiLogoutBoxRFill, RiHome2Fill } from 'react-icons/ri';
 import { auth } from '../../firebase/firebase.config';
 import { logoutUser } from '../../firebase/services';
 import { TEXT_MSG } from '../../firebase/errorsAndMessages';
+import { Footer } from '../Footer';
 import {
   Container,
   TitleWrp,
-  DevInfo,
+  LeftNav,
   HeaderAdminStyled,
   NavList,
   NavItem,
@@ -71,7 +72,7 @@ export const LayoutAdmin = () => {
         <div>
           <HeaderAdminStyled>
             <TitleWrp>
-              <div>
+              <LeftNav>
                 <button
                   className="return"
                   onClick={() => navigate(-1)}
@@ -89,7 +90,7 @@ export const LayoutAdmin = () => {
                 >
                   <RiHome2Fill size="2em" />
                 </button>
-              </div>
+              </LeftNav>
 
               <h1>Сторінка адміністратора</h1>
 
@@ -122,7 +123,7 @@ export const LayoutAdmin = () => {
           </HeaderAdminStyled>
 
           <Suspense
-            fallback={<div>Зараз будуть сприятливі умови для торгівлі...</div>}
+            fallback={<div>Збираємо інформацію по зробленій роботі...</div>}
           >
             <main>
               <Outlet />
@@ -130,12 +131,7 @@ export const LayoutAdmin = () => {
           </Suspense>
         </div>
 
-        <footer>
-          <DevInfo>
-            <p>Розроблено</p>
-            <a href="mailto:smisyuk@gmail.com">smisyuk@gmail.com</a>
-          </DevInfo>
-        </footer>
+        <Footer />
       </Container>
     );
   }
