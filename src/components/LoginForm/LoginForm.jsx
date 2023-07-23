@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { loginUser } from '../../firebase/services';
 import { TEXT_MSG } from '../../firebase/errorsAndMessages';
+import { Loader } from '../Loader';
 import { FormLoginStyled } from './LoginForm.styled';
 import {
   LabelStyled,
@@ -37,31 +37,32 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    getValues,
-    setValue,
-    reset,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
-    // resolver: yupResolver(SaleSchema),
     mode: 'onChange',
   });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async data => {
+    setIsLoading(true);
     const result = await loginUser(data);
 
     if (result === TEXT_MSG.authWrongPassword) {
+      setIsLoading(false);
       return Notify.failure(`Вхід не виконано! <br> Не вірний пароль!`);
     }
 
     if (result === TEXT_MSG.authUserNotFound) {
+      setIsLoading(false);
       return Notify.failure(
         `Вхід не виконано! <br> Такого адміністратора <br> не існує!`
       );
     }
 
     Notify.success(`Вітаємо!`);
+    setIsLoading(false);
     navigate('/admin', { replace: true });
   };
 
@@ -70,29 +71,33 @@ export const LoginForm = () => {
   };
 
   return (
-    <FormLoginStyled
-      onSubmit={handleSubmit(onSubmit, onErrors)}
-      autoComplete="off"
-    >
-      <LabelStyled>
-        <h2>Електронна пошта</h2>
-        <InputStyled {...register('email')} placeholder="saler@gmail.com" />
-        <ErrorStyled>{errors.title?.message}</ErrorStyled>
-      </LabelStyled>
+    <>
+      {isLoading && <Loader />}
 
-      <LabelStyled>
-        <h2>Пароль</h2>
-        <InputStyled {...register('password')} placeholder="111111" />
-        <ErrorStyled>{errors.title?.message}</ErrorStyled>
-      </LabelStyled>
-
-      <ButtonStyled
-        disabled={!isValid && !errors}
-        type="submit"
-        aria-label="Send"
+      <FormLoginStyled
+        onSubmit={handleSubmit(onSubmit, onErrors)}
+        autoComplete="off"
       >
-        Відправити
-      </ButtonStyled>
-    </FormLoginStyled>
+        <LabelStyled>
+          <h2>Електронна пошта</h2>
+          <InputStyled {...register('email')} placeholder="saler@gmail.com" />
+          <ErrorStyled>{errors.title?.message}</ErrorStyled>
+        </LabelStyled>
+
+        <LabelStyled>
+          <h2>Пароль</h2>
+          <InputStyled {...register('password')} placeholder="111111" />
+          <ErrorStyled>{errors.title?.message}</ErrorStyled>
+        </LabelStyled>
+
+        <ButtonStyled
+          disabled={!isValid && !errors}
+          type="submit"
+          aria-label="Send"
+        >
+          Відправити
+        </ButtonStyled>
+      </FormLoginStyled>
+    </>
   );
 };
