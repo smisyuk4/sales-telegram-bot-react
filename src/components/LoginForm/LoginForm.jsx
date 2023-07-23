@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { loginUser } from '../../firebase/services';
+import { TEXT_MSG } from '../../firebase/errorsAndMessages';
 import { FormLoginStyled } from './LoginForm.styled';
 import {
-  FormStyled,
   LabelStyled,
   InputStyled,
   ErrorStyled,
@@ -34,9 +35,19 @@ export const LoginForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async data => {
-    console.log(data);
     const result = await loginUser(data);
-    console.log('loginUser => ', result);
+
+    if (result === TEXT_MSG.authWrongPassword) {
+      return Notify.failure(`Вхід не виконано! <br> Не вірний пароль!`);
+    }
+
+    if (result === TEXT_MSG.authUserNotFound) {
+      return Notify.failure(
+        `Вхід не виконано! <br> Такого користувача не існує!`
+      );
+    }
+
+    Notify.success(`Вітаємо!`);
     navigate('/admin-panel');
   };
 

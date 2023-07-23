@@ -1,5 +1,5 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { auth } from '../firebase/firebase.config';
 
 import { LoginStyled, ReturnButton } from './pagesStyle';
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   if (user) {
-    navigate('/');
+    return <Navigate to="/home" replace={true} />;
   }
 
   if (!user) {

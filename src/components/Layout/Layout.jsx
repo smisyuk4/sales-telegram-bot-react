@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { AdminEnterance } from '../AdminEnterance/AdminEnterance';
-import { LoginForm } from '../LoginForm/LoginForm';
 
 import {
   Container,
