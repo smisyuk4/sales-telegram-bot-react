@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { RiFileList3Fill, RiAdminFill } from 'react-icons/ri';
@@ -14,7 +13,7 @@ export const AdminEnterance = () => {
     return (
       <>
         <AdminButtonStyled
-          onClick={() => navigate('/admin-panel')}
+          onClick={() => navigate('/admin')}
           type="button"
           aria-label="Contact"
         >

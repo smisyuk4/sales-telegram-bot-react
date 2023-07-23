@@ -3,20 +3,6 @@ import { flexBox } from '../mixins';
 import wall from '../assets/wall.jpeg';
 import errorIcon from '../assets/errorIcon.svg';
 
-export const Container = styled.div`
-  padding: 0 15px;
-  margin: 0 auto;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-
-  header,
-  main {
-    margin-bottom: 10px;
-  }
-`;
-
 export const HomeStyled = styled.div`
   ${flexBox}
   align-items: flex-start;
@@ -61,63 +47,18 @@ export const ReturnButton = styled.button`
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(5px, 5px);
-
-  padding: 10px;
-  cursor: pointer;
-
+  transform: translate(15px, 15px);
+  color: #000;
   border: none;
   background-color: inherit;
+  cursor: pointer;
 
   &:hover,
   &:focus {
     color: #0057b8;
   }
-`;
 
-export const HeaderAdminStyled = styled.header`
-  ${flexBox}
-  justify-content: space-between;
-  border-bottom: 2px solid black;
-
-  h1 {
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  button {
-    border: none;
-    background-color: inherit;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      color: #0057b8;
-    }
-
-    &.return {
-      padding-right: 30px;
-    }
-
-    &.exit {
-      padding-left: 30px;
-    }
-  }
-`;
-
-export const DevInfo = styled.div`
-  ${flexBox}
-
-  gap: 5px;
-  margin-bottom: 10px;
-  font-size: 12px;
-
-  a {
-    text-decoration: underline;
-    color: #0057b8;
-
-    &:hover {
-      background-color: #ffd700;
-    }
+  &.return {
+    padding-right: 30px;
   }
 `;

@@ -14,6 +14,20 @@ import {
   ButtonStyled,
 } from '../SaleForm/SaleForm.styled';
 
+Notify.init({
+  borderRadius: '8px',
+  useIcon: false,
+  plainText: false,
+  fontSize: '18px',
+  success: {
+    textColor: '#ffd700',
+    background: '#0057b8',
+  },
+  failure: {
+    background: '#ff5549',
+  },
+});
+
 const DEFAULT_VALUES = {
   email: '',
   password: '',
@@ -43,12 +57,12 @@ export const LoginForm = () => {
 
     if (result === TEXT_MSG.authUserNotFound) {
       return Notify.failure(
-        `Вхід не виконано! <br> Такого користувача не існує!`
+        `Вхід не виконано! <br> Такого адміністратора <br> не існує!`
       );
     }
 
     Notify.success(`Вітаємо!`);
-    navigate('/admin-panel');
+    navigate('/admin', { replace: true });
   };
 
   const onErrors = data => {

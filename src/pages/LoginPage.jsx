@@ -11,13 +11,14 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   if (user) {
-    return <Navigate to="/home" replace={true} />;
+    return <Navigate to="/" replace={true} />;
   }
 
   if (!user) {
     return (
       <LoginStyled>
         <ReturnButton
+          className="return"
           onClick={() => navigate(-1)}
           type="button"
           aria-label="return button"
