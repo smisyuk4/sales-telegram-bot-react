@@ -10,7 +10,6 @@ import { FormLoginStyled } from './LoginForm.styled';
 import {
   LabelStyled,
   InputStyled,
-  ErrorStyled,
   ButtonStyled,
 } from '../SaleForm/SaleForm.styled';
 
@@ -47,6 +46,7 @@ export const LoginForm = () => {
 
   const onSubmit = async data => {
     setIsLoading(true);
+
     const result = await loginUser(data);
 
     if (result === TEXT_MSG.authWrongPassword) {
@@ -54,11 +54,26 @@ export const LoginForm = () => {
       return Notify.failure(`Вхід не виконано! <br> Не вірний пароль!`);
     }
 
+    if (result === TEXT_MSG.authMissingPassword) {
+      setIsLoading(false);
+      return Notify.failure(`Пароль обов'язково!`);
+    }
+
+    if (result === TEXT_MSG.authInvalidEmail) {
+      setIsLoading(false);
+      return Notify.failure(`Не вірна електронна пошта!`);
+    }
+
     if (result === TEXT_MSG.authUserNotFound) {
       setIsLoading(false);
       return Notify.failure(
         `Вхід не виконано! <br> Такого адміністратора <br> не існує!`
       );
+    }
+
+    if (!result.user) {
+      setIsLoading(false);
+      return Notify.failure(`Вхід не виконано!`);
     }
 
     Notify.success(`Вітаємо!`);
@@ -80,21 +95,21 @@ export const LoginForm = () => {
       >
         <LabelStyled>
           <h2>Електронна пошта</h2>
-          <InputStyled {...register('email')} placeholder="saler@gmail.com" />
-          <ErrorStyled>{errors.title?.message}</ErrorStyled>
+          <InputStyled
+            {...register('email', { required: true })}
+            placeholder="saler@gmail.com"
+          />
         </LabelStyled>
 
         <LabelStyled>
           <h2>Пароль</h2>
-          <InputStyled {...register('password')} placeholder="111111" />
-          <ErrorStyled>{errors.title?.message}</ErrorStyled>
+          <InputStyled
+            {...register('password', { required: true })}
+            placeholder="111111"
+          />
         </LabelStyled>
 
-        <ButtonStyled
-          disabled={!isValid && !errors}
-          type="submit"
-          aria-label="Send"
-        >
+        <ButtonStyled disabled={!isValid} type="submit" aria-label="Send">
           Відправити
         </ButtonStyled>
       </FormLoginStyled>

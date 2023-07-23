@@ -15,7 +15,8 @@ import { uk } from 'date-fns/locale';
 
 export const loginUser = async ({ email, password }) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return result;
   } catch (error) {
     return error.code;
   }
