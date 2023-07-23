@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PropTypes from 'prop-types';
 
 import { useTelegram } from '../../hooks/telegramHook';
 import { Checkbox } from './Checkbox';
@@ -9,7 +11,20 @@ import { Photo } from './Photo';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
-import { Alert } from '../Alert';
+
+Notify.init({
+  borderRadius: '8px',
+  useIcon: false,
+  plainText: false,
+  fontSize: '18px',
+  success: {
+    textColor: '#ffd700',
+    background: '#0057b8',
+  },
+  failure: {
+    background: '#ff5549',
+  },
+});
 
 import { SaleSchema, LIMIT_CHAR_DESC } from './validationSchema';
 import {
@@ -39,7 +54,7 @@ const AXIOS_CONFIG = {
   },
 };
 
-export const SaleForm = () => {
+export const SaleForm = ({ user, queryId, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -59,7 +74,6 @@ export const SaleForm = () => {
   const [photoError, setPhotoError] = useState('');
   const { user, onClose, queryId } = useTelegram();
   const [isLoading, setIsLoading] = useState(false);
-  const [isShowAlert, setIsShowAlert] = useState(false);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -94,23 +108,17 @@ export const SaleForm = () => {
       );
 
       if (checkContent) {
-        setIsShowAlert(true);
+        Notify.success(`Ваше оголошення відправлено!`);
         onClose();
         reset();
         setIsChecked(false);
         setIsLoading(false);
         setDescLength(0);
         setPreviewImage([]);
-
-        const timerId = setTimeout(() => {
-          setIsShowAlert(false);
-          clearTimeout(timerId);
-        }, 1500);
-
         return;
       }
     } catch (error) {
-      alert(`error ==> ${error.message}`);
+      Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
       setIsLoading(false);
     }
   };
@@ -127,7 +135,6 @@ export const SaleForm = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {isShowAlert && <Alert text={'Ваше оголошення відправлено'} />}
       {isOpenRuls && (
         <Modal toggleRulsModal={toggleRulsModal}>
           <Ruls />
@@ -199,4 +206,10 @@ export const SaleForm = () => {
       </FormStyled>
     </>
   );
+};
+
+SaleForm.propTypes = {
+  user: PropTypes.string,
+  queryId: PropTypes.string,
+  onClose: PropTypes.func,
 };
