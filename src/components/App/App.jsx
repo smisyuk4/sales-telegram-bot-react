@@ -24,7 +24,7 @@ export const App = () => {
         <Route path="/login" element={<LoginPage />} />
 
         <Route path="/admin-panel" element={<AdminPage />}>
-          <Route element={<NotifyTable />} />
+          <Route index element={<NotifyTable />} />
         </Route>
         
         <Route path="*" element={<ErrorPage />} />
