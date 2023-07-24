@@ -6,13 +6,13 @@ import { SaleForm } from '../components/SaleForm';
 import { Message, MessageTransfer, BotLink } from './pagesStyle';
 
 const SalePage = () => {
-  const { user, onClose, queryId } = useTelegram();
+  const { user, onClose, queryId, chat } = useTelegram();
   const [permissionMsg, setPermissionMsg] = useState({});
   const [isShowAlert, setIsShowAlert] = useState(true);
 
-  alert(`queryId => ${queryId}`)
-
   useEffect(() => {
+    alert(`chat => ${chat}`);
+
     const get = async () => {
       // const permResult = await checkPermission('smisyuk');
       const permResult = await checkPermission(user);
