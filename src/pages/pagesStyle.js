@@ -46,12 +46,6 @@ export const Container = styled.div`
     ${flexBox}
     border-bottom: 2px solid black;
   }
-
-  form {
-    left: 50%;
-    position: relative;
-    transform: translateX(-50%);
-  }
 `;
 
 export const Title = styled.h1`
@@ -61,6 +55,7 @@ export const Title = styled.h1`
 export const Message = styled.p`
   font-size: 14px;
   font-style: italic;
+  text-align: center;
   color: #0057b8;
 `;
 

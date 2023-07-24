@@ -1,31 +1,18 @@
 import styled from '@emotion/styled';
-import { errorMessage, bigButton } from '../../../mixins';
+import { label, errorMessage, bigButton } from '../../../mixins';
 
-export const DivStyled = styled.div`
+export const PhotoWrp = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 export const LabelStyled = styled.label`
-  position: relative;
-  h2 {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.4;
-  }
+  ${label}
 
   span {
     margin-bottom: 5px;
     font-size: 14px;
     font-style: italic;
-  }
-
-  p {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-style: italic;
-    color: blue;
   }
 
   button {

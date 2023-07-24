@@ -1,12 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged,
-  signOut,
-  sendPasswordResetEmail,
-  deleteUser,
-} from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import { db, auth } from '../firebase/firebase.config';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
@@ -34,18 +26,19 @@ export const logoutUser = async () => {
   return result;
 };
 
-export const addDatatoDb = async () => {
-  try {
-    const docRef = await addDoc(collection(db, 'users'), {
-      first: 'Ada',
-      last: 'Lovelace',
-      born: 1815,
-    });
-    console.log('Document written with ID: ', docRef.id);
-  } catch (e) {
-    console.error('Error adding document: ', e);
-  }
-};
+// demo method
+// export const addDatatoDb = async () => {
+//   try {
+//     const docRef = await addDoc(collection(db, 'users'), {
+//       first: 'Ada',
+//       last: 'Lovelace',
+//       born: 1815,
+//     });
+//     console.log('Document written with ID: ', docRef.id);
+//   } catch (e) {
+//     console.error('Error adding document: ', e);
+//   }
+// };
 
 export const getDatafromDb = async user => {
   if (!user) {
@@ -88,11 +81,11 @@ const dateConverter = timestamp => {
     locale: uk,
   });
 
-  console.log(timeBetween);
+  // console.log(timeBetween);
   let hour = timeBetween.split(' ');
   hour = Number(hour[0]);
   //   hour = 1;
-  console.log(hour);
+  // console.log(hour);
   const difference = limit - hour;
 
   if (hour < limit) {

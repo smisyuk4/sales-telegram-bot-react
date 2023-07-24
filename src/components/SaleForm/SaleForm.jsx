@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 
-import { useTelegram } from '../../hooks/telegramHook';
 import { Checkbox } from './Checkbox';
 import { Contact } from './Contact';
 import { Photo } from './Photo';

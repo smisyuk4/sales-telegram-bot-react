@@ -1,8 +1,8 @@
-import { DivStyled, ExampleStyled } from './Ruls.styled';
+import { RulsWrp, ExampleStyled } from './Ruls.styled';
 
 export const Ruls = () => {
   return (
-    <DivStyled>
+    <RulsWrp>
       <h3>Основні правила для користувача каналу "Купи/продай"</h3>
       <ol>
         <li>
@@ -77,6 +77,6 @@ export const Ruls = () => {
           </li>
         </ExampleStyled>
       </ul>
-    </DivStyled>
+    </RulsWrp>
   );
 };

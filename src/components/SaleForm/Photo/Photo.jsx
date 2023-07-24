@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ImageList } from '../../ImageList/ImageList';
 import {
-  DivStyled,
+  PhotoWrp,
   LabelStyled,
   InputStyled,
   ErrorStyled,
@@ -94,7 +94,7 @@ export const Photo = ({
   };
 
   return (
-    <DivStyled>
+    <PhotoWrp>
       <LabelStyled>
         <h2>Фото</h2>
         <span>* до 5 шт i не більше 10мб кожна</span>
@@ -117,7 +117,7 @@ export const Photo = ({
       {previewImage.length > 0 && (
         <ImageList array={previewImage} imagesAfterCheck={imagesAfterCheck} />
       )}
-    </DivStyled>
+    </PhotoWrp>
   );
 };
 

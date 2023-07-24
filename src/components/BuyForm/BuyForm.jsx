@@ -20,7 +20,7 @@ import {
   ErrorStyled,
   ButtonStyled,
   // PayButton,
-} from '../SaleForm/SaleForm.styled';
+} from './BuyForm.styled';
 
 Notify.init({
   borderRadius: '8px',

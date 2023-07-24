@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 
-export const DivStyled = styled.div`
+export const RulsWrp = styled.div`
   padding: 10px;
+  max-width: 700px;
 
   border-radius: 12px;
   border: 1px solid;
