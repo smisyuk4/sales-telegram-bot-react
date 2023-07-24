@@ -2,7 +2,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { auth } from '../firebase/firebase.config';
 
-import { LoginStyled, ReturnButton } from './pagesStyle';
+import { Footer } from '../components/Footer';
+import { Container, Title, ReturnButton } from './pagesStyle';
 import { RiArrowLeftLine } from 'react-icons/ri';
 import { LoginForm } from '../components/LoginForm/LoginForm';
 
@@ -16,18 +17,30 @@ const LoginPage = () => {
 
   if (!user) {
     return (
-      <LoginStyled>
-        <ReturnButton
-          className="return"
-          onClick={() => navigate(-1)}
-          type="button"
-          aria-label="return button"
-        >
-          <RiArrowLeftLine size="2em" />
-        </ReturnButton>
+      <Container>
+        <div>
+          <header>
+            <>
+              <ReturnButton
+                className="return"
+                onClick={() => navigate(-1)}
+                type="button"
+                aria-label="return button"
+              >
+                <RiArrowLeftLine size="2em" />
+              </ReturnButton>
 
-        <LoginForm />
-      </LoginStyled>
+              <Title>Вхід адміністратора</Title>
+            </>
+          </header>
+
+          <main>
+            <LoginForm />
+          </main>
+        </div>
+
+        <Footer />
+      </Container>
     );
   }
 };

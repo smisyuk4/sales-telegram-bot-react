@@ -1,16 +1,29 @@
 import styled from '@emotion/styled';
-import { flexBox } from '../../mixins';
 
-export const TitleStyle = styled.h1`
+export const MessageWrp = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 7px;
+  height: 150px;
+  background-color: #fffdc3;
+`;
+
+export const MessageTitle = styled.h1`
   font-size: 20px;
   text-align: center;
 `;
 
-export const MessageStyled = styled.div`
-  ${flexBox}
-  padding: 7px;
-  height: 150px;
-  background-color: #fffdc3;
+export const ChannelLink = styled.a`
+  font-weight: 700;
+  text-align: center;
+  color: #0057b8;
+
+  &:hover {
+    background-color: #ffd700;
+  }
 `;
 
 export const ListStyled = styled.ul`

@@ -12,8 +12,9 @@ import { Footer } from '../Footer';
 import {
   Container,
   TitleWrp,
+  Title,
   LeftNav,
-  HeaderAdminStyled,
+  AdminButtons,
   NavList,
   NavItem,
   NavLinkStyled,
@@ -70,38 +71,38 @@ export const LayoutAdmin = () => {
     return (
       <Container>
         <div>
-          <HeaderAdminStyled>
+          <div>
             <TitleWrp>
               <LeftNav>
-                <button
+                <AdminButtons
                   className="return"
                   onClick={() => navigate(-1)}
                   type="button"
                   aria-label="return button"
                 >
                   <RiArrowLeftLine size="2em" />
-                </button>
+                </AdminButtons>
 
-                <button
+                <AdminButtons
                   className="home"
                   onClick={() => navigate('/')}
                   type="button"
                   aria-label="home button"
                 >
                   <RiHome2Fill size="2em" />
-                </button>
+                </AdminButtons>
               </LeftNav>
 
-              <h1>Сторінка адміністратора</h1>
+              <Title>Сторінка адміністратора</Title>
 
-              <button
+              <AdminButtons
                 className="exit"
                 onClick={logout}
                 type="button"
                 aria-label="logout button"
               >
                 <RiLogoutBoxRFill size="2em" />
-              </button>
+              </AdminButtons>
             </TitleWrp>
 
             <NavList>
@@ -120,7 +121,7 @@ export const LayoutAdmin = () => {
                 </NavLinkStyled>
               </NavItem>
             </NavList>
-          </HeaderAdminStyled>
+          </div>
 
           <Suspense
             fallback={<div>Збираємо інформацію по зробленій роботі...</div>}

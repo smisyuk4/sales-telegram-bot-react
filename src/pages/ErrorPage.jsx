@@ -1,9 +1,9 @@
-import { ErrorStyled, TitleStyle } from './pagesStyle';
+import { ErrorStyled } from './pagesStyle';
 
 const ErrorPage = () => {
   return (
     <ErrorStyled>
-      <TitleStyle>Сторінка не знайдена</TitleStyle>
+      <h1>Сторінка не знайдена</h1>
     </ErrorStyled>
   );
 };

@@ -1,19 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { flexBox } from '../../mixins';
+import { flexBox, container, pageTitle } from '../../mixins';
 
 export const Container = styled.div`
-  padding: 15px 15px 0 15px;
-  margin: 0 auto;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-
-  header,
-  main {
-    margin-bottom: 10px;
-  }
+  ${container}
 `;
 
 export const TitleWrp = styled.div`
@@ -21,8 +11,7 @@ export const TitleWrp = styled.div`
 `;
 
 export const Title = styled.h1`
-  text-align: center;
-  text-transform: uppercase;
+  ${pageTitle}
 `;
 
 export const NavList = styled.ul`

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { checkPermission } from '../firebase/services';
 import { useTelegram } from '../hooks/telegramHook';
 import { SaleForm } from '../components/SaleForm';
-import { MessageVisit } from './pagesStyle';
+import { Message, MessageTransfer, BotLink } from './pagesStyle';
 
 const SalePage = () => {
   const { user, onClose, queryId } = useTelegram();
@@ -22,11 +22,25 @@ const SalePage = () => {
 
   if (!user) {
     // if (user !== undefined) {
-    return <p>Немає користувача</p>;
+    return (
+      <>
+        <MessageTransfer>
+          Немає користувача. <br /> Запускай бота
+          <BotLink
+            href="https://t.me/cat_gm_bot"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="link to telegram bot"
+          >
+            @cat_gm_bot
+          </BotLink>
+        </MessageTransfer>
+      </>
+    );
   }
 
   if (permissionMsg.permission === false) {
-    return <MessageVisit>{permissionMsg.text}</MessageVisit>;
+    return <Message>{permissionMsg.text}</Message>;
   }
 
   if (permissionMsg.permission === true) {
@@ -37,7 +51,7 @@ const SalePage = () => {
 
     return (
       <>
-        {isShowAlert && <MessageVisit>{permissionMsg.text}</MessageVisit>}
+        {isShowAlert && <Message>{permissionMsg.text}</Message>}
         <SaleForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );

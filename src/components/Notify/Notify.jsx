@@ -1,6 +1,7 @@
 import {
-  TitleStyle,
-  MessageStyled,
+  MessageWrp,
+  MessageTitle,
+  ChannelLink,
   ListStyled,
   ItemStyled,
 } from './Notify.styled';
@@ -8,11 +9,20 @@ import {
 export const Notify = () => {
   return (
     <div>
-      <MessageStyled>
-        <TitleStyle>
+      <MessageWrp>
+        <MessageTitle>
           Вітаємо у нашому <br /> телеграм каналі <br />з купівлі / продажу
-        </TitleStyle>
-      </MessageStyled>
+        </MessageTitle>
+
+        <ChannelLink
+          href="https://t.me/sales_test_ser"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="link to telegram channel"
+        >
+          @sales_test_ser
+        </ChannelLink>
+      </MessageWrp>
 
       <ListStyled>
         <ItemStyled>

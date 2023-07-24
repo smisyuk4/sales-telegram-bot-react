@@ -30,3 +30,46 @@ export const bigButton = () => {
     }
   `;
 };
+
+export const returnButton = () => {
+  return `color: #000;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: #0057b8;
+    }
+
+    &.return {
+      padding-right: 15px;
+    }
+  `;
+};
+
+export const container = () => {
+  return `padding: 15px 15px 0 15px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    header,
+    main {
+      margin-bottom: 10px;
+    }
+  `;
+};
+
+export const pageTitle = () => {
+  return `font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+
+    @media screen and (min-width: 480px) {
+      font-size: 2em;
+    }
+  `;
+};
