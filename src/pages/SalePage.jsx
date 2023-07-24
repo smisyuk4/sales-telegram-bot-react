@@ -20,8 +20,8 @@ const SalePage = () => {
     get();
   }, [user, setPermissionMsg]);
 
-  // if (!user) {
-    if (user !== undefined) {
+  if (!user) {
+    // if (user !== undefined) {
     return (
       <>
         <MessageTransfer>
