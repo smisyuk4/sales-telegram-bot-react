@@ -10,6 +10,8 @@ const SalePage = () => {
   const [permissionMsg, setPermissionMsg] = useState({});
   const [isShowAlert, setIsShowAlert] = useState(true);
 
+  alert(`queryId => ${queryId}`)
+
   useEffect(() => {
     const get = async () => {
       // const permResult = await checkPermission('smisyuk');

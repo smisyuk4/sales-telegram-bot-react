@@ -69,7 +69,7 @@ export const checkPermission = async user => {
 };
 
 const dateConverter = timestamp => {
-  const limit = 1; //hour
+  const limit = 0; //hour
   const date = new Date(timestamp * 1000);
 
   const dateLastMsg = format(Date.parse(date), 'dd MMMM yyyy о HH:mm', {
