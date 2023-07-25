@@ -56,7 +56,7 @@ const SalePage = () => {
         <SaleForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );
-  }
+//  }
 };
 
 export default SalePage;
