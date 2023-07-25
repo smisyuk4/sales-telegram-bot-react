@@ -45,15 +45,15 @@ const BuyPage = () => {
     return <Message>{permissionMsg.text}</Message>;
   }
 
-  if (permissionMsg.permission === true) {
-    const timerId = setTimeout(() => {
-      setIsShowAlert(false);
-      clearTimeout(timerId);
-    }, 4000);
+  //if (permissionMsg.permission === true) {
+    //const timerId = setTimeout(() => {
+      //setIsShowAlert(false);
+      //clearTimeout(timerId);
+    //}, 4000);
 
     return (
       <>
-        {isShowAlert && <Message>{permissionMsg.text}</Message>}
+       // {isShowAlert && <Message>{permissionMsg.text}</Message>}
         <BuyForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );
