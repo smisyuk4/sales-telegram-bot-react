@@ -11,10 +11,11 @@ const BuyPage = () => {
   const [isShowAlert, setIsShowAlert] = useState(true);
 
   useEffect(() => {
+    alert(user)
     const get = async () => {
       // const permResult = await checkPermission('smisyuk');
       const permResult = await checkPermission(user);
-
+alert(permissionMsg.permission)
       setPermissionMsg(permResult);
     };
     get();
