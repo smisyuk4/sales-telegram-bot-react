@@ -10,7 +10,7 @@ export const Contact = ({ register, setContact, errors }) => {
 
         <InputStyled
           {...register('contact')}
-          placeholder="Номер телефону/Telegram"
+          placeholder="Telegram/Номер телефону"
           className={'contact'}
         />
 
