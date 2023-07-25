@@ -57,7 +57,7 @@ const BuyPage = () => {
         <BuyForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );
-  }
+ // }
 };
 
 export default BuyPage;
