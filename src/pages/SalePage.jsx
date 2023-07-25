@@ -11,7 +11,6 @@ const SalePage = () => {
   const [isShowAlert, setIsShowAlert] = useState(true);
 
   useEffect(() => {
-    alert(`chat => ${chat}`);
 
     const get = async () => {
       // const permResult = await checkPermission('smisyuk');
