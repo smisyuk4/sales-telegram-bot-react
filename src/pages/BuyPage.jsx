@@ -15,7 +15,7 @@ const BuyPage = () => {
     const get = async () => {
       // const permResult = await checkPermission('smisyuk');
       const permResult = await checkPermission(user);
-//alert(permissionMsg.permission)
+      //alert(permissionMsg.permission)
       setPermissionMsg(permResult);
     };
     get();
@@ -27,7 +27,6 @@ const BuyPage = () => {
       <>
         <MessageTransfer>
           Немає користувача. <br /> Запускай бота
-          
           <BotLink
             href="https://t.me/cat_gm_bot"
             target="_blank"
@@ -46,18 +45,18 @@ const BuyPage = () => {
   }
 
   //if (permissionMsg.permission === true) {
-    //const timerId = setTimeout(() => {
-      //setIsShowAlert(false);
-      //clearTimeout(timerId);
-    //}, 4000);
+  //const timerId = setTimeout(() => {
+  //setIsShowAlert(false);
+  //clearTimeout(timerId);
+  //}, 4000);
 
-    return (
-      <>
-       // {isShowAlert && <Message>{permissionMsg.text}</Message>}
-        <BuyForm user={user} queryId={queryId} onClose={onClose} />
-      </>
-    );
- // }
+  return (
+    <>
+      {isShowAlert && <Message>{permissionMsg.text}</Message>}
+      <BuyForm user={user} queryId={queryId} onClose={onClose} />
+    </>
+  );
+  // }
 };
 
 export default BuyPage;

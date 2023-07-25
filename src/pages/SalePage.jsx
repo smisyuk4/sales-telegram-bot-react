@@ -6,7 +6,7 @@ import { SaleForm } from '../components/SaleForm';
 import { Message, MessageTransfer, BotLink } from './pagesStyle';
 
 const SalePage = () => {
-  const { user, onClose, queryId, chat } = useTelegram();
+  const { user, onClose, queryId } = useTelegram();
   const [permissionMsg, setPermissionMsg] = useState({});
   const [isShowAlert, setIsShowAlert] = useState(true);
 
@@ -52,7 +52,7 @@ const SalePage = () => {
 
     return (
       <>
-        //{isShowAlert && <Message>{permissionMsg.text}</Message>}
+        {isShowAlert && <Message>{permissionMsg.text}</Message>}
         <SaleForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );
