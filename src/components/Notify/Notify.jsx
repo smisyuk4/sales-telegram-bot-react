@@ -15,12 +15,12 @@ export const Notify = () => {
         </MessageTitle>
 
         <ChannelLink
-          href="https://t.me/sales_test_ser"
+          href="https://t.me/production_buy_sale"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="link to telegram channel"
         >
-          @sales_test_ser
+          @production_buy_sale
         </ChannelLink>
       </MessageWrp>
 
