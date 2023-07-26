@@ -6,8 +6,8 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <BrowserRouter basename="/sales-telegram-bot-react"> */}
-    <BrowserRouter>
+    <BrowserRouter basename="/sales-telegram-bot-react">
+    {/* <BrowserRouter> */}
       <App />
     </BrowserRouter>
   </React.StrictMode>
