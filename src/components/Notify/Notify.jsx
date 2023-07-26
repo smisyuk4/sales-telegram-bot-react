@@ -20,7 +20,8 @@ export const Notify = () => {
           rel="noopener noreferrer"
           aria-label="link to telegram channel"
         >
-          @production_buy_sale
+          {/* @production_buy_sale */}
+          @sales_test_ser
         </ChannelLink>
       </MessageWrp>
 
