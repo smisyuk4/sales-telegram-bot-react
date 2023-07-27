@@ -9,6 +9,7 @@ import {
   ButtonStyled,
 } from './Photo.styled';
 import { salesApi } from '../../../salesApi';
+import { useTelegram } from '../../../hooks/telegramHook';
 
 export const Photo = ({
   register,
@@ -19,6 +20,7 @@ export const Photo = ({
   setPreviewImage,
   setIsLoading,
 }) => {
+  const { user, onClose, queryId, platform } = useTelegram();
   const [multipleImages, setMultipleImages] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
   const [isFinishCheck, setIsFinishCheck] = useState(true);
@@ -42,6 +44,8 @@ export const Photo = ({
           multipleImages
         );
 
+        // console.log();
+
         const status = resultCheck.map(({ isPermitted }) => isPermitted);
         const checkStatus = status.find(element => element === false);
 
@@ -52,6 +56,7 @@ export const Photo = ({
 
         setImagesAfterCheck(resultCheck);
       } catch (error) {
+        console.log('/check-photo/some => ', error);
         setPhotoError(error.message);
       }
       setIsFinishCheck(true);
@@ -89,6 +94,30 @@ export const Photo = ({
     setMultipleImages(formData);
   };
 
+  const androidGetFiles = e => {
+    // setPreviewImage([]);
+    // setImagesAfterCheck([]);
+
+    if (!e.target.files) {
+      return;
+    }
+
+    const formData = new FormData();
+    const fileList = e.target.files;
+    let previewPhotoURL = [];
+
+    for (const key of Object.keys(fileList)) {
+      const photo = fileList[key];
+      const newName = `${Date.now()}_${photo.name}`;
+
+      formData.append('photos', photo, newName);
+      previewPhotoURL = [...previewPhotoURL, URL.createObjectURL(photo)];
+    }
+
+    setPreviewImage(previewPhotoURL);
+    setMultipleImages(formData);
+  };
+
   const getFile = () => {
     document.getElementById('upfile').click();
   };
@@ -102,7 +131,8 @@ export const Photo = ({
         <InputStyled
           id="upfile"
           {...register('photos')}
-          onChange={changeMultipleFiles}
+          // onChange={changeMultipleFiles}
+          onChange={androidGetFiles}
           type="file"
           accept="image/jpeg image/png"
           multiple
