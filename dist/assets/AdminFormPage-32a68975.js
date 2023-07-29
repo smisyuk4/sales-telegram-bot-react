@@ -1,0 +1,1 @@
+import{j as r}from"./index-72685862.js";import{n as t}from"./emotion-styled.browser.esm-e07269da.js";const n=t.div``,e=()=>r.jsx(n,{children:r.jsx("p",{children:"Адмінська форма без перевірки фото та тексту, без оплати."})}),i=()=>r.jsx(e,{});export{i as default};
