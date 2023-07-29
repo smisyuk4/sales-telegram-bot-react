@@ -3,19 +3,20 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './components/App';
 import './index.css';
-const { VITE_PATH } = import.meta.env;
+// const { VITE_PATH } = import.meta.env;
 
-let path;
+// let path;
 
-if (VITE_PATH) {
-  path = `/${VITE_PATH}/`;
-} else {
-  path = null;
-}
+// if (VITE_PATH) {
+//   path = `/${VITE_PATH}/`;
+// } else {
+//   path = null;
+// }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename={path}>
+    {/* <BrowserRouter> */}
+    <BrowserRouter basename="/sales-telegram-bot-react/">
       <App />
     </BrowserRouter>
   </React.StrictMode>

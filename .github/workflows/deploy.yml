@@ -47,7 +47,7 @@ jobs:
           VITE_BOT_NAME: ${{  vars.VITE_BOT_NAME  }}
           VITE_CHANNEL_NAME: ${{  vars.VITE_CHANNEL_NAME  }}
           VITE_COLLECTION: ${{  vars.VITE_COLLECTION  }}
-          VITE_PATH: ${{  vars.VITE_PATH  }}
+          # VITE_PATH: ${{  vars.VITE_PATH  }}
         run: npm run build
 
       - name: Copy index.html to 404.html
