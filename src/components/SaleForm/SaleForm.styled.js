@@ -36,4 +36,15 @@ export const ButtonStyled = styled.button`
   ${bigButton}
   font-weight: 600;
   background-color: #b9b9b9;
+
+  &[disabled] {
+    color: #dddddd;
+    background-color: #efefef4d;
+    border-color: #efefef4d;
+
+    &:active {
+      color: #dddddd;
+      background-color: #efefef4d;
+    }
+  }
 `;

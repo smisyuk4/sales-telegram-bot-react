@@ -145,7 +145,11 @@ export const errorMessage = () => {
 };
 
 export const bigButton = () => {
-  return `padding: 10px 15px;
+  return `display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 15px;
     width: 100%;
 
     font-size: 18px;
