@@ -11,6 +11,7 @@ import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
 import { BuySchema, LIMIT_CHAR_DESC } from '../SaleForm/validationSchema';
 import { salesApi } from '../../salesApi';
+import { isObjectEmpty } from '../../helpers/isObjectEmpty';
 
 import {
   FormStyled,
@@ -56,7 +57,7 @@ export const BuyForm = ({ user, queryId, onClose }) => {
     getValues,
     setValue,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(BuySchema),
@@ -115,11 +116,9 @@ export const BuyForm = ({ user, queryId, onClose }) => {
   // const openPayService = () => {
   //   alert('Розробка ще триває');
   // };
-
   return (
     <>
       {isLoading && <Loader />}
-      {/* {isShowAlert && <Alert text={'Ваше оголошення відправлено'} />} */}
       {isOpenRuls && (
         <Modal toggleRulsModal={toggleRulsModal}>
           <Ruls />
@@ -166,7 +165,7 @@ export const BuyForm = ({ user, queryId, onClose }) => {
         </PayButton> */}
 
         <ButtonStyled
-          disabled={!isValid && !errors}
+          disabled={!isDirty || !isValid || !isObjectEmpty(errors)}
           type="submit"
           aria-label="Send"
         >

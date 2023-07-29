@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 
+import { isObjectEmpty } from '../../helpers/isObjectEmpty';
 import { Checkbox } from './Checkbox';
 import { Contact } from './Contact';
 import { Photo } from './Photo';
@@ -60,7 +61,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     getValues,
     setValue,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(SaleSchema),
@@ -72,6 +73,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isPermittedPhoto, setIsPermittedPhoto] = useState(false);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
@@ -84,8 +86,19 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     });
   };
 
-  const setPhotos = value => {
-    setValue('photoURL', value, {
+  const removePhotos = () => {
+    setValue('photoURL', [], {
+      shouldValidate: true,
+    });
+  };
+
+  const setPhotos = ({ isPermitted, photoURL }) => {
+    const oldPhotoURL = getValues('photoURL');
+    const newPhotoURL = [...oldPhotoURL, ...photoURL];
+
+    setIsPermittedPhoto(isPermitted);
+
+    setValue('photoURL', newPhotoURL, {
       shouldValidate: true,
     });
   };
@@ -123,13 +136,19 @@ export const SaleForm = ({ user, queryId, onClose }) => {
 
   const onErrors = data => {
     console.log('form onErrors', data);
-    setPhotoError(data.photoURL.message);
+    if (data.photoURL) {
+      setPhotoError(data.photoURL.message);
+    }
   };
 
   // const openPayService = () => {
   //   alert('Розробка ще триває');
   // };
-
+  // console.log(
+  //   `isPermittedPhoto: ${isPermittedPhoto}, isDirty: ${isDirty}, isValid: ${isValid}, errors: ${!isObjectEmpty(
+  //     errors
+  //   )}`
+  // );
   return (
     <>
       {isLoading && <Loader />}
@@ -188,6 +207,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
           setPreviewImage={setPreviewImage}
           previewImage={previewImage}
           setIsLoading={setIsLoading}
+          removePhotos={removePhotos}
         />
 
         {/* <PayButton onClick={openPayService} type="button" aria-label="Send">
@@ -195,7 +215,9 @@ export const SaleForm = ({ user, queryId, onClose }) => {
         </PayButton> */}
 
         <ButtonStyled
-          disabled={!isValid && !errors}
+          disabled={
+            !isDirty || !isValid || !isPermittedPhoto || !isObjectEmpty(errors)
+          }
           type="submit"
           aria-label="Send"
         >

@@ -5,6 +5,8 @@ import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { format, formatDistanceToNowStrict } from 'date-fns';
 import { uk } from 'date-fns/locale';
 
+const { VITE_COLLECTION } = import.meta.env;
+
 export const loginUser = async ({ email, password }) => {
   try {
     const result = await signInWithEmailAndPassword(auth, email, password);
@@ -47,8 +49,9 @@ export const getDatafromDb = async user => {
 
   let data = [];
   const querySnapshot = await getDocs(
-    collection(db, 'users', user, 'messages')
+    collection(db, VITE_COLLECTION, user, 'messages')
   );
+
   querySnapshot.forEach(doc => {
     const msg = {
       msgId: doc.id,
@@ -56,14 +59,26 @@ export const getDatafromDb = async user => {
     };
     data = [...data, msg];
   });
+
   return data;
 };
 
 export const checkPermission = async user => {
   if (!user) {
-    return;
+    return {
+      permission: false,
+      text: 'Немає користувача',
+    };
   }
+
   const data = await getDatafromDb(user);
+  if (data.length === 0) {
+    return {
+      permission: true,
+      text: 'Це буде перше оголошення',
+    };
+  }
+
   const lastMsg = data[data.length - 1];
   return dateConverter(lastMsg.updatedAt.seconds);
 };

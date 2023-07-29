@@ -145,7 +145,11 @@ export const errorMessage = () => {
 };
 
 export const bigButton = () => {
-  return `padding: 10px 15px;
+  return `display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 15px;
     width: 100%;
 
     font-size: 18px;
@@ -161,6 +165,23 @@ export const bigButton = () => {
     &:active {
       background-color: black;
       color: white;
+    }
+  `;
+};
+
+export const sendButton = () => {
+  return `font-weight: 600;
+    background-color: #b9b9b9;
+
+    &[disabled] {
+      color: #dddddd;
+      background-color: #efefef4d;
+      border-color: #efefef4d;
+
+      &:active {
+        color: #dddddd;
+        background-color: #efefef4d;
+      }
     }
   `;
 };
