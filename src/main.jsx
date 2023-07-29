@@ -5,9 +5,17 @@ import { App } from './components/App';
 import './index.css';
 const { VITE_PATH } = import.meta.env;
 
+let path;
+
+if (VITE_PATH) {
+  path = `/${VITE_PATH}/`;
+} else {
+  path = null;
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename={VITE_PATH}>
+    <BrowserRouter basename={path}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
