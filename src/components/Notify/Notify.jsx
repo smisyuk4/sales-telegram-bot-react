@@ -6,6 +6,8 @@ import {
   ItemStyled,
 } from './Notify.styled';
 
+const { VITE_CHANNEL_NAME } = import.meta.env;
+
 export const Notify = () => {
   return (
     <div>
@@ -15,13 +17,12 @@ export const Notify = () => {
         </MessageTitle>
 
         <ChannelLink
-          href="https://t.me/production_buy_sale"
+          href={`https://t.me/${VITE_CHANNEL_NAME}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="link to telegram channel"
         >
-          {/* @production_buy_sale */}
-          @sales_test_ser
+          {`@${VITE_CHANNEL_NAME}`}
         </ChannelLink>
       </MessageWrp>
 

@@ -5,35 +5,35 @@ import { useTelegram } from '../hooks/telegramHook';
 import { SaleForm } from '../components/SaleForm';
 import { Message, MessageTransfer, BotLink } from './pagesStyle';
 
+const { VITE_BOT_NAME } = import.meta.env;
+
 const SalePage = () => {
-  const { user, onClose, queryId} = useTelegram();
+  const { user, onClose, queryId } = useTelegram();
   const [permissionMsg, setPermissionMsg] = useState({});
   const [isShowAlert, setIsShowAlert] = useState(true);
 
   useEffect(() => {
-
     const get = async () => {
-      const permResult = await checkPermission('smisyuk');
-      // const permResult = await checkPermission(user);
-
+      // const permResult = await checkPermission('smisyuk');
+      const permResult = await checkPermission(user);
       setPermissionMsg(permResult);
     };
     get();
   }, [user, setPermissionMsg]);
 
-  // if (!user) {
-    if (user !== undefined) {
+  if (!user) {
+  // if (user !== undefined) {
     return (
       <>
         <MessageTransfer>
           Немає користувача. <br /> Запускай бота
           <BotLink
-            href="https://t.me/cat_gm_bot"
+            href={`https://t.me/${VITE_BOT_NAME}`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="link to telegram bot"
           >
-            @cat_gm_bot
+            {`@${VITE_BOT_NAME}`}
           </BotLink>
         </MessageTransfer>
       </>
@@ -44,11 +44,11 @@ const SalePage = () => {
     return <Message>{permissionMsg.text}</Message>;
   }
 
-  //if (permissionMsg.permission === true) {
-    //const timerId = setTimeout(() => {
-      //setIsShowAlert(false);
-      //clearTimeout(timerId);
-    //}, 4000);
+  if (permissionMsg.permission === true) {
+    const timerId = setTimeout(() => {
+      setIsShowAlert(false);
+      clearTimeout(timerId);
+    }, 4000);
 
     return (
       <>
@@ -56,7 +56,7 @@ const SalePage = () => {
         <SaleForm user={user} queryId={queryId} onClose={onClose} />
       </>
     );
-//  }
+  }
 };
 
 export default SalePage;

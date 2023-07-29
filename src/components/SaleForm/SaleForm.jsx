@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 
+import { isObjectEmpty } from '../../helpers/isObjectEmpty';
 import { Checkbox } from './Checkbox';
 import { Contact } from './Contact';
 import { Photo } from './Photo';
@@ -85,14 +86,13 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     });
   };
 
-  const removePhotos =()=>{
+  const removePhotos = () => {
     setValue('photoURL', [], {
       shouldValidate: true,
     });
-  }
+  };
 
   const setPhotos = ({ isPermitted, photoURL }) => {
-    console.log('isPermitted', isPermitted);
     const oldPhotoURL = getValues('photoURL');
     const newPhotoURL = [...oldPhotoURL, ...photoURL];
 
@@ -108,7 +108,6 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   };
 
   const onSubmit = async data => {
-    console.log(data);
     setIsLoading(true);
     const dataPackage = JSON.stringify({ ...data, user, queryId });
 
@@ -142,20 +141,14 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     }
   };
 
-  const isObjectEmpty = objectName => {
-    const result = Object.keys(objectName).length === 0;
-    console.log(result);
-    return result;
-  };
-
   // const openPayService = () => {
   //   alert('Розробка ще триває');
   // };
-  console.log(
-    `isPermittedPhoto: ${isPermittedPhoto}, isDirty: ${isDirty}, isValid: ${isValid}, errors: ${!isObjectEmpty(
-      errors
-    )}`
-  );
+  // console.log(
+  //   `isPermittedPhoto: ${isPermittedPhoto}, isDirty: ${isDirty}, isValid: ${isValid}, errors: ${!isObjectEmpty(
+  //     errors
+  //   )}`
+  // );
   return (
     <>
       {isLoading && <Loader />}
@@ -222,7 +215,9 @@ export const SaleForm = ({ user, queryId, onClose }) => {
         </PayButton> */}
 
         <ButtonStyled
-          disabled={!isDirty || !isValid || !isPermittedPhoto}
+          disabled={
+            !isDirty || !isValid || !isPermittedPhoto || !isObjectEmpty(errors)
+          }
           type="submit"
           aria-label="Send"
         >
