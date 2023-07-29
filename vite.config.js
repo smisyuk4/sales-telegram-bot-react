@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+const { VITE_PATH } = import.meta.env;
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/sales-telegram-bot-react/',
+  base: VITE_PATH,
 });
