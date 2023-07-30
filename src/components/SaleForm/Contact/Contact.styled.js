@@ -1,41 +1,30 @@
 import styled from '@emotion/styled';
-import { label, input, errorMessage } from '../../../mixins';
+import { label, input, errorMessage, bigButton } from '../../../mixins';
 
 export const LabelStyled = styled.label`
   ${label}
+`;
 
-  button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    transform: translate(-5px, 8px);
+export const InputWrp = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3px;
+export const ContactButton = styled.button`
+  ${bigButton}
+  padding: 0;
 
-    border-radius: 50%;
-    background-color: buttonface;
-    border: 1px solid black;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-      rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    color: black;
-    cursor: pointer;
+  & {
+    width: 20%;
 
-    &:active {
-      background-color: black;
-      color: white;
+    @media screen and (min-width: 480px) {
+      width: 11%;
     }
   }
 `;
 
 export const InputStyled = styled.input`
   ${input}
-
-  &.contact {
-    padding-right: 40px;
-  }
 `;
 
 export const ErrorStyled = styled.span`

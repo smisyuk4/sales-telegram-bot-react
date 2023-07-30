@@ -224,7 +224,7 @@ export const Photo = ({
           type="button"
           aria-label="Load some photo"
         >
-          {isFinishCheck ? <p>Завантажити</p> : <p>Перевірка фото змісту...</p>}
+          {isFinishCheck ? <p>Завантажити</p> : <p>Перевірка...</p>}
         </ButtonStyled>
 
         <ButtonStyled

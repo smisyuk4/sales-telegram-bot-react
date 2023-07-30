@@ -1,1 +1,0 @@
-import{j as t}from"./index-72685862.js";import{n as e}from"./emotion-styled.browser.esm-e07269da.js";const r=e.div``,n=()=>t.jsx(r,{children:t.jsx("p",{children:" Таблиця з оголошеннями, детальні данні. Фільтри по категоріям"})}),i=()=>t.jsx(t.Fragment,{children:t.jsx(n,{})});export{i as default};

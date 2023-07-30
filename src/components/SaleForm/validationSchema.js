@@ -4,25 +4,7 @@ import { forbiddenWords } from './forbiddenWords';
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
 
-const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s]+)/;
-
-// const forbiddenWords = [
-//   'хуй',
-//   'xyй',
-//   'пісюн',
-//   'писюн',
-//   'срака',
-//   'пізда',
-//   'пизда',
-//   'лох',
-//   'л0х',
-//   'курва',
-//   'сука',
-//   'cуka',
-//   'блядь',
-//   'тварюка',
-//   'падлюка',
-// ];
+const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)/;
 
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 
