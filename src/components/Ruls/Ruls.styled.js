@@ -11,14 +11,14 @@ export const RulsWrp = styled.div`
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
   background-color: white;
+
+  h3 {
+    text-align: center;
+  }
 `;
 
 export const ExampleStyled = styled.ul`
   padding: 5px;
   border-radius: 12px;
   background-color: #0057b836;
-
-  h3 {
-    text-align: center;
-  }
 `;

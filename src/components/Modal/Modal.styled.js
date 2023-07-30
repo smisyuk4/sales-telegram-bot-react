@@ -3,6 +3,7 @@ import { flexBox } from '../../mixins';
 
 export const ModalDiv = styled.div`
   ${flexBox}
+  align-items: flex-start;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,9 +14,9 @@ export const ModalDiv = styled.div`
   background-color: grey;
   padding: 50px 10px;
 
-  /* div {
+  div {
     position: relative;
-  } */
+  }
 `;
 
 export const CloseBtn = styled.button`

@@ -7,7 +7,7 @@ two server deploy:
 
 - [style input button](https://stackoverflow.com/questions/572768/styling-an-input-type-file-button)
 
-# swith production and development process
+# switch production and development process
 
 - **hide rows for production mode:** `file - main.jsx` =
   <BrowserRouter basename="/sales-telegram-bot-react/"> `file - vite.config.js`
