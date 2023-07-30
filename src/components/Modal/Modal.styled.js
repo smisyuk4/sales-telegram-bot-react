@@ -33,6 +33,7 @@ export const CloseBtn = styled.button`
   justify-content: center;
   align-items: center;
 
+  color: black;
   border-radius: 12px;
   border: 1px solid;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
