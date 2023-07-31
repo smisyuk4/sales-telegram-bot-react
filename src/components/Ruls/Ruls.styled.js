@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { flexBox } from '../../mixins';
 
 export const RulsWrp = styled.div`
   margin: 0 auto;
@@ -17,8 +18,37 @@ export const RulsWrp = styled.div`
   }
 `;
 
+export const ExampleWrp = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
 export const ExampleStyled = styled.ul`
   padding: 5px;
   border-radius: 12px;
   background-color: #0057b836;
+`;
+
+export const HintList = styled.ul`
+  li {
+    padding-left: 20px;
+  }
+
+  li::before {
+    content: '✅';
+    padding-right: 5px;
+  }
+`;
+
+export const PhotoWrp = styled.ul`
+  display: flex;
+  gap: 10px;
+
+  li {
+    ${flexBox}
+    height: 50px;
+    width: 90px;
+    overflow: hidden;
+  }
 `;
