@@ -28,28 +28,12 @@ export const ButtonsWrp = styled.div`
 export const ButtonStyled = styled.button`
   ${bigButton}
 
-  &.load-some {
-    width: 60%;
-
-    @media screen and (min-width: 480px) {
-      width: 80%;
-    }
-  }
-
   &.load-one {
-    width: 20%;
-
-    @media screen and (min-width: 480px) {
-      width: 10%;
-    }
+    width: 50px;
   }
 
   &.remove {
-    width: 20%;
-
-    @media screen and (min-width: 480px) {
-      width: 10%;
-    }
+    width: 50px;
   }
 
   &[disabled] {

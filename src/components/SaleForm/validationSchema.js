@@ -4,10 +4,13 @@ import { forbiddenWords } from './forbiddenWords';
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
 
-const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)/gmi;
+const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)/gim;
 // треба підібрати вираз щоб враховував все слово а не частину
 
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
+
+const COST_SYMBOLS_REGEX = /[+!@#$%^~&]/gm;
+const COST_NUMBERS_REGEX = /^[0-9]+$/gi;
 
 export const LIMIT_CHAR_DESC = 100;
 
@@ -51,11 +54,15 @@ export const SaleSchema = yup
       .required('Обов`язкове поле'),
 
     cost: yup
-      .number()
-      .positive('Має бути додатнє число')
-      .integer('Має бути ціле число')
-      .max(1000000, `Має бути не більше 1 мільона`)
-      .typeError('Має бути ціле число')
+      .string()
+      .trim()
+      .test(
+        'test symbols',
+        'заборонений символ',
+        value => !COST_SYMBOLS_REGEX.test(value)
+      )
+      .matches(COST_NUMBERS_REGEX, 'Має бути ціле, додатнє число')
+      .max(6, `Має бути менше 1 мільона`)
       .required('Обов`язкове поле'),
 
     contact: yup
@@ -66,7 +73,7 @@ export const SaleSchema = yup
       .max(30, 'Довжина має бути не більше 30 символів')
       .matches(
         PHONE_OR_CONTACT_REGEX,
-        "Приклад номера 0503523445, тільки 10 цифр\nПриклад ім'я @qweqwe_3, обов'язково @"
+        "Приклад ім'я @qweqwe_3, обов'язково @\nПриклад номера 0503523445, тільки 10 цифр"
       )
       .required('Обов`язкове поле'),
 

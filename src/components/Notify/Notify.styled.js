@@ -40,13 +40,7 @@ export const ItemStyled = styled.li`
 
   width: 90px;
   text-align: center;
-  /* transform: rotate(-90deg); */
 
   background-color: #fffdc3;
   box-shadow: 0px 15px 10px -15px #111;
-
-  &:hover {
-    color: #0057b8;
-    background-color: #ffd700;
-  }
 `;

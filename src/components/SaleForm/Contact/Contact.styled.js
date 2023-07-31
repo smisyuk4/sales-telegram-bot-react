@@ -12,15 +12,7 @@ export const InputWrp = styled.div`
 
 export const ContactButton = styled.button`
   ${bigButton}
-  padding: 0;
-
-  & {
-    width: 20%;
-
-    @media screen and (min-width: 480px) {
-      width: 11%;
-    }
-  }
+  width: 50px;
 `;
 
 export const InputStyled = styled.input`
