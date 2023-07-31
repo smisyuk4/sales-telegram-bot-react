@@ -189,6 +189,7 @@ export const Photo = ({
   const removeAllPhotos = () => {
     removePhotos();
     setPreviewImage([]);
+    setImagesAfterCheck([]);
     setPhotoError('');
     Notify.success(`Всі фото видалені! <br> Завантажуй заново`);
   };
