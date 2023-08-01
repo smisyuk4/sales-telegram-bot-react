@@ -4,8 +4,8 @@ import { forbiddenWords } from './forbiddenWords';
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
 
-const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)$/gim;
-
+// const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)$/gim;
+const CONTACT_AND_PHONE_REGEX = /^@\w+[^\s!@"#№$%:;^*()=+](\/0[3-9]\d{8})?$/gim;
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 
 const COST_SYMBOLS_REGEX = /[+!@#$%^~&]/gm;
@@ -56,6 +56,7 @@ export const SaleSchema = yup
     cost: yup
       .string()
       .trim()
+      .min(2, 'Має бути більше 9 грн')
       .test(
         'test symbols',
         'заборонений символ',
@@ -67,18 +68,18 @@ export const SaleSchema = yup
         value => !COST_ZERO_REGEX.test(value)
       )
       .matches(COST_NUMBERS_REGEX, 'Має бути ціле, додатнє число')
+
       .max(6, `Має бути менше 1 мільона`)
       .required('Обов`язкове поле'),
 
     contact: yup
       .string('Має бути текстовим')
       .trim()
-
       .min(5, 'Довжина має бути більше 5 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
       .matches(
-        PHONE_OR_CONTACT_REGEX,
-        "Приклад ім'я @qweqwe_3, обов'язково @\nПриклад номера 0503523445, тільки 10 цифр"
+        CONTACT_AND_PHONE_REGEX,
+        "Приклад ім'я @qweqwe_3, обов'язково @\nПриклад номера 0503523445, тільки 10 цифр\nПриклад разом @qweqwe_3/0503523445, розділення через /"
       )
       .required('Обов`язкове поле'),
 
@@ -135,8 +136,8 @@ export const BuySchema = yup
       .min(5, 'Довжина має бути більше 5 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
       .matches(
-        PHONE_OR_CONTACT_REGEX,
-        "Приклад номера 0503523445, тільки 10 цифр\nПриклад ім'я @qweqwe_3, обов'язково @"
+        CONTACT_AND_PHONE_REGEX,
+        "Приклад ім'я @qweqwe_3, обов'язково @\nПриклад номера 0503523445, тільки 10 цифр\nПриклад разом @qweqwe_3/0503523445, розділення через /"
       )
       .required('Обов`язкове поле'),
   })
