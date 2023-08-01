@@ -135,6 +135,9 @@ const drags = [
 
 const erotic = [
   'фалоімітатор',
+  'faloimitator',
+'fal0imitat0r',
+'FALOIMITATOR',
   'фало',
   'старп',
   'Еротика',
