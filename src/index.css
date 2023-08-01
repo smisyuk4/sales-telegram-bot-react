@@ -24,6 +24,11 @@ body {
   color: var(--tg-theme-text-color);
 }
 
+body.no-scroll {
+  overflow: hidden;
+  background-color: pink;
+}
+
 body,
 h1,
 h2,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -74,6 +74,14 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isPermittedPhoto, setIsPermittedPhoto] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [isLoading]);
 
   const checkLength = ({ target }) => {
     const differenceLen = LIMIT_CHAR_DESC - target.value.length;
