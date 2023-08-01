@@ -141,6 +141,7 @@ export const errorMessage = () => {
   return `font-size: 14px;
     font-style: italic;
     color: red;
+    white-space: pre-wrap;
     `;
 };
 

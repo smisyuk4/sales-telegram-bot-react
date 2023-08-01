@@ -8,8 +8,7 @@ const URL_REGEX =
 const CONTACT_AND_PHONE_REGEX = /^@\w+[^\s!@"#№$%:;^*()=+](\/0[3-9]\d{8})?$/gim;
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 
-const COST_NUMBERS_REGEX = /^[0-9]+$/gi;
-const COST_ZERO_REGEX = /^0/gi;
+const COST_NUMBERS_REGEX = /^[1-9][0-9]+$/gi;
 
 export const LIMIT_CHAR_DESC = 100;
 
@@ -55,12 +54,10 @@ export const SaleSchema = yup
     cost: yup
       .string()
       .trim()
-      .test(
-        'test zero',
-        'заборонений 0 на початку',
-        value => !COST_ZERO_REGEX.test(value)
+      .matches(
+        COST_NUMBERS_REGEX,
+        "Має бути ціле, додатнє число\nЗаборонений 0 на початку"
       )
-      .matches(COST_NUMBERS_REGEX, 'Має бути ціле, додатнє число')
       .max(6, `Має бути менше 1 мільона`)
       .required('Обов`язкове поле'),
 

@@ -21,5 +21,4 @@ export const InputStyled = styled.input`
 
 export const ErrorStyled = styled.span`
   ${errorMessage}
-  white-space: pre-wrap;
 `;
