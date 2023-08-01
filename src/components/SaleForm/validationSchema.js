@@ -8,7 +8,7 @@ const URL_REGEX =
 const CONTACT_AND_PHONE_REGEX = /^@\w+[^\s!@"#№$%:;^*()=+](\/0[3-9]\d{8})?$/gim;
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 
-const COST_SYMBOLS_REGEX = /[+!@#$%^~&]/gm;
+const COST_SYMBOLS_REGEX = /[+-_!@#$%^~&]/gm;
 const COST_NUMBERS_REGEX = /^[^0][0-9]+$/gi;
 const COST_ZERO_REGEX = /^0/gi;
 
