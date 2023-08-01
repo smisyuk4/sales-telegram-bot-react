@@ -7,12 +7,14 @@ const modalRoot = document.getElementById('modal-root');
 
 export const Modal = ({ toggleRulsModal, children }) => {
   useEffect(() => {
+    document.body.classList.add('no-scroll');
     document.addEventListener('keydown', closeModal);
     return () => document.removeEventListener('keydown', closeModal);
   });
 
   const closeModal = ({ target, code }) => {
     if (target.id === 'modalClose' || code === 'Escape') {
+      document.body.classList.remove('no-scroll');
       toggleRulsModal();
     }
   };
