@@ -99,7 +99,7 @@ export const Photo = ({
       }
     };
     fetch();
-  }, [multipleImages]);
+  }, [multipleImages, setPhotos, setIsFinishCheck, setIsLoading, setPhotoError]);
 
   const changeMultipleFiles = e => {
     setPreviewImage([]);

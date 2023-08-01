@@ -4,13 +4,13 @@ import { forbiddenWords } from './forbiddenWords';
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
 
-const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)/gim;
-// треба підібрати вираз щоб враховував все слово а не частину
+const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s!@"#№$%:;^*()=+]+)$/gim;
 
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 
 const COST_SYMBOLS_REGEX = /[+!@#$%^~&]/gm;
-const COST_NUMBERS_REGEX = /^[0-9]+$/gi;
+const COST_NUMBERS_REGEX = /^[^0][0-9]+$/gi;
+const COST_ZERO_REGEX = /^0/gi;
 
 export const LIMIT_CHAR_DESC = 100;
 
@@ -60,6 +60,11 @@ export const SaleSchema = yup
         'test symbols',
         'заборонений символ',
         value => !COST_SYMBOLS_REGEX.test(value)
+      )
+      .test(
+        'test zero',
+        'заборонений 0 на початку',
+        value => !COST_ZERO_REGEX.test(value)
       )
       .matches(COST_NUMBERS_REGEX, 'Має бути ціле, додатнє число')
       .max(6, `Має бути менше 1 мільона`)
