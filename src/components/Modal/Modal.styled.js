@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexBox } from '../../mixins';
+import { flexBox } from '../../helpers/mixins';
 
 export const ModalDiv = styled.div`
   ${flexBox}

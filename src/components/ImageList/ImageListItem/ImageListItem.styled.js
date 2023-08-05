@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexBox, errorMessage } from '../../../mixins';
+import { flexBox, errorMessage } from '../../../helpers/mixins';
 
 export const LiStyled = styled.li`
   max-width: 80px;

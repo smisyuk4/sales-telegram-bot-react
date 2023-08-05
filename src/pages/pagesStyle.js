@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexBox, container, pageTitle, returnButton } from '../mixins';
+import { flexBox, container, pageTitle, returnButton } from '../helpers/mixins';
 import wall from '../assets/wall.jpeg';
 import errorIcon from '../assets/errorIcon.svg';
 

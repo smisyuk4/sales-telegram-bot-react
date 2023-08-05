@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { label, errorMessage, bigButton } from '../../../mixins';
+import { label, errorMessage, bigButton } from '../../../helpers/mixins';
 
 export const PhotoWrp = styled.div`
   display: flex;

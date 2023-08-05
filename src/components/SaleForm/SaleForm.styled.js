@@ -7,7 +7,7 @@ import {
   errorMessage,
   bigButton,
   sendButton,
-} from '../../mixins';
+} from '../../helpers/mixins';
 
 export const FormStyled = styled.form`
   ${formWrp}

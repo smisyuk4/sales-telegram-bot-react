@@ -9,7 +9,7 @@ import { Contact } from '../SaleForm/Contact';
 import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
-import { BuySchema, LIMIT_CHAR_DESC } from '../SaleForm/validationSchema';
+import { BuySchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 import { salesApi } from '../../salesApi';
 import { isObjectEmpty } from '../../helpers/isObjectEmpty';
 

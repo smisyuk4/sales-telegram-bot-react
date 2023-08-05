@@ -26,7 +26,7 @@ Notify.init({
   },
 });
 
-import { SaleSchema, LIMIT_CHAR_DESC } from './validationSchema';
+import { SaleSchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 import {
   FormStyled,
   LabelStyled,

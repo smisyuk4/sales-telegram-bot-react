@@ -3,6 +3,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import {
   LabelStyled,
   InputWrp,
+  ExampleStyled,
   InputStyled,
   ContactButton,
   ErrorStyled,
@@ -19,6 +20,9 @@ export const Contact = ({ register, setContact, errors }) => {
             placeholder="Telegram/Номер телефону"
             className={'contact'}
           />
+          <ExampleStyled className={'example'}>
+            Приклад @qwe_3/0503523445 <br /> розділення через /
+          </ExampleStyled>
           <ContactButton
             onClick={setContact}
             type="button"

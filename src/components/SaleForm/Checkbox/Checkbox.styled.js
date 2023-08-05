@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { errorMessage } from '../../../mixins';
+import { errorMessage } from '../../../helpers/mixins';
 
 export const DivStyled = styled.div`
   h2 {

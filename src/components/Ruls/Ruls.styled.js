@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexBox } from '../../mixins';
+import { flexBox } from '../../helpers/mixins';
 
 export const RulsWrp = styled.div`
   margin: 0 auto;

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { flexBox, container, pageTitle, returnButton } from '../../mixins';
+import { flexBox, container, pageTitle, returnButton } from '../../helpers/mixins';
 
 export const Container = styled.div`
   ${container}
