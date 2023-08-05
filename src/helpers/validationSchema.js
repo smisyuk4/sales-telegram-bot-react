@@ -3,7 +3,7 @@ import { forbiddenWords } from './forbiddenWords';
 
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
-const CONTACT_AND_PHONE_REGEX = /^@[^0-9][a-zA-Z0-9_]{5,}(\/0[3-9]\d{8})?$/gim;
+const CONTACT_AND_PHONE_REGEX = /^@[^0-9][a-zA-Z0-9_]{4,}(\/0[3-9]\d{8})?$/gim;
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 const COST_NUMBERS_REGEX = /^[1-9][0-9]+$/gi;
 
@@ -64,7 +64,7 @@ export const SaleSchema = yup
     contact: yup
       .string('Має бути текстовим')
       .trim()
-      .min(5, 'Довжина має бути більше 5 символів')
+      .min(6, 'Довжина має бути більше 6 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
       .matches(CONTACT_AND_PHONE_REGEX, CONTACT_ERROR_DESC)
       .required('Обов`язкове поле'),
@@ -118,8 +118,7 @@ export const BuySchema = yup
     contact: yup
       .string('Має бути текстовим')
       .trim()
-
-      .min(5, 'Довжина має бути більше 5 символів')
+      .min(6, 'Довжина має бути більше 6 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
       .matches(CONTACT_AND_PHONE_REGEX, CONTACT_ERROR_DESC)
       .required('Обов`язкове поле'),
