@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // import { RiLoaderLine } from 'react-icons/ri';
 import { HiOutlinePlus, HiArrowPath, HiArchiveBoxXMark } from 'react-icons/hi2';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 
 import { ImageList } from '../../ImageList/ImageList';
 import {
@@ -16,6 +17,17 @@ import {
 import { salesApi } from '../../../salesApi';
 import { useTelegram } from '../../../hooks/telegramHook';
 import { TEXT_MSG } from '../../../firebase/errorsAndMessages';
+
+Confirm.init({
+  cssAnimationDuration: 'delay',
+  borderRadius: '8px',
+  buttonsFontSize: '18px',
+  titleFontSize: '18px',
+  messageFontSize: '18px',
+  plainText: false,
+  titleColor: '#2381c8',
+  okButtonBackground: '#2381c8',
+});
 
 Notify.init({
   borderRadius: '8px',
@@ -177,9 +189,22 @@ export const Photo = ({
 
   const getSomeFiles = () => {
     if (platform === 'android') {
-      alert('Прикро, але ви можете обирати лише по 1 фото');
+      document.body.classList.add('no-scroll');
+
+      Confirm.show(
+        'Завантаження фотографій',
+        'Прикро, але ви можете обирати лише по 1 фото. <br> <b>Щоб додати більше фото тисніть кнопку ➕</b>',
+        'Добре',
+        'Вийти',
+        () => {
+          document.getElementById('upfiles').click();
+          document.body.classList.remove('no-scroll');
+        }
+      );
+    } else {
+      document.getElementById('upfiles').click();
+      document.body.classList.remove('no-scroll');
     }
-    document.getElementById('upfiles').click();
   };
 
   const getOneFile = () => {

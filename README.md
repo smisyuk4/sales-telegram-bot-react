@@ -17,3 +17,6 @@ two server deploy:
 - **show row for development mode:** `file - salesApi.js` =
   axios.defaults.baseURL =
   'https://sales-telegram-bot-node-dev-test.onrender.com'
+
+
+  - [react-loader](https://mhnpd.github.io/react-loader-spinner/docs/components/mutating-dots/)

@@ -11,7 +11,7 @@ export const ModalDiv = styled.div`
   z-index: 200;
   width: 100vw;
   height: 100vh;
-  background-color: grey;
+  background-color: #00000080;
   padding: 50px 10px;
 
   div {
