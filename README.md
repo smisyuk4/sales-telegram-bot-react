@@ -20,3 +20,7 @@ two server deploy:
 
 
   - [react-loader](https://mhnpd.github.io/react-loader-spinner/docs/components/mutating-dots/)
+
+
+# Deploy on Firebase
+написати документацію
