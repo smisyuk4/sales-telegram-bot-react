@@ -98,6 +98,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     setValue('photoURL', [], {
       shouldValidate: true,
     });
+    setIsPermittedPhoto(undefined);
   };
 
   const setPhotos = ({ isPermitted, photoURL }) => {
