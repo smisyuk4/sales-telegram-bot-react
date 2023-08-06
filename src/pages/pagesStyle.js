@@ -61,6 +61,10 @@ export const Message = styled.p`
 
 export const MessageTransfer = styled(Message)`
   text-align: center;
+
+  span {
+    color: red;
+  }
 `;
 
 export const ReturnButton = styled.button`

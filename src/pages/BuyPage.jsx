@@ -22,11 +22,17 @@ const BuyPage = () => {
   }, [user, setPermissionMsg]);
 
   if (!user) {
-  // if (user !== undefined) {
+    // if (user !== undefined) {
     return (
       <>
         <MessageTransfer>
-          Немає користувача. <br /> Запускай бота
+          Немає користувача. <br />
+          <span>
+            Можливо треба перейти в налаштування Telegram, редагувати профіль,
+            встановиити ім'я користувача.
+          </span>
+          <br />
+          Запускай бота
           <BotLink
             href={`https://t.me/${VITE_BOT_NAME}`}
             target="_blank"

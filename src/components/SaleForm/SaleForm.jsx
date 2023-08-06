@@ -73,7 +73,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isPermittedPhoto, setIsPermittedPhoto] = useState(false);
+  const [isPermittedPhoto, setIsPermittedPhoto] = useState(undefined);
 
   useEffect(() => {
     if (isLoading) {
@@ -104,7 +104,19 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     const oldPhotoURL = getValues('photoURL');
     const newPhotoURL = [...oldPhotoURL, ...photoURL];
 
-    setIsPermittedPhoto(isPermitted);
+    setIsPermittedPhoto(prev => {
+      if (prev === undefined) {
+        return isPermitted;
+      }
+
+      if (prev) {
+        return isPermitted;
+      }
+
+      if (!prev) {
+        return false;
+      }
+    });
 
     setValue('photoURL', newPhotoURL, {
       shouldValidate: true,
@@ -155,7 +167,8 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   // console.log(
   //   `isPermittedPhoto: ${isPermittedPhoto}, isDirty: ${isDirty}, isValid: ${isValid}, errors: ${!isObjectEmpty(
   //     errors
-  //   )}`
+  //   )
+  // }`
   // );
   return (
     <>
