@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import { db, auth } from '../firebase/firebase.config';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { format, formatDistanceToNowStrict } from 'date-fns';
+import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
 import { uk } from 'date-fns/locale';
 
 const { VITE_COLLECTION } = import.meta.env;
@@ -84,41 +84,33 @@ export const checkPermission = async user => {
 };
 
 const dateConverter = timestamp => {
-  const limit = 0; //hour
+  const limit = 60; //minutes
   const date = new Date(timestamp * 1000);
 
-  const dateLastMsg = format(Date.parse(date), 'dd MMMM yyyy о HH:mm', {
-    locale: uk,
-  });
-
   const timeBetween = formatDistanceToNowStrict(date, {
-    unit: 'hour',
+    unit: 'minute',
     locale: uk,
   });
 
-  // console.log(timeBetween);
-  let hour = timeBetween.split(' ');
-  hour = Number(hour[0]);
-  //   hour = 1;
-  // console.log(hour);
-  const difference = limit - hour;
+  let minutes = timeBetween.split(' ');
+  minutes = Number(minutes[0]);
 
-  if (hour < limit) {
+  const difference = limit - minutes;
+
+  if (minutes < limit) {
     return {
       permission: false,
-      text: `Зараз не можна публікувати, треба почекати ще ${difference} годин${
-        difference <= 1
-          ? 'у або менше'
-          : difference == 2 || difference == 3 || difference == 4
-          ? 'и або менше'
-          : ''
-      }`,
+      text: `До розміщення наступного оголошення залишилось 00 : ${difference}`,
     };
   }
 
+  const timeBetweenLastMsg = formatDistance(date, new Date(), {
+    locale: uk,
+  });
+
   return {
     permission: true,
-    text: `Ваше останне оголошення було ${dateLastMsg}, з того часу минуло ${timeBetween}`,
+    text: `Ваше останнє оголошення було опубліковано ${timeBetweenLastMsg} тому`,
   };
 };
 
