@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import { db, auth } from '../firebase/firebase.config';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
 import { uk } from 'date-fns/locale';
 
@@ -42,15 +42,19 @@ export const logoutUser = async () => {
 //   }
 // };
 
-export const getDatafromDb = async user => {
+export const getDatafromDb = async (user, type) => {
   if (!user) {
     return;
   }
 
   let data = [];
-  const querySnapshot = await getDocs(
-    collection(db, VITE_COLLECTION, user, 'messages')
+
+  const q = query(
+    collection(db, VITE_COLLECTION, user, 'messages'),
+    where('type', '==', type)
   );
+
+  const querySnapshot = await getDocs(q);
 
   querySnapshot.forEach(doc => {
     const msg = {
@@ -63,7 +67,7 @@ export const getDatafromDb = async user => {
   return data;
 };
 
-export const checkPermission = async user => {
+export const checkPermission = async (user, type) => {
   if (!user) {
     return {
       permission: false,
@@ -71,7 +75,7 @@ export const checkPermission = async user => {
     };
   }
 
-  const data = await getDatafromDb(user);
+  const data = await getDatafromDb(user, type);
   if (data.length === 0) {
     return {
       permission: true,
@@ -96,11 +100,18 @@ const dateConverter = timestamp => {
   minutes = Number(minutes[0]);
 
   const difference = limit - minutes;
+  
+  if (difference === 60) {
+    return {
+      permission: false,
+      text: `До розміщення наступного оголошення \nзалишилaсь 01 : 00 год`,
+    };
+  }
 
   if (minutes < limit) {
     return {
       permission: false,
-      text: `До розміщення наступного оголошення залишилось 00 : ${difference}`,
+      text: `До розміщення наступного оголошення \nзалишилось 00 : ${difference} хв`,
     };
   }
 
@@ -108,9 +119,9 @@ const dateConverter = timestamp => {
     locale: uk,
   });
 
-  return {
+   return {
     permission: true,
-    text: `Ваше останнє оголошення було опубліковано ${timeBetweenLastMsg} тому`,
+    text: `Ваше останнє оголошення було \nопубліковано ${timeBetweenLastMsg} тому`,
   };
 };
 
