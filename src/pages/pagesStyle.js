@@ -57,6 +57,7 @@ export const Message = styled.p`
   font-style: italic;
   text-align: center;
   color: #0057b8;
+  white-space: pre-wrap;
 `;
 
 export const MessageTransfer = styled(Message)`
