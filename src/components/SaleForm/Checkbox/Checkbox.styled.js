@@ -35,7 +35,7 @@ export const CheckBoxStyled = styled.input`
   height: 24px;
   border-radius: 5px;
   margin-right: 10px;
-  border: 2px solid black;
+  border: 2px solid var(--tg-main-text-color, #000);;
   cursor: pointer;
 
   &.checked {

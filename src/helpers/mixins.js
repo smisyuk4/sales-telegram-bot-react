@@ -80,7 +80,7 @@ export const label = () => {
 
       font-size: 14px;
       font-style: italic;
-      color: blue;
+      color: #0057B8;
     }
   `;
 };
@@ -92,6 +92,9 @@ export const input = () => {
     font-size: 18px;
     line-height: 1.2;
 
+    color: var(--tg-main-text-color, #000);
+    background-color: var(--tg-second-bg-color);
+
     border-radius: 12px;
     border: 1px solid;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -101,6 +104,7 @@ export const input = () => {
       font-size: 18px;
       line-height: 1.2;
       font-style: italic;
+      color: var(--tg-second-text-color, #61616170);
     }
 
     &:focus {
@@ -128,6 +132,7 @@ export const textArea = () => {
       font-size: 18px;
       line-height: 1.2;
       font-style: italic;
+      color: var(--tg-second-text-color, #61616170);
     }
 
     &:focus {

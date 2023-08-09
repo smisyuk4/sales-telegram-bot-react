@@ -13,6 +13,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --tg-main-bg-color: var(--tg-theme-bg-color);
+  --tg-second-bg-color: var(--tg-theme-secondary-bg-color);
+  --tg-main-text-color: var(--tg-theme-text-color);
+  --tg-second-text-color: var(--tg-theme-hint-color);
 }
 
 * {
@@ -22,22 +27,6 @@
 body {
   background-color: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
-}
-
-.telegram-theme {
-  /* color: var(--tg-theme-text-color); */
-  border-bottom-color: var(--tg-theme-text-color);
-}
-
-.message-wrp {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-
-  padding: 7px;
-  height: 150px;
-  background-color: var(--tg-theme-secondary-bg-color, red);
 }
 
 body.no-scroll {

@@ -5,7 +5,7 @@ export const AdminButtonStyled = styled.button`
   right: 0;
   transform: translateX(-15px);
 
-  color: inherit;
+  color: var(--tg-main-text-color, #000);
   border: none;
   background-color: inherit;
 

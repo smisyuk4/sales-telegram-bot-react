@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom';
 import { AdminEnterance } from '../AdminEnterance/AdminEnterance';
 import { Footer } from '../Footer';
 
+import { css } from '@emotion/react';
+
 import {
   Container,
   TitleWrp,
@@ -23,7 +25,7 @@ export const Layout = () => {
             <AdminEnterance />
           </TitleWrp>
 
-          <NavList className='telegram-theme'>
+          <NavList>
             <NavItem>
               <NavLinkStyled to="/buy" aria-label="buy">
                 Хочу купити

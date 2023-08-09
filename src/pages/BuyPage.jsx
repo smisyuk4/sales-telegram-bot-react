@@ -14,7 +14,7 @@ const BuyPage = () => {
 
   useEffect(() => {
     const get = async () => {
-   // const permResult = await checkPermission('anonym', 'buy');
+  //  const permResult = await checkPermission('anonym', 'buy');
       const permResult = await checkPermission(user, 'buy');
       setPermissionMsg(permResult);
     };

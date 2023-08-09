@@ -17,7 +17,7 @@ export const Title = styled.h1`
 export const NavList = styled.ul`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--tg-main-text-color, #000);
 `;
 
 export const NavItem = styled.li`
@@ -33,7 +33,7 @@ export const NavLinkStyled = styled(NavLink)`
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-  color: inherit;
+  color: var(--tg-main-text-color, #000);
   cursor: pointer;
 
   &.active {

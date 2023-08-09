@@ -14,7 +14,7 @@ const SalePage = () => {
 
   useEffect(() => {
     const get = async () => {
-         // const permResult = await checkPermission('smisyuk', 'sale');
+        //  const permResult = await checkPermission('smisyuk', 'sale');
       const permResult = await checkPermission(user, 'sale');
 
       setPermissionMsg(permResult);

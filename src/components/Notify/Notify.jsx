@@ -11,7 +11,7 @@ const { VITE_CHANNEL_NAME } = import.meta.env;
 export const Notify = () => {
   return (
     <div>
-      <MessageWrp className="message-wrp">
+      <MessageWrp>
         <MessageTitle>
           Вітаємо у нашому <br />
           телеграм каналі <br />
