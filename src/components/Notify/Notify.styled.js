@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 
 export const MessageWrp = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
 
   padding: 7px;
   height: 150px;
-  background-color: #fffdc3;
+  background-color: #fffdc3; */
 `;
 
 export const MessageTitle = styled.h1`

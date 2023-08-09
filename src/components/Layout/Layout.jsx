@@ -23,7 +23,7 @@ export const Layout = () => {
             <AdminEnterance />
           </TitleWrp>
 
-          <NavList>
+          <NavList className='telegram-theme'>
             <NavItem>
               <NavLinkStyled to="/buy" aria-label="buy">
                 Хочу купити

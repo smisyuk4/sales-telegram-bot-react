@@ -33,7 +33,7 @@ export const NavLinkStyled = styled(NavLink)`
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-  color: black;
+  color: inherit;
   cursor: pointer;
 
   &.active {

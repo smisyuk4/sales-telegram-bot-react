@@ -5,7 +5,7 @@ export const AdminButtonStyled = styled.button`
   right: 0;
   transform: translateX(-15px);
 
-  color: #000;
+  color: inherit;
   border: none;
   background-color: inherit;
 
