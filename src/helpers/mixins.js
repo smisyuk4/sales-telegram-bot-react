@@ -96,7 +96,7 @@ export const input = () => {
     background-color: var(--tg-second-bg-color);
 
     border-radius: 12px;
-    border: 1px solid;
+    border: 1px solid var(--tg-second-bg-color, #000);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
@@ -123,9 +123,10 @@ export const textArea = () => {
     line-height: 1.2;
 
     border-radius: 12px;
-    border: 1px solid;
+    border: 1px solid var(--tg-second-bg-color, #000);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    background-color: var(--tg-second-bg-color);
 
     &::placeholder {
       font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

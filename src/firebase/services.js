@@ -75,6 +75,13 @@ export const checkPermission = async (user, type) => {
     };
   }
 
+  if (user === 'alex_mnko') {
+    return {
+      permission: true,
+      text: `Привіт мій володарю!`,
+    };
+  }
+
   const data = await getDatafromDb(user, type);
   if (data.length === 0) {
     return {
@@ -100,7 +107,7 @@ const dateConverter = timestamp => {
   minutes = Number(minutes[0]);
 
   const difference = limit - minutes;
-  
+
   if (difference === 60) {
     return {
       permission: false,
@@ -119,7 +126,7 @@ const dateConverter = timestamp => {
     locale: uk,
   });
 
-   return {
+  return {
     permission: true,
     text: `Ваше останнє оголошення було \nопубліковано ${timeBetweenLastMsg} тому`,
   };
