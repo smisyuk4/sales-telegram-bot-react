@@ -14,16 +14,16 @@ const SalePage = () => {
 
   useEffect(() => {
     const get = async () => {
-        //  const permResult = await checkPermission('smisyuk', 'sale');
-      const permResult = await checkPermission(user, 'sale');
+         const permResult = await checkPermission('smisyuk', 'sale');
+      // const permResult = await checkPermission(user, 'sale');
 
       setPermissionMsg(permResult);
     };
     get();
   }, [user, setPermissionMsg]);
 
-  if (!user) {
-  // if (user !== undefined) {
+  // if (!user) {
+  if (user !== undefined) {
     return (
       <>
         <MessageTransfer>

@@ -88,6 +88,7 @@ export const BuyForm = ({ user, queryId, onClose }) => {
   };
 
   const toggleRulsModal = () => {
+    document.body.classList.remove('no-scroll');
     setIsOpenRuls(prev => !prev);
   };
 

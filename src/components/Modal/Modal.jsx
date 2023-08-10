@@ -13,7 +13,9 @@ export const Modal = ({ toggleRulsModal, children }) => {
   });
 
   const closeModal = ({ target, code }) => {
+    console.log('remove n0-scroll - 1');
     if (target.id === 'modalClose' || code === 'Escape') {
+      console.log('remove n0-scroll - 2');
       document.body.classList.remove('no-scroll');
       toggleRulsModal();
     }

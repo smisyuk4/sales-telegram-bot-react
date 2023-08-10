@@ -125,6 +125,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   };
 
   const toggleRulsModal = () => {
+    document.body.classList.remove('no-scroll');
     setIsOpenRuls(prev => !prev);
   };
 
