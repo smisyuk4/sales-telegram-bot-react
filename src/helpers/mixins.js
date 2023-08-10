@@ -121,6 +121,7 @@ export const textArea = () => {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 18px;
     line-height: 1.2;
+    color: var(--tg-main-text-color, #000);
 
     border-radius: 12px;
     border: 1px solid var(--tg-second-bg-color, #000);

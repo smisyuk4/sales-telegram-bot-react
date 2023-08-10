@@ -105,7 +105,7 @@ export const LoginForm = () => {
           <h2>Електронна пошта</h2>
           <InputStyled
             {...register('email', { required: true })}
-            placeholder="saler@gmail.com"
+            // placeholder="saler@gmail.com"
           />
         </LabelStyled>
 
@@ -113,7 +113,7 @@ export const LoginForm = () => {
           <h2>Пароль</h2>
           <InputStyled
             {...register('password', { required: true })}
-            placeholder="111111"
+            // placeholder="111111"
           />
         </LabelStyled>
 
