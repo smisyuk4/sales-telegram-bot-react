@@ -23,7 +23,7 @@ const LoginPage = () => {
             <>
               <ReturnButton
                 className="return"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/')}
                 type="button"
                 aria-label="return button"
               >

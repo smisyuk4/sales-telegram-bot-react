@@ -44,7 +44,7 @@ export const Container = styled.div`
 
   header {
     ${flexBox}
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--tg-main-text-color, #000);
   }
 `;
 

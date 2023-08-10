@@ -55,7 +55,7 @@ export const NavLinkStyled = styled(NavLink)`
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-  color: black;
+  color: var(--tg-main-text-color, #000);
   cursor: pointer;
 
   @media screen and (min-width: 480px) {
