@@ -8,12 +8,13 @@ This is a project that includes a frontend written on React and a backend writte
 - check the text content for the content of prohibited words
 - check photo content for the content of prohibited topics
 - take money for placing an ad in the channel (not implemented)
+- support color mode from telegram design
 
 
 ## Demo
 - [telegram bot](https://t.me/dev_test_july_bot)
 - [telegram test channel](https://t.me/dev_test_july_bot)
-
+- [video - dark mode](https://youtu.be/kcEEew8EkH4)
 
 
 ## Screenshots from channel
