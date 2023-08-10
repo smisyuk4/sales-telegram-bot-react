@@ -37,7 +37,7 @@ export const pageTitle = () => {
 };
 
 export const returnButton = () => {
-  return `color: #000;
+  return `color: var(--tg-second-text-color, #000);
     border: none;
     background-color: inherit;
     cursor: pointer;

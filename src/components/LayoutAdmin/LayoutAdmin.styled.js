@@ -1,6 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { flexBox, container, pageTitle, returnButton } from '../../helpers/mixins';
+import {
+  flexBox,
+  container,
+  pageTitle,
+  returnButton,
+} from '../../helpers/mixins';
 
 export const Container = styled.div`
   ${container}
@@ -34,7 +39,7 @@ export const AdminButtons = styled.button`
 export const NavList = styled.ul`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--tg-main-text-color, #000);
 `;
 
 export const NavItem = styled.li`
