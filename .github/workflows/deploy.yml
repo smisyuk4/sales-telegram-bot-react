@@ -48,6 +48,8 @@ jobs:
           VITE_CHANNEL_NAME: ${{  vars.VITE_CHANNEL_NAME  }}
           VITE_COLLECTION: ${{  vars.VITE_COLLECTION  }}
           VITE_PATH_TO_SERVER: ${{  vars.VITE_PATH_TO_SERVER  }}
+          VITE_LIQPAY_PRIVATE_KEY: ${{  vars.VITE_LIQPAY_PRIVATE_KEY  }}
+          VITE_LIQPAY_PUBLIC_KEY: ${{  vars.VITE_LIQPAY_PUBLIC_KEY  }}
         run: npm run build
 
       - name: Copy index.html to 404.html

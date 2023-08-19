@@ -4,6 +4,7 @@ import { checkPermission } from '../firebase/services';
 import { useTelegram } from '../hooks/telegramHook';
 import { BuyForm } from '../components/BuyForm/BuyForm';
 import { Message, MessageTransfer, BotLink } from './pagesStyle';
+import { LiqPay } from '../components/LiqPay/LiqPay';
 
 const { VITE_BOT_NAME } = import.meta.env;
 
@@ -60,6 +61,8 @@ const BuyPage = () => {
       <>
         {isShowAlert && <Message>{permissionMsg.text}</Message>}
         <BuyForm user={user} queryId={queryId} onClose={onClose} />
+
+        <LiqPay />
       </>
     );
   }
