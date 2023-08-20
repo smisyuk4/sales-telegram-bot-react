@@ -12,6 +12,7 @@ import { Loader } from '../Loader';
 import { BuySchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 import { salesApi } from '../../salesApi';
 import { isObjectEmpty } from '../../helpers/isObjectEmpty';
+import { NO_SCROLL } from '../../helpers/constants';
 
 import {
   FormStyled,
@@ -70,9 +71,9 @@ export const BuyForm = ({ user, queryId, onClose }) => {
 
   useEffect(() => {
     if (isLoading) {
-      document.body.classList.add('no-scroll');
+      document.body.classList.add(NO_SCROLL);
     } else {
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove(NO_SCROLL);
     }
   }, [isLoading]);
 
@@ -88,7 +89,7 @@ export const BuyForm = ({ user, queryId, onClose }) => {
   };
 
   const toggleRulsModal = () => {
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove(NO_SCROLL);
     setIsOpenRuls(prev => !prev);
   };
 

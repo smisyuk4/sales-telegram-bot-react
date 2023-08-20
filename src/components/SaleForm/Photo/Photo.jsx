@@ -17,6 +17,7 @@ import {
 import { salesApi } from '../../../salesApi';
 import { useTelegram } from '../../../hooks/telegramHook';
 import { TEXT_MSG } from '../../../firebase/errorsAndMessages';
+import { NO_SCROLL } from '../../../helpers/constants';
 
 Confirm.init({
   cssAnimationDuration: 'delay',
@@ -158,7 +159,6 @@ export const Photo = ({
 
     try {
       const { resultCheck } = await salesApi('/check-photo/one', formData);
-      console.log(resultCheck);
 
       if (resultCheck === TEXT_MSG.cannotConvert) {
         setPhotoError('Щось пішло не по плану. Спробуй з початку');
@@ -189,7 +189,7 @@ export const Photo = ({
 
   const getSomeFiles = () => {
     if (platform === 'android') {
-      document.body.classList.add('no-scroll');
+      document.body.classList.add(NO_SCROLL);
 
       Confirm.show(
         'Завантаження фотографій',
@@ -198,12 +198,12 @@ export const Photo = ({
         'Вийти',
         () => {
           document.getElementById('upfiles').click();
-          document.body.classList.remove('no-scroll');
+          document.body.classList.remove(NO_SCROLL);
         }
       );
     } else {
       document.getElementById('upfiles').click();
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove(NO_SCROLL);
     }
   };
 

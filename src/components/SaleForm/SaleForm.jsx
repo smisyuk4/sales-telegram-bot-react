@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import PropTypes from 'prop-types';
 
 import { isObjectEmpty } from '../../helpers/isObjectEmpty';
@@ -12,21 +12,8 @@ import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
 
-Notify.init({
-  borderRadius: '8px',
-  useIcon: false,
-  plainText: false,
-  fontSize: '18px',
-  success: {
-    textColor: '#ffd700',
-    background: '#0057b8',
-  },
-  failure: {
-    background: '#ff5549',
-  },
-});
-
 import { SaleSchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
+import { NO_SCROLL, PHOTO_URL } from '../../helpers/constants';
 import {
   FormStyled,
   LabelStyled,
@@ -34,9 +21,7 @@ import {
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
-  // PayButton,
 } from './SaleForm.styled';
-import { salesApi } from '../../salesApi';
 
 const DEFAULT_VALUES = {
   isAccept: false,
@@ -48,19 +33,18 @@ const DEFAULT_VALUES = {
   photoURL: [],
 };
 
-const AXIOS_CONFIG = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
-
-export const SaleForm = ({ user, queryId, onClose }) => {
+export const SaleForm = ({
+  user,
+  isLoading,
+  setIsLoading,
+  isShowPaymentPage,
+  getPaymentForm,
+}) => {
   const {
     register,
     handleSubmit,
     getValues,
     setValue,
-    reset,
     formState: { errors, isDirty, isValid },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
@@ -72,14 +56,14 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [isPermittedPhoto, setIsPermittedPhoto] = useState(undefined);
 
   useEffect(() => {
     if (isLoading) {
-      document.body.classList.add('no-scroll');
+      document.body.classList.add(NO_SCROLL);
     } else {
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove(NO_SCROLL);
     }
   }, [isLoading]);
 
@@ -95,14 +79,14 @@ export const SaleForm = ({ user, queryId, onClose }) => {
   };
 
   const removePhotos = () => {
-    setValue('photoURL', [], {
+    setValue(PHOTO_URL, [], {
       shouldValidate: true,
     });
     setIsPermittedPhoto(undefined);
   };
 
   const setPhotos = ({ isPermitted, photoURL }) => {
-    const oldPhotoURL = getValues('photoURL');
+    const oldPhotoURL = getValues(PHOTO_URL);
     const newPhotoURL = [...oldPhotoURL, ...photoURL];
 
     setIsPermittedPhoto(prev => {
@@ -119,41 +103,45 @@ export const SaleForm = ({ user, queryId, onClose }) => {
       }
     });
 
-    setValue('photoURL', newPhotoURL, {
+    setValue(PHOTO_URL, newPhotoURL, {
       shouldValidate: true,
     });
   };
 
   const toggleRulsModal = () => {
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove(NO_SCROLL);
     setIsOpenRuls(prev => !prev);
   };
 
   const onSubmit = async data => {
-    setIsLoading(true);
-    const dataPackage = JSON.stringify({ ...data, user, queryId });
+    delete data.photos;
+    isShowPaymentPage(true);
+    getPaymentForm(data);
 
-    try {
-      const checkContent = await salesApi(
-        '/web-data-sale',
-        dataPackage,
-        AXIOS_CONFIG
-      );
+    // setIsLoading(true);
+    // const dataPackage = JSON.stringify({ ...data, user, queryId });
 
-      if (checkContent) {
-        Notify.success(`Ваше оголошення відправлено!`);
-        onClose();
-        reset();
-        setIsChecked(false);
-        setIsLoading(false);
-        setDescLength(0);
-        setPreviewImage([]);
-        return;
-      }
-    } catch (error) {
-      Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
-      setIsLoading(false);
-    }
+    // try {
+    //   const checkContent = await salesApi(
+    //     '/web-data-sale',
+    //     dataPackage,
+    //     AXIOS_CONFIG
+    //   );
+
+    //   if (checkContent) {
+    //     Notify.success(`Ваше оголошення відправлено!`);
+    //     onClose();
+    //     reset();
+    //     setIsChecked(false);
+    //     setIsLoading(false);
+    //     setDescLength(0);
+    //     setPreviewImage([]);
+    //     return;
+    //   }
+    // } catch (error) {
+    //   Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
+    //   setIsLoading(false);
+    // }
   };
 
   const onErrors = data => {
@@ -163,15 +151,6 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     }
   };
 
-  // const openPayService = () => {
-  //   alert('Розробка ще триває');
-  // };
-  // console.log(
-  //   `isPermittedPhoto: ${isPermittedPhoto}, isDirty: ${isDirty}, isValid: ${isValid}, errors: ${!isObjectEmpty(
-  //     errors
-  //   )
-  // }`
-  // );
   return (
     <>
       {isLoading && <Loader />}
@@ -233,10 +212,6 @@ export const SaleForm = ({ user, queryId, onClose }) => {
           removePhotos={removePhotos}
         />
 
-        {/* <PayButton onClick={openPayService} type="button" aria-label="Send">
-          Оплата послуги
-        </PayButton> */}
-
         <ButtonStyled
           disabled={
             !isDirty || !isValid || !isPermittedPhoto || !isObjectEmpty(errors)
@@ -244,7 +219,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
           type="submit"
           aria-label="Send"
         >
-          Відправити
+          Перейти до оплати
         </ButtonStyled>
       </FormStyled>
     </>
@@ -253,6 +228,8 @@ export const SaleForm = ({ user, queryId, onClose }) => {
 
 SaleForm.propTypes = {
   user: PropTypes.string,
-  queryId: PropTypes.string,
-  onClose: PropTypes.func,
+  isLoading: PropTypes.bool,
+  setIsLoading: PropTypes.func,
+  isShowPaymentPage: PropTypes.func,
+  getPaymentForm: PropTypes.func,
 };

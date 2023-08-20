@@ -1,26 +1,117 @@
 import { useState, useEffect } from 'react';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { checkPermission } from '../firebase/services';
 import { useTelegram } from '../hooks/telegramHook';
+import { Loader } from '../components/Loader';
 import { SaleForm } from '../components/SaleForm';
 import { Message, MessageTransfer, BotLink } from './pagesStyle';
 
+import { makeValues } from '../helpers/liqpay';
+import { SUCCESS } from '../helpers/constants';
+import { salesApi } from '../salesApi';
+
 const { VITE_BOT_NAME } = import.meta.env;
+const AXIOS_CONFIG = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+Notify.init({
+  borderRadius: '8px',
+  useIcon: false,
+  plainText: false,
+  fontSize: '18px',
+  success: {
+    textColor: '#ffd700',
+    background: '#0057b8',
+  },
+  failure: {
+    background: '#ff5549',
+  },
+});
 
 const SalePage = () => {
-  const { user, onClose, queryId } = useTelegram();
+  const { user, queryId } = useTelegram();
   const [permissionMsg, setPermissionMsg] = useState({});
   const [isShowAlert, setIsShowAlert] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPaymentPage, isShowPaymentPage] = useState(false);
 
   useEffect(() => {
     const get = async () => {
-        //  const permResult = await checkPermission('smisyuk', 'sale');
+      // const permResult = await checkPermission('smisyuk', 'sale');
       const permResult = await checkPermission(user, 'sale');
 
       setPermissionMsg(permResult);
     };
     get();
   }, [user, setPermissionMsg]);
+
+  const getPaymentForm = async data => {
+    const { dataBase64, signatureBase64 } = await makeValues();
+
+    const SCRIPT_URL = 'https://static.liqpay.ua/libjs/checkout.js';
+    const container = document.body || document.head;
+    const script = document.createElement('script');
+    script.src = SCRIPT_URL;
+    script.onload = () => {
+      // eslint-disable-next-line no-undef
+      LiqPayCheckout.init({
+        data: dataBase64,
+        signature: signatureBase64,
+        embedTo: '#liqpay_checkout',
+        language: 'uk',
+        mode: 'embed', // embed || popup
+      })
+        .on('liqpay.callback', function ({ status, order_id, payment_id }) {
+          console.log('status ', status);
+
+          if (status === SUCCESS) {
+            sendToTelegram(data, order_id, payment_id);
+          }
+        })
+        .on('liqpay.ready', function (data) {
+          console.log(data);
+          // ready
+        })
+        .on('liqpay.close', function (data) {
+          console.log(data);
+          // close
+        });
+    };
+    container.appendChild(script);
+  };
+
+  const sendToTelegram = async (data, order_id, payment_id) => {
+    setIsLoading(true);
+
+    const dataPackage = JSON.stringify({
+      user,
+      queryId,
+      type: 'sale',
+      payment: true,
+      order_id,
+      payment_id,
+      ...data,
+    });
+    try {
+      const checkContent = await salesApi(
+        '/web-data-sale',
+        dataPackage,
+        AXIOS_CONFIG
+      );
+      if (checkContent) {
+        Notify.success(`Ваше оголошення відправлено!`);
+        setIsLoading(false);
+        return;
+      }
+    } catch (error) {
+      Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
+      setIsLoading(false);
+    }
+  };
 
   if (!user) {
   // if (user !== undefined) {
@@ -59,8 +150,19 @@ const SalePage = () => {
 
     return (
       <>
+        {isLoading && <Loader />}
         {isShowAlert && <Message>{permissionMsg.text}</Message>}
-        <SaleForm user={user} queryId={queryId} onClose={onClose} />
+        {showPaymentPage ? (
+          <div id="liqpay_checkout"></div>
+        ) : (
+          <SaleForm
+            user={user}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            isShowPaymentPage={isShowPaymentPage}
+            getPaymentForm={getPaymentForm}
+          />
+        )}
       </>
     );
   }

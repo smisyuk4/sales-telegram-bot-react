@@ -29,10 +29,6 @@ export const ErrorStyled = styled.span`
   ${errorMessage}
 `;
 
-export const PayButton = styled.button`
-  ${bigButton}
-`;
-
 export const ButtonStyled = styled.button`
   ${bigButton}
   ${sendButton}

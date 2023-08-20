@@ -6,6 +6,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { loginUser } from '../../firebase/services';
 import { TEXT_MSG } from '../../firebase/errorsAndMessages';
 import { Loader } from '../Loader';
+import { NO_SCROLL } from '../../helpers/constants';
 import { FormLoginStyled } from './LoginForm.styled';
 import {
   LabelStyled,
@@ -46,9 +47,9 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (isLoading) {
-      document.body.classList.add('no-scroll');
+      document.body.classList.add(NO_SCROLL);
     } else {
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove(NO_SCROLL);
     }
   }, [isLoading]);
 

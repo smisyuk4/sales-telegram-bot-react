@@ -1,20 +1,24 @@
-const { VITE_LIQPAY_PRIVATE_KEY, VITE_LIQPAY_PUBLIC_KEY } = import.meta.env;
+const {
+  VITE_AMOUNT,
+  VITE_DESCRIPTION,
+  VITE_LIQPAY_PRIVATE_KEY,
+  VITE_LIQPAY_PUBLIC_KEY,
+} = import.meta.env;
 import { v4 as uuidv4 } from 'uuid';
 
-export const makeValues = async (amount, description) => {
+export const makeValues = async () => {
   const order_id = uuidv4();
-  console.log('makeValues order_id =>>>>> ', order_id);
 
   const dataBase64 = btoa(
     JSON.stringify({
       version: '3',
       public_key: VITE_LIQPAY_PUBLIC_KEY,
       action: 'pay',
-      amount,
+      amount: VITE_AMOUNT,
       currency: 'UAH',
-      description,
+      description: VITE_DESCRIPTION,
       order_id,
-      result_url: 'https://smisyuk4.github.io/payment-services/liqpay',
+      // result_url: 'https://smisyuk4.github.io/payment-services/liqpay',
       server_url: 'https://payment-server-node.onrender.com/callback',
     })
   );
