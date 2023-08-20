@@ -59,6 +59,7 @@ export const formWrp = () => {
     flex-direction: column;
     max-width: 500px;
     gap: 20px;
+    margin-bottom: 250px;
   `;
 };
 
