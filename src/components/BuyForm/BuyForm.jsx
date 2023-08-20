@@ -10,7 +10,6 @@ import { Modal } from '../Modal';
 import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
 import { BuySchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
-import { salesApi } from '../../salesApi';
 import { isObjectEmpty } from '../../helpers/isObjectEmpty';
 import { NO_SCROLL } from '../../helpers/constants';
 
@@ -21,22 +20,7 @@ import {
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
-  // PayButton,
 } from './BuyForm.styled';
-
-Notify.init({
-  borderRadius: '8px',
-  useIcon: false,
-  plainText: false,
-  fontSize: '18px',
-  success: {
-    textColor: '#ffd700',
-    background: '#0057b8',
-  },
-  failure: {
-    background: '#ff5549',
-  },
-});
 
 const DEFAULT_VALUES = {
   isAccept: false,
@@ -45,19 +29,17 @@ const DEFAULT_VALUES = {
   contact: '',
 };
 
-const AXIOS_CONFIG = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
-
-export const BuyForm = ({ user, queryId, onClose }) => {
+export const BuyForm = ({
+  user,
+  isLoading,
+  isShowPaymentPage,
+  getPaymentForm,
+}) => {
   const {
     register,
     handleSubmit,
     getValues,
     setValue,
-    reset,
     formState: { errors, isValid, isDirty },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
@@ -67,7 +49,6 @@ export const BuyForm = ({ user, queryId, onClose }) => {
   const [descLength, setDescLength] = useState(0);
   const [isOpenRuls, setIsOpenRuls] = useState(false);
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
@@ -94,38 +75,14 @@ export const BuyForm = ({ user, queryId, onClose }) => {
   };
 
   const onSubmit = async data => {
-    setIsLoading(true);
-    const dataPackage = JSON.stringify({ ...data, user, queryId });
-
-    try {
-      const checkContent = await salesApi(
-        '/web-data-buy',
-        dataPackage,
-        AXIOS_CONFIG
-      );
-
-      if (checkContent) {
-        Notify.success(`Ваше оголошення відправлено!`);
-        onClose();
-        reset();
-        setIsChecked(false);
-        setIsLoading(false);
-        setDescLength(0);
-        return;
-      }
-    } catch (error) {
-      Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
-      setIsLoading(false);
-    }
+    isShowPaymentPage(true);
+    getPaymentForm(data);
   };
 
   const onErrors = data => {
     console.log('form onErrors', data);
   };
 
-  // const openPayService = () => {
-  //   alert('Розробка ще триває');
-  // };
   return (
     <>
       {isLoading && <Loader />}
@@ -170,16 +127,12 @@ export const BuyForm = ({ user, queryId, onClose }) => {
 
         <Contact register={register} setContact={setContact} errors={errors} />
 
-        {/* <PayButton onClick={openPayService} type="button" aria-label="Send">
-          Оплата послуги
-        </PayButton> */}
-
         <ButtonStyled
           disabled={!isDirty || !isValid || !isObjectEmpty(errors)}
           type="submit"
           aria-label="Send"
         >
-          Відправити
+          Перейти до оплати
         </ButtonStyled>
       </FormStyled>
     </>
@@ -188,6 +141,7 @@ export const BuyForm = ({ user, queryId, onClose }) => {
 
 BuyForm.propTypes = {
   user: PropTypes.string,
-  queryId: PropTypes.string,
-  onClose: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isShowPaymentPage: PropTypes.func,
+  getPaymentForm: PropTypes.func,
 };

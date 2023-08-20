@@ -56,7 +56,6 @@ export const SaleForm = ({
   const [isChecked, setIsChecked] = useState(getValues('isAccept'));
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
-  // const [isLoading, setIsLoading] = useState(false);
   const [isPermittedPhoto, setIsPermittedPhoto] = useState(undefined);
 
   useEffect(() => {
@@ -117,31 +116,6 @@ export const SaleForm = ({
     delete data.photos;
     isShowPaymentPage(true);
     getPaymentForm(data);
-
-    // setIsLoading(true);
-    // const dataPackage = JSON.stringify({ ...data, user, queryId });
-
-    // try {
-    //   const checkContent = await salesApi(
-    //     '/web-data-sale',
-    //     dataPackage,
-    //     AXIOS_CONFIG
-    //   );
-
-    //   if (checkContent) {
-    //     Notify.success(`Ваше оголошення відправлено!`);
-    //     onClose();
-    //     reset();
-    //     setIsChecked(false);
-    //     setIsLoading(false);
-    //     setDescLength(0);
-    //     setPreviewImage([]);
-    //     return;
-    //   }
-    // } catch (error) {
-    //   Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
-    //   setIsLoading(false);
-    // }
   };
 
   const onErrors = data => {
