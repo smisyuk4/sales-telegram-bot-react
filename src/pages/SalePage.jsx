@@ -10,6 +10,7 @@ import { Message, MessageTransfer, BotLink } from './pagesStyle';
 import { makeValues } from '../helpers/liqpay';
 import { SUCCESS } from '../helpers/constants';
 import { salesApi } from '../salesApi';
+import { decode } from '../helpers/cryptHashing';
 
 const { VITE_BOT_NAME } = import.meta.env;
 const AXIOS_CONFIG = {
@@ -33,6 +34,7 @@ Notify.init({
 });
 
 const SalePage = () => {
+  decode('car');
   const { user, queryId } = useTelegram();
   const [permissionMsg, setPermissionMsg] = useState({});
   const [isShowAlert, setIsShowAlert] = useState(true);
@@ -114,7 +116,7 @@ const SalePage = () => {
   };
 
   if (!user) {
-  // if (user !== undefined) {
+    // if (user !== undefined) {
     return (
       <>
         <MessageTransfer>

@@ -52,6 +52,7 @@ jobs:
           VITE_DESCRIPTION: ${{  vars.VITE_DESCRIPTION  }}
           VITE_LIQPAY_PRIVATE_KEY: ${{  vars.VITE_LIQPAY_PRIVATE_KEY  }}
           VITE_LIQPAY_PUBLIC_KEY: ${{  vars.VITE_LIQPAY_PUBLIC_KEY  }}
+          VITE_SALT: ${{  vars.VITE_SALT  }}
         run: npm run build
 
       - name: Copy index.html to 404.html

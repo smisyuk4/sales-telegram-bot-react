@@ -130,4 +130,5 @@ VITE_PATH_TO_SERVER=********
 - [Theme Params telegram bot](https://core.telegram.org/bots/webapps#themeparams)
 - [style input button](https://stackoverflow.com/questions/572768/styling-an-input-type-file-button)
 - [react-loader](https://mhnpd.github.io/react-loader-spinner/docs/components/mutating-dots/)
-
+- [How to hash password in React App, before sending it to the API](https://medium.com/boca-code/how-to-encrypt-password-in-your-react-app-before-you-send-it-to-the-api-6e10a06f0a8e)
+- [bcrypt npm](https://www.npmjs.com/package/bcrypt)
