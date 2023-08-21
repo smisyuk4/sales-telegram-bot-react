@@ -52,12 +52,19 @@ export const Photo = ({
   setPreviewImage,
   setIsLoading,
   removePhotos,
+  owner,
 }) => {
   const { user, onClose, queryId, platform } = useTelegram();
   const [multipleImages, setMultipleImages] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
   const [isFinishCheck, setIsFinishCheck] = useState(true);
   const [isFinishCheckOne, setIsFinishCheckOne] = useState(true);
+  const [checkSomePhotos, setCheckSomePhotos] = useState(
+    owner === 'admin' ? '/check-photo/some-by-admin' : '/check-photo/some'
+  );
+  const [checkOnePhoto, setCheckOnePhoto] = useState(
+    owner === 'admin' ? '/check-photo/one-by-admin' : '/check-photo/one'
+  );
 
   useEffect(() => {
     if (
@@ -73,28 +80,34 @@ export const Photo = ({
       setPhotoError('');
 
       try {
-        const { resultCheck } = await salesApi(
-          '/check-photo/some',
-          multipleImages
-        );
+        const { result } = await salesApi(checkSomePhotos, multipleImages);
+        console.log(result);
 
-        const searchError = resultCheck.find(
+        // if (owner === 'admin') {
+        //   setImagesAfterCheck(result);
+        //   const photoURL = result.map(({ imageURL }) => imageURL);
+        //   setPhotos({ isPermitted: true, photoURL });
+        //   return;
+        // }
+
+        const searchError = result.find(
           item => item === TEXT_MSG.cannotConvert
         );
         if (searchError) {
           setPhotoError('Щось пішло не по плану. Спробуй з початку');
         }
 
-        const status = resultCheck.map(({ isPermitted }) => isPermitted);
+        const status = result.map(({ isPermitted }) => isPermitted);
         const checkStatus = status.find(element => element === false);
 
         if (checkStatus === undefined) {
-          const photoURL = resultCheck.map(({ imageURL }) => imageURL);
+          const photoURL = result.map(({ imageURL }) => imageURL);
           setPhotos({ isPermitted: true, photoURL });
         }
 
-        setImagesAfterCheck(resultCheck);
+        setImagesAfterCheck(result);
       } catch (error) {
+        console.log('error', error);
         if (error.response?.data === TEXT_MSG.fileSize) {
           return setPhotoError('Заборонений розмір файлу');
         }
@@ -157,20 +170,21 @@ export const Photo = ({
     setPreviewImage(prev => [...prev, URL.createObjectURL(oneImage)]);
 
     try {
-      const { resultCheck } = await salesApi('/check-photo/one', formData);
-      console.log(resultCheck);
+      const { result } = await salesApi(checkOnePhoto, formData);
+      console.log(result);
 
-      if (resultCheck === TEXT_MSG.cannotConvert) {
+      if (result === TEXT_MSG.cannotConvert) {
         setPhotoError('Щось пішло не по плану. Спробуй з початку');
       }
 
       setPhotos({
-        isPermitted: resultCheck.isPermitted,
-        photoURL: [resultCheck.imageURL],
+        isPermitted: result.isPermitted,
+        photoURL: [result.imageURL],
       });
 
-      setImagesAfterCheck(prev => [...prev, resultCheck]);
+      setImagesAfterCheck(prev => [...prev, result]);
     } catch (error) {
+      console.log('error', error);
       if (error.response?.data === TEXT_MSG.fileSize) {
         return setPhotoError('Заборонений розмір файлу');
       }
@@ -292,4 +306,5 @@ Photo.propTypes = {
   setPreviewImage: PropTypes.func.isRequired,
   setIsLoading: PropTypes.func.isRequired,
   removePhotos: PropTypes.func.isRequired,
+  owner: PropTypes.string.isRequired,
 };

@@ -231,6 +231,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
           previewImage={previewImage}
           setIsLoading={setIsLoading}
           removePhotos={removePhotos}
+          owner='customer'
         />
 
         {/* <PayButton onClick={openPayService} type="button" aria-label="Send">
