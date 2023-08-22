@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 
-import { isObjectEmpty } from '../../helpers/isObjectEmpty';
+import { isObjectEmpty } from '../../helpers/objectMethods';
 import { Checkbox } from './Checkbox';
 import { Contact } from './Contact';
 import { Photo } from './Photo';
@@ -231,7 +231,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
           previewImage={previewImage}
           setIsLoading={setIsLoading}
           removePhotos={removePhotos}
-          owner='customer'
+          owner="customer"
         />
 
         {/* <PayButton onClick={openPayService} type="button" aria-label="Send">

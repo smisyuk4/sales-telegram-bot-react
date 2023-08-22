@@ -9,6 +9,7 @@ import {
   FormStyled,
   LabelStyled,
   TypeStyled,
+  PaymentStyled,
   InputStyled,
   TextAreaStyled,
   ErrorStyled,
@@ -19,6 +20,7 @@ import {
 import { LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 // import { NO_SCROLL, PHOTO_URL } from '../../helpers/constants';
 import { salesApi } from '../../salesApi';
+import { removeEmptyValues } from '../../helpers/objectMethods';
 
 Notify.init({
   borderRadius: '8px',
@@ -36,13 +38,14 @@ Notify.init({
 
 const DEFAULT_VALUES = {
   isAccept: true,
-  title: '',
-  description: '',
-  cost: '',
-  contact: '',
+  title: null,
+  description: null,
+  cost: null,
+  contact: null,
   photos: null,
-  photoURL: [],
-  customer: '',
+  photoURL: null,
+  customer: null,
+  payment: false,
 };
 
 const AXIOS_CONFIG = {
@@ -96,9 +99,9 @@ export const AdminForm = ({ queryId }) => {
     });
   };
 
-  const onSubmit = async data => {
+  const onSubmit = async obj => {
     setIsLoading(true);
-    delete data.photos;
+    const data = removeEmptyValues(obj);
 
     const dataPackage = JSON.stringify({ ...data, queryId });
 
@@ -181,6 +184,32 @@ export const AdminForm = ({ queryId }) => {
             </label>
           </RadioStyled>
         </TypeStyled>
+
+        <PaymentStyled>
+          <h2>Наявність оплати</h2>
+          <RadioStyled>
+            <label htmlFor="paidFor">
+              <input
+                {...register('payment', { required: true })}
+                type="radio"
+                value="true"
+                id="paidFor"
+              />
+              <h5>Оплачено</h5>
+            </label>
+
+            <label htmlFor="notPaid">
+              <input
+                {...register('payment', { required: true })}
+                type="radio"
+                value="false"
+                id="notPaid"
+                defaultChecked
+              />
+              <h5>Не оплачено</h5>
+            </label>
+          </RadioStyled>
+        </PaymentStyled>
 
         <LabelStyled>
           <h2>Опис товару</h2>

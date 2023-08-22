@@ -22,6 +22,10 @@ export const TypeStyled = styled.div`
   ${label}
 `;
 
+export const PaymentStyled = styled.div`
+  ${label}
+`;
+
 export const InputStyled = styled.input`
   ${input}
 `;
