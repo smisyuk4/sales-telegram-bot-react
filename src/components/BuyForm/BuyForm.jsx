@@ -11,7 +11,7 @@ import { Ruls } from '../Ruls';
 import { Loader } from '../Loader';
 import { BuySchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 import { salesApi } from '../../salesApi';
-import { isObjectEmpty } from '../../helpers/isObjectEmpty';
+import { isObjectEmpty } from '../../helpers/objectMethods';
 
 import {
   FormStyled,
