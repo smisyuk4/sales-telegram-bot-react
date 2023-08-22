@@ -17,7 +17,6 @@ import {
   RadioStyled,
 } from './AdminForm.styled';
 
-import { LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 // import { NO_SCROLL, PHOTO_URL } from '../../helpers/constants';
 import { salesApi } from '../../salesApi';
 import { removeEmptyValues } from '../../helpers/objectMethods';
@@ -43,8 +42,8 @@ const DEFAULT_VALUES = {
   cost: null,
   contact: null,
   photos: null,
-  photoURL: null,
-  customer: null,
+  photoURL: [],
+  user: null,
   payment: false,
 };
 
@@ -66,7 +65,6 @@ export const AdminForm = ({ queryId }) => {
     defaultValues: DEFAULT_VALUES,
     mode: 'onChange',
   });
-  const [descLength, setDescLength] = useState(0);
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -78,11 +76,6 @@ export const AdminForm = ({ queryId }) => {
       document.body.classList.remove('no-scroll');
     }
   }, [isLoading]);
-
-  const checkLength = ({ target }) => {
-    const differenceLen = LIMIT_CHAR_DESC - target.value.length;
-    setDescLength(prev => differenceLen);
-  };
 
   const removePhotos = () => {
     setValue('photoURL', [], {
@@ -116,12 +109,17 @@ export const AdminForm = ({ queryId }) => {
         Notify.success(`Ваше оголошення відправлено!`);
         reset();
         setIsLoading(false);
-        setDescLength(0);
         setPreviewImage([]);
         return;
       }
     } catch (error) {
-      Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
+      if (error.response) {
+        Notify.failure(
+          `Помилка відправки оголошення! <br> ${error.response.data.message}`
+        );
+      } else {
+        Notify.failure(`Помилка відправки оголошення! <br> ${error.message}`);
+      }
       setIsLoading(false);
     }
   };
@@ -153,10 +151,10 @@ export const AdminForm = ({ queryId }) => {
         <LabelStyled>
           <h2>Клієнт</h2>
           <InputStyled
-            {...register('customer', { required: true })}
+            {...register('user', { required: true })}
             placeholder="alex_mnko"
           />
-          {errors.customer && <ErrorStyled>Обов`язкове поле</ErrorStyled>}
+          {errors.user && <ErrorStyled>Обов`язкове поле</ErrorStyled>}
         </LabelStyled>
 
         <TypeStyled>
@@ -213,13 +211,8 @@ export const AdminForm = ({ queryId }) => {
 
         <LabelStyled>
           <h2>Опис товару</h2>
-          {descLength > 0 && <p>до {descLength} символів</p>}
           <TextAreaStyled
-            {...register(
-              'description',
-              { required: true },
-              { onChange: e => checkLength(e) }
-            )}
+            {...register('description', { required: true })}
             rows="2"
             cols="50"
             placeholder="Колір чорний, памʼять 256 GB..."
