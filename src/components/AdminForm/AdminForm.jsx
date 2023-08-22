@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import { yupResolver } from '@hookform/resolvers/yup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 
@@ -9,16 +8,17 @@ import { Photo } from '../SaleForm/Photo';
 import {
   FormStyled,
   LabelStyled,
+  TypeStyled,
   InputStyled,
   TextAreaStyled,
   ErrorStyled,
   ButtonStyled,
+  RadioStyled,
 } from './AdminForm.styled';
 
-import { AdminSchema, LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
+import { LIMIT_CHAR_DESC } from '../../helpers/validationSchema';
 // import { NO_SCROLL, PHOTO_URL } from '../../helpers/constants';
 import { salesApi } from '../../salesApi';
-import { isObjectEmpty } from '../../helpers/isObjectEmpty';
 
 Notify.init({
   borderRadius: '8px',
@@ -42,6 +42,7 @@ const DEFAULT_VALUES = {
   contact: '',
   photos: null,
   photoURL: [],
+  customer: '',
 };
 
 const AXIOS_CONFIG = {
@@ -57,17 +58,15 @@ export const AdminForm = ({ queryId }) => {
     getValues,
     setValue,
     reset,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
   } = useForm({
     defaultValues: DEFAULT_VALUES,
-    // resolver: yupResolver(AdminSchema),
     mode: 'onChange',
   });
   const [descLength, setDescLength] = useState(0);
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const [isPermittedPhoto, setIsPermittedPhoto] = useState(undefined);
 
   useEffect(() => {
     if (isLoading) {
@@ -86,27 +85,11 @@ export const AdminForm = ({ queryId }) => {
     setValue('photoURL', [], {
       shouldValidate: true,
     });
-    // setIsPermittedPhoto(undefined);
   };
 
   const setPhotos = ({ photoURL }) => {
     const oldPhotoURL = getValues('photoURL');
     const newPhotoURL = [...oldPhotoURL, ...photoURL];
-
-    // setIsPermittedPhoto(prev => {
-    //   if (prev === undefined) {
-    //     return isPermitted;
-    //   }
-
-    //   if (prev) {
-    //     return isPermitted;
-    //   }
-
-    //   if (!prev) {
-    //     return false;
-    //   }
-    // }
-    // );
 
     setValue('photoURL', newPhotoURL, {
       shouldValidate: true,
@@ -115,6 +98,8 @@ export const AdminForm = ({ queryId }) => {
 
   const onSubmit = async data => {
     setIsLoading(true);
+    delete data.photos;
+
     const dataPackage = JSON.stringify({ ...data, queryId });
 
     try {
@@ -153,42 +138,79 @@ export const AdminForm = ({ queryId }) => {
         onSubmit={handleSubmit(onSubmit, onErrors)}
         autoComplete="off"
       >
-        <h3> buy / sale</h3>
         <LabelStyled>
           <h2>Заголовок</h2>
           <InputStyled
-            {...register('title')}
+            {...register('title', { required: true })}
             placeholder="Продам Iphone 12 256 GB"
           />
-          <ErrorStyled>{errors.title?.message}</ErrorStyled>
+          {errors.title && <ErrorStyled>Обов`язкове поле</ErrorStyled>}
         </LabelStyled>
+
+        <LabelStyled>
+          <h2>Клієнт</h2>
+          <InputStyled
+            {...register('customer', { required: true })}
+            placeholder="alex_mnko"
+          />
+          {errors.customer && <ErrorStyled>Обов`язкове поле</ErrorStyled>}
+        </LabelStyled>
+
+        <TypeStyled>
+          <h2>Тип оголошення</h2>
+          <RadioStyled>
+            <label htmlFor="sale">
+              <input
+                {...register('type', { required: true })}
+                type="radio"
+                value="sale"
+                id="sale"
+                defaultChecked
+              />
+              <h5>Продати</h5>
+            </label>
+
+            <label htmlFor="buy">
+              <input
+                {...register('type', { required: true })}
+                type="radio"
+                value="buy"
+                id="buy"
+              />
+              <h5>Придбати</h5>
+            </label>
+          </RadioStyled>
+        </TypeStyled>
 
         <LabelStyled>
           <h2>Опис товару</h2>
           {descLength > 0 && <p>до {descLength} символів</p>}
           <TextAreaStyled
-            {...register('description', { onChange: e => checkLength(e) })}
+            {...register(
+              'description',
+              { required: true },
+              { onChange: e => checkLength(e) }
+            )}
             rows="2"
             cols="50"
             placeholder="Колір чорний, памʼять 256 GB..."
           />
-          <ErrorStyled>{errors.description?.message}</ErrorStyled>
+          {errors.description && <ErrorStyled>Обов`язкове поле</ErrorStyled>}
         </LabelStyled>
 
         <LabelStyled>
           <h2>Вартість, грн</h2>
           <InputStyled {...register('cost')} placeholder="14000" />
-          <ErrorStyled>{errors.cost?.message}</ErrorStyled>
         </LabelStyled>
 
         <LabelStyled>
           <h2>Контактна інформація</h2>
           <InputStyled
-            {...register('contact')}
+            {...register('contact', { required: true })}
             placeholder="Telegram/Номер телефону"
             className={'contact'}
           />
-          <ErrorStyled>{errors.contact?.message}</ErrorStyled>
+          {errors.contact && <ErrorStyled>Обов`язкове поле</ErrorStyled>}
         </LabelStyled>
 
         <Photo
@@ -203,11 +225,7 @@ export const AdminForm = ({ queryId }) => {
           owner="admin"
         />
 
-        <ButtonStyled
-          disabled={!isDirty || !isValid || !isObjectEmpty(errors)}
-          type="submit"
-          aria-label="Send"
-        >
+        <ButtonStyled type="submit" aria-label="Send">
           Відправити
         </ButtonStyled>
       </FormStyled>
@@ -216,7 +234,5 @@ export const AdminForm = ({ queryId }) => {
 };
 
 AdminForm.propTypes = {
-  user: PropTypes.string,
   queryId: PropTypes.string,
-  onClose: PropTypes.func,
 };

@@ -83,13 +83,6 @@ export const Photo = ({
         const { result } = await salesApi(checkSomePhotos, multipleImages);
         console.log(result);
 
-        // if (owner === 'admin') {
-        //   setImagesAfterCheck(result);
-        //   const photoURL = result.map(({ imageURL }) => imageURL);
-        //   setPhotos({ isPermitted: true, photoURL });
-        //   return;
-        // }
-
         const searchError = result.find(
           item => item === TEXT_MSG.cannotConvert
         );
