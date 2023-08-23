@@ -130,4 +130,8 @@ VITE_PATH_TO_SERVER=********
 - [Theme Params telegram bot](https://core.telegram.org/bots/webapps#themeparams)
 - [style input button](https://stackoverflow.com/questions/572768/styling-an-input-type-file-button)
 - [react-loader](https://mhnpd.github.io/react-loader-spinner/docs/components/mutating-dots/)
-
+- [firebase - The query requires an index](https://stackoverflow.com/questions/48698564/uncaught-in-promise-error-the-query-requires-an-index)
+- [The top 8 React chart libraries](https://blog.logrocket.com/top-8-react-chart-libraries/)
+- [echarts](https://www.npmjs.com/package/echarts)
+- [echarts.apache.org](https://echarts.apache.org/handbook/en/basics/import)
+- [repository w/charts](https://github.com/Nilo3/Sweet-Home/blob/c2d9c972225a0a4ec3086d9ff717db398bd79bce/client/src/views/Dashboard%20Admin/Chart.jsx#L4)

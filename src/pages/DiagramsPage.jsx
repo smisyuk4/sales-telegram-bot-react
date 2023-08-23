@@ -1,12 +1,10 @@
+import { Diagrams } from '../components/Diagrams/Diagrams';
+
 const DiagramsPage = () => {
   return (
-    <div>
-      <p>Всього підписалось користувачів: 100500</p>
-      <p>Кількість оголошень "Купи": 1000</p>
-      <p>Кількість оголошень "Продай": 6000</p>
-      <b>    * калькуляція не працює</b>
-  
-    </div>
+    <>
+      <Diagrams />
+    </>
   );
 };
 
