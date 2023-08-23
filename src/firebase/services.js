@@ -6,6 +6,7 @@ import {
   collectionGroup,
   getCountFromServer,
   addDoc,
+  getDoc,
   getDocs,
   query,
   where,
@@ -56,6 +57,13 @@ export const getCountAdvertisement = async type => {
   const snapshot = await getCountFromServer(q);
 
   return snapshot.data().count;
+};
+
+export const getCountSubscribers = async () => {
+  const docRef = doc(db, VITE_COLLECTION, 'countSubscriber');
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data();
 };
 
 // export const getData = async type => {
