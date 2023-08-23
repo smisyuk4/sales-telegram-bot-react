@@ -130,4 +130,4 @@ VITE_PATH_TO_SERVER=********
 - [Theme Params telegram bot](https://core.telegram.org/bots/webapps#themeparams)
 - [style input button](https://stackoverflow.com/questions/572768/styling-an-input-type-file-button)
 - [react-loader](https://mhnpd.github.io/react-loader-spinner/docs/components/mutating-dots/)
-
+- [firebase - The query requires an index](https://stackoverflow.com/questions/48698564/uncaught-in-promise-error-the-query-requires-an-index)

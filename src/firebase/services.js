@@ -1,7 +1,16 @@
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import { db, auth } from '../firebase/firebase.config';
-import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  collectionGroup,
+  getCountFromServer,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  doc,
+} from 'firebase/firestore';
 import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
 import { uk } from 'date-fns/locale';
 
@@ -42,6 +51,32 @@ export const logoutUser = async () => {
 //   }
 // };
 
+export const getCountAdvertisement = async type => {
+  const q = query(collectionGroup(db, 'messages'), where('type', '==', type));
+  const snapshot = await getCountFromServer(q);
+
+  return snapshot.data().count;
+};
+
+// export const getData = async type => {
+//   console.log('VITE_COLLECTION', VITE_COLLECTION);
+
+//   let data = [];
+
+//   const q = query(collectionGroup(db, 'messages'), where('type', '==', type));
+
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach(doc => {
+//     const msg = {
+//       msgId: doc.id,
+//       ...doc.data(),
+//     };
+//     data = [...data, msg];
+//   });
+
+//   return data.length;
+// };
+
 export const getDatafromDb = async (user, type) => {
   if (!user) {
     return;
@@ -55,8 +90,8 @@ export const getDatafromDb = async (user, type) => {
   );
 
   const querySnapshot = await getDocs(q);
-
   querySnapshot.forEach(doc => {
+    console.log(doc);
     const msg = {
       msgId: doc.id,
       ...doc.data(),
