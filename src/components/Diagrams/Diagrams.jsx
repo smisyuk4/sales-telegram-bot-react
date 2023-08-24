@@ -54,15 +54,15 @@ export const Diagrams = () => {
         trigger: 'item',
       },
       legend: {
-        orient: 'vertical',
-        left: 'left',
+        show: false,
+        // orient: 'vertical',
+        // left: 'left',
       },
       series: [
         {
           name: 'Оголошення',
           type: 'pie',
-
-          radius: '50%',
+          radius: '75%',
           color: ['#FFD700', '#0057B8'],
           data: [
             { value: saleCount, name: `Продаж ${saleCount} шт` },
@@ -71,6 +71,10 @@ export const Diagrams = () => {
               name: `Купівля ${buyCount} шт`,
             },
           ],
+          label: {
+            position: 'inside',
+            fontWeight: 'bold',
+          },
         },
       ],
     };
@@ -96,14 +100,13 @@ export const Diagrams = () => {
         trigger: 'item',
       },
       legend: {
-        orient: 'vertical',
-        left: 'left',
+        show: false,
       },
       series: [
         {
           name: 'Підписники',
           type: 'pie',
-          radius: '50%',
+          radius: '75%',
           color: ['#70e832', '#ff2f2f'],
           data: [
             {
@@ -115,6 +118,10 @@ export const Diagrams = () => {
               name: `Пішли ${count} шт`,
             },
           ],
+          label: {
+            position: 'inside',
+            fontWeight: 'bold',
+          },
         },
       ],
     };
@@ -130,3 +137,5 @@ export const Diagrams = () => {
     </DivStyled>
   );
 };
+
+// https://echarts.apache.org/en/option.html#legend.show
