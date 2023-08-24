@@ -41,7 +41,13 @@ export const Diagrams = () => {
     const options = {
       title: {
         text: 'Оголошення в каналі',
+        textStyle: {
+          color: '#000',
+        },
         subtext: `Всього ${saleCount + buyCount} шт`,
+        subtextStyle: {
+          color: '#000',
+        },
         left: 'center',
       },
       tooltip: {
@@ -53,20 +59,18 @@ export const Diagrams = () => {
       },
       series: [
         {
-          name: 'Access From',
+          name: 'Оголошення',
           type: 'pie',
+
           radius: '50%',
+          color: ['#FFD700', '#0057B8'],
           data: [
             { value: saleCount, name: `Продаж ${saleCount} шт` },
-            { value: buyCount, name: `Купівля ${buyCount} шт` },
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
+            {
+              value: buyCount,
+              name: `Купівля ${buyCount} шт`,
             },
-          },
+          ],
         },
       ],
     };
@@ -79,6 +83,7 @@ export const Diagrams = () => {
       return;
     }
 
+    const count = subscribersCount.signedUp - subscribersCount.remains;
     const chartSubscribers = echarts.init(chartSubscribersRef.current);
 
     const options = {
@@ -96,28 +101,20 @@ export const Diagrams = () => {
       },
       series: [
         {
-          name: 'Access From',
+          name: 'Підписники',
           type: 'pie',
           radius: '50%',
+          color: ['#70e832', '#ff2f2f'],
           data: [
             {
-              value: subscribersCount.signedUp,
+              value: subscribersCount.remains,
               name: `Залишились ${subscribersCount.remains} шт`,
             },
             {
-              value: subscribersCount.signedUp - subscribersCount.remains,
-              name: `Пішли ${
-                subscribersCount.signedUp - subscribersCount.remains
-              } шт`,
+              value: count,
+              name: `Пішли ${count} шт`,
             },
           ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
-            },
-          },
         },
       ],
     };
@@ -128,7 +125,7 @@ export const Diagrams = () => {
   return (
     <DivStyled>
       <DiagramStyled ref={chartTypeRef} />
-      <SubscribersForm />
+      <SubscribersForm signedUp={subscribersCount.signedUp} />
       <DiagramStyled ref={chartSubscribersRef} />
     </DivStyled>
   );

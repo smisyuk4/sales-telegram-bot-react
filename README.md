@@ -134,4 +134,6 @@ VITE_PATH_TO_SERVER=********
 - [The top 8 React chart libraries](https://blog.logrocket.com/top-8-react-chart-libraries/)
 - [echarts](https://www.npmjs.com/package/echarts)
 - [echarts.apache.org](https://echarts.apache.org/handbook/en/basics/import)
+- [echartsInstance.setOption](https://echarts.apache.org/en/api.html#echartsInstance.setOption)
+- [Overview of Style Customization](https://echarts.apache.org/handbook/en/concepts/style/)
 - [repository w/charts](https://github.com/Nilo3/Sweet-Home/blob/c2d9c972225a0a4ec3086d9ff717db398bd79bce/client/src/views/Dashboard%20Admin/Chart.jsx#L4)

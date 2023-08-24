@@ -11,6 +11,7 @@ import {
   query,
   where,
   doc,
+  setDoc,
 } from 'firebase/firestore';
 import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
 import { uk } from 'date-fns/locale';
@@ -53,17 +54,46 @@ export const logoutUser = async () => {
 // };
 
 export const getCountAdvertisement = async type => {
-  const q = query(collectionGroup(db, 'messages'), where('type', '==', type));
-  const snapshot = await getCountFromServer(q);
+  try {
+    const q = query(collectionGroup(db, 'messages'), where('type', '==', type));
+    const snapshot = await getCountFromServer(q);
 
-  return snapshot.data().count;
+    return snapshot.data().count;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getCountSubscribers = async () => {
-  const docRef = doc(db, VITE_COLLECTION, 'countSubscriber');
-  const docSnap = await getDoc(docRef);
+  try {
+    const docRef = doc(db, VITE_COLLECTION, 'countSubscriber');
+    const docSnap = await getDoc(docRef);
 
-  return docSnap.data();
+    return docSnap.data();
+  } catch (error) {
+    return error;
+  }
+};
+
+export const setCountSubscribers = async (signedUp, count) => {
+  const docRef = doc(db, VITE_COLLECTION, 'countSubscriber');
+
+  try {
+    const result = await setDoc(docRef, {
+      signedUp: signedUp,
+      remains: Number(count),
+    })
+      .then(() => {
+        return 'Запис в базі оновлено';
+      })
+      .catch(error => {
+        return error.code;
+      });
+
+    return result;
+  } catch (error) {
+    return error;
+  }
 };
 
 // export const getData = async type => {
@@ -91,23 +121,26 @@ export const getDatafromDb = async (user, type) => {
   }
 
   let data = [];
+  try {
+    const q = query(
+      collection(db, VITE_COLLECTION, user, 'messages'),
+      where('type', '==', type)
+    );
 
-  const q = query(
-    collection(db, VITE_COLLECTION, user, 'messages'),
-    where('type', '==', type)
-  );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => {
+      console.log(doc);
+      const msg = {
+        msgId: doc.id,
+        ...doc.data(),
+      };
+      data = [...data, msg];
+    });
 
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach(doc => {
-    console.log(doc);
-    const msg = {
-      msgId: doc.id,
-      ...doc.data(),
-    };
-    data = [...data, msg];
-  });
-
-  return data;
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const checkPermission = async (user, type) => {
@@ -124,17 +157,20 @@ export const checkPermission = async (user, type) => {
       text: `Привіт мій володарю!`,
     };
   }
+  try {
+    const data = await getDatafromDb(user, type);
+    if (data.length === 0) {
+      return {
+        permission: true,
+        text: 'Це буде перше оголошення',
+      };
+    }
 
-  const data = await getDatafromDb(user, type);
-  if (data.length === 0) {
-    return {
-      permission: true,
-      text: 'Це буде перше оголошення',
-    };
+    const lastMsg = data[data.length - 1];
+    return dateConverter(lastMsg.updatedAt.seconds);
+  } catch (error) {
+    return error;
   }
-
-  const lastMsg = data[data.length - 1];
-  return dateConverter(lastMsg.updatedAt.seconds);
 };
 
 const dateConverter = timestamp => {
