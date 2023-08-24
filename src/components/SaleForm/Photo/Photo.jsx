@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { RiLoaderLine } from 'react-icons/ri';
 import { HiOutlinePlus, HiArrowPath, HiArchiveBoxXMark } from 'react-icons/hi2';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
@@ -53,8 +52,9 @@ export const Photo = ({
   setIsLoading,
   removePhotos,
   owner,
+  type,
 }) => {
-  const { user, onClose, queryId, platform } = useTelegram();
+  const { platform } = useTelegram();
   const [multipleImages, setMultipleImages] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
   const [isFinishCheck, setIsFinishCheck] = useState(true);
@@ -117,11 +117,16 @@ export const Photo = ({
       }
     };
     fetch();
-  }, [multipleImages]); //, setPhotos, setIsFinishCheck, setIsLoading, setPhotoError
+  }, [multipleImages]);
 
   const changeMultipleFiles = e => {
     setPreviewImage([]);
     setImagesAfterCheck([]);
+
+    if (type === 'buy') {
+      Notify.success(`До оголошень купівлі! <br> не додаються фото`);
+      return;
+    }
 
     if (!e.target.files) {
       return;
@@ -149,6 +154,11 @@ export const Photo = ({
   };
 
   const androidGetFile = async e => {
+    if (type === 'buy') {
+      Notify.success(`До оголошень купівлі! <br> не додаються фото`);
+      return;
+    }
+
     if (!e.target.files[0]) {
       return;
     }
@@ -300,4 +310,5 @@ Photo.propTypes = {
   setIsLoading: PropTypes.func.isRequired,
   removePhotos: PropTypes.func.isRequired,
   owner: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
