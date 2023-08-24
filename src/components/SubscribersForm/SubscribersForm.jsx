@@ -31,7 +31,7 @@ export const SubscribersForm = ({ signedUp }) => {
 
   return (
     <>
-      <TitleStyled>Ввести кількість підписників в каналі</TitleStyled>
+      <TitleStyled>Ввести поточну кількість</TitleStyled>
 
       <FormStyled>
         <input
