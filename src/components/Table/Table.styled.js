@@ -8,6 +8,7 @@ export const TableStyled = styled.table`
 
   font-size: 14px;
   color: var(--tg-main-text-color, #000);
+  border-bottom: 2px solid var(--tg-main-text-color, #000);
 
   .number {
     width: 10%;
@@ -18,11 +19,11 @@ export const TableStyled = styled.table`
   }
 
   .user {
-    width: 20%;
+    width: 22%;
   }
 
   .title {
-    width: 40%;
+    width: 45%;
   }
 
   thead {

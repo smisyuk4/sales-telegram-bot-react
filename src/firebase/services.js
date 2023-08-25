@@ -166,7 +166,6 @@ export const getDatafromDb = async (user, type) => {
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(doc => {
-      console.log(doc);
       const msg = {
         msgId: doc.id,
         ...doc.data(),

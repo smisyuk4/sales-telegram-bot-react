@@ -4,7 +4,7 @@ import { LiStyled, ErrorStyled, ImageStyled } from './ImageListItem.styled';
 export const ImageListItem = ({ link, isPermitted }) => {
   return (
     <LiStyled>
-      {isPermitted === false ? (
+      {isPermitted === undefined ? null : isPermitted === false ? (
         <ErrorStyled>
           Зaміни
           <br />

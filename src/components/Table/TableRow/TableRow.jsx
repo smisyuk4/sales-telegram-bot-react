@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import EllipsisText from 'react-ellipsis-text';
+
 import { dateConverterAdminSide } from '../../../helpers/date';
-import { DivStyled } from './TableRow.styled';
 
 export const TableRow = ({ item, num, openModal }) => {
   const { createdAt, user, title } = item;
@@ -10,10 +11,10 @@ export const TableRow = ({ item, num, openModal }) => {
       <tr onClick={() => openModal(item)}>
         <td className="number">{num}</td>
         <td className="date">
-          {dateConverterAdminSide(createdAt?.seconds, 'dd.MM.yyyy')}
+          {dateConverterAdminSide(createdAt?.seconds, 'dd.MM.yy')}
         </td>
-        <td className="user">{user}</td>
-        <td className="title">{title}</td>
+        <td className="user">{<EllipsisText text={user} length={8} />}</td>
+        <td className="title">{<EllipsisText text={title} length={28} />}</td>
       </tr>
     </>
   );
@@ -24,37 +25,3 @@ TableRow.propTypes = {
   num: PropTypes.number.isRequired,
   openModal: PropTypes.func.isRequired,
 };
-
-// contact
-// :
-// "@smisyuk"
-// cost
-// :
-// "14134"
-// createdAt
-// :
-// Timestamp {seconds: 1691104059, nanoseconds: 969000000}
-// description
-// :
-// "Qwerwerwe"
-// msgId
-// :
-// "1691104059967"
-// payment
-// :
-// false
-// photoURL
-// :
-// ['https://storage.googleapis.com/photo-for-sales-chanel/1691104049429_9W5RAO4d.kpCNvSAYW.jpg']
-// title
-// :
-// "Qweqweq"
-// type
-// :
-// "sale"
-// updatedAt
-// :
-// Timestamp {seconds: 1691104059, nanoseconds: 969000000}
-// user
-// :
-// "smisyuk"
