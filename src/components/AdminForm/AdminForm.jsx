@@ -45,6 +45,7 @@ const DEFAULT_VALUES = {
   photoURL: [],
   user: null,
   payment: false,
+  type: 'sale',
 };
 
 const AXIOS_CONFIG = {
@@ -68,6 +69,7 @@ export const AdminForm = ({ queryId }) => {
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [typeAdvertisement, setTypeAdvertisement] = useState('sale');
 
   useEffect(() => {
     if (isLoading) {
@@ -167,6 +169,7 @@ export const AdminForm = ({ queryId }) => {
                 value="sale"
                 id="sale"
                 defaultChecked
+                onChange={e => setTypeAdvertisement(e.target.value)}
               />
               <h5>Продати</h5>
             </label>
@@ -177,6 +180,7 @@ export const AdminForm = ({ queryId }) => {
                 type="radio"
                 value="buy"
                 id="buy"
+                onChange={e => setTypeAdvertisement(e.target.value)}
               />
               <h5>Придбати</h5>
             </label>
@@ -245,6 +249,7 @@ export const AdminForm = ({ queryId }) => {
           setIsLoading={setIsLoading}
           removePhotos={removePhotos}
           owner="admin"
+          type={typeAdvertisement}
         />
 
         <ButtonStyled type="submit" aria-label="Send">
