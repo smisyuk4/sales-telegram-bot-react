@@ -11,6 +11,7 @@ export const Table = () => {
   const [typeAdvertisement, setTypeAdvertisement] = useState('all');
   const [data, setData] = useState([]);
   const [isOpenDetails, setIsOpenDetails] = useState(false);
+  const [advertisement, setAdvertisement] = useState({});
 
   useEffect(() => {
     const get = async () => {
@@ -29,8 +30,9 @@ export const Table = () => {
   };
 
   const openModal = data => {
-    console.log(data);
+    // console.log(data);
     toggleModal();
+    setAdvertisement(prev => data);
   };
 
   // console.log('data ', data);
@@ -38,7 +40,7 @@ export const Table = () => {
     <>
       {isOpenDetails && (
         <Modal toggleModal={toggleModal}>
-          <Details />
+          <Details advertisement={advertisement} />
         </Modal>
       )}
       <div>

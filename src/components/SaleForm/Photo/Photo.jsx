@@ -174,7 +174,6 @@ export const Photo = ({
 
     try {
       const { result } = await salesApi(checkOnePhoto, formData);
-      console.log(result);
 
       if (result === TEXT_MSG.cannotConvert) {
         setPhotoError('Щось пішло не по плану. Спробуй з початку');

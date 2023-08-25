@@ -11,6 +11,6 @@ export const FormStyled = styled.form`
   select {
     ${input}
     padding: 5px 5px;
-    width: 100px;
+    width: 130px;
   }
 `;
