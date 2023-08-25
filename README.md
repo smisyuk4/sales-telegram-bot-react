@@ -138,3 +138,7 @@ VITE_PATH_TO_SERVER=********
 - [Overview of Style Customization](https://echarts.apache.org/handbook/en/concepts/style/)
 - [option.html#title](https://echarts.apache.org/en/option.html#title)
 - [repository w/charts](https://github.com/Nilo3/Sweet-Home/blob/c2d9c972225a0a4ec3086d9ff717db398bd79bce/client/src/views/Dashboard%20Admin/Chart.jsx#L4)
+
+# firestore 
+- [Order and limit data with Cloud Firestore](https://firebase.google.com/docs/firestore/query-data/order-limit-data)
+- [firestore select where is not null](https://stackoverflow.com/questions/48479532/firestore-select-where-is-not-null/48481812#48481812)

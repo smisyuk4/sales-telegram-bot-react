@@ -1,9 +1,9 @@
-import { NotifyTable } from '../components/NotifyTable/NotifyTable';
+import { Table } from '../components/Table';
 
 const NotifyPage = () => {
   return (
     <>
-      <NotifyTable />
+      <Table />
     </>
   );
 };

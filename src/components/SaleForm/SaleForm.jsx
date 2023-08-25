@@ -124,7 +124,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     });
   };
 
-  const toggleRulsModal = () => {
+  const toggleModal = () => {
     document.body.classList.remove('no-scroll');
     setIsOpenRuls(prev => !prev);
   };
@@ -181,7 +181,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
     <>
       {isLoading && <Loader />}
       {isOpenRuls && (
-        <Modal toggleRulsModal={toggleRulsModal}>
+        <Modal toggleModal={toggleModal}>
           <Ruls />
         </Modal>
       )}
@@ -194,7 +194,7 @@ export const SaleForm = ({ user, queryId, onClose }) => {
           register={register}
           setIsChecked={setIsChecked}
           isChecked={isChecked}
-          toggleRulsModal={toggleRulsModal}
+          toggleModal={toggleModal}
           errors={errors}
         />
 

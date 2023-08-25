@@ -10,11 +10,13 @@ import {
   getDocs,
   query,
   where,
+  orderBy,
   doc,
   setDoc,
 } from 'firebase/firestore';
-import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
-import { uk } from 'date-fns/locale';
+import { dateConverterClientSide } from '../helpers/date';
+// import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
+// import { uk } from 'date-fns/locale';
 
 const { VITE_COLLECTION } = import.meta.env;
 
@@ -96,24 +98,59 @@ export const setCountSubscribers = async (signedUp, count) => {
   }
 };
 
-// export const getData = async type => {
-//   console.log('VITE_COLLECTION', VITE_COLLECTION);
+export const getDataByFilter = async type => {
+  let data = [];
 
-//   let data = [];
+  if (type === 'all') {
+    return getAll();
+  }
 
-//   const q = query(collectionGroup(db, 'messages'), where('type', '==', type));
+  try {
+    const condition = query(
+      collectionGroup(db, 'messages'),
+      where('type', '==', type),
+      orderBy('createdAt')
+    );
 
-//   const querySnapshot = await getDocs(q);
-//   querySnapshot.forEach(doc => {
-//     const msg = {
-//       msgId: doc.id,
-//       ...doc.data(),
-//     };
-//     data = [...data, msg];
-//   });
+    const querySnapshot = await getDocs(condition);
+    querySnapshot.forEach(doc => {
+      const msg = {
+        msgId: doc.id,
+        ...doc.data(),
+      };
+      data = [...data, msg];
+    });
 
-//   return data.length;
-// };
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAll = async () => {
+  let data = [];
+
+  try {
+    const condition = collectionGroup(db, 'messages');
+
+    const querySnapshot = await getDocs(condition);
+    querySnapshot.forEach(doc => {
+      const msg = {
+        msgId: doc.id,
+        ...doc.data(),
+      };
+      data = [...data, msg];
+    });
+
+    const sortedByDate = data.sort(
+      (first, second) => first.createdAt.seconds - second.createdAt.seconds
+    );
+
+    return sortedByDate;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const getDatafromDb = async (user, type) => {
   if (!user) {
@@ -167,49 +204,49 @@ export const checkPermission = async (user, type) => {
     }
 
     const lastMsg = data[data.length - 1];
-    return dateConverter(lastMsg.updatedAt.seconds);
+    return dateConverterClientSide(lastMsg.updatedAt.seconds);
   } catch (error) {
     return error;
   }
 };
 
-const dateConverter = timestamp => {
-  const limit = 60; //minutes
-  const date = new Date(timestamp * 1000);
+// const dateConverter = timestamp => {
+//   const limit = 60; //minutes
+//   const date = new Date(timestamp * 1000);
 
-  const timeBetween = formatDistanceToNowStrict(date, {
-    unit: 'minute',
-    locale: uk,
-  });
+//   const timeBetween = formatDistanceToNowStrict(date, {
+//     unit: 'minute',
+//     locale: uk,
+//   });
 
-  let minutes = timeBetween.split(' ');
-  minutes = Number(minutes[0]);
+//   let minutes = timeBetween.split(' ');
+//   minutes = Number(minutes[0]);
 
-  const difference = limit - minutes;
+//   const difference = limit - minutes;
 
-  if (difference === 60) {
-    return {
-      permission: false,
-      text: `До розміщення наступного оголошення \nзалишилaсь 01 : 00 год`,
-    };
-  }
+//   if (difference === 60) {
+//     return {
+//       permission: false,
+//       text: `До розміщення наступного оголошення \nзалишилaсь 01 : 00 год`,
+//     };
+//   }
 
-  if (minutes < limit) {
-    return {
-      permission: false,
-      text: `До розміщення наступного оголошення \nзалишилось 00 : ${difference} хв`,
-    };
-  }
+//   if (minutes < limit) {
+//     return {
+//       permission: false,
+//       text: `До розміщення наступного оголошення \nзалишилось 00 : ${difference} хв`,
+//     };
+//   }
 
-  const timeBetweenLastMsg = formatDistance(date, new Date(), {
-    locale: uk,
-  });
+//   const timeBetweenLastMsg = formatDistance(date, new Date(), {
+//     locale: uk,
+//   });
 
-  return {
-    permission: true,
-    text: `Ваше останнє оголошення було \nопубліковано ${timeBetweenLastMsg} тому`,
-  };
-};
+//   return {
+//     permission: true,
+//     text: `Ваше останнє оголошення було \nопубліковано ${timeBetweenLastMsg} тому`,
+//   };
+// };
 
 // https://date-fns.org/v2.30.0/docs/formatDistance
 // https://date-fns.org/v2.30.0/docs/formatDistanceToNowStrict

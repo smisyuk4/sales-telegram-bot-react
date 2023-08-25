@@ -45,7 +45,12 @@ img,
 button,
 input,
 ul,
-li {
+li,
+th,
+tr,
+td,
+tbody,
+thead {
   padding: 0;
   margin: 0;
 }
