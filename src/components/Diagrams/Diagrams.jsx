@@ -29,7 +29,7 @@ export const Diagrams = () => {
     };
 
     get();
-  }, []);
+  }, [subscribersCount]);
 
   useEffect(() => {
     if (saleCount == 0 && buyCount === 0) {

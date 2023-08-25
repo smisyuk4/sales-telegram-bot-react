@@ -30,12 +30,10 @@ export const Table = () => {
   };
 
   const openModal = data => {
-    // console.log(data);
     toggleModal();
     setAdvertisement(prev => data);
   };
 
-  // console.log('data ', data);
   return (
     <>
       {isOpenDetails && (
