@@ -54,6 +54,7 @@ export const Photo = ({
   owner,
   type,
 }) => {
+  console.log(type);
   const { platform } = useTelegram();
   const [multipleImages, setMultipleImages] = useState([]);
   const [imagesAfterCheck, setImagesAfterCheck] = useState([]);
