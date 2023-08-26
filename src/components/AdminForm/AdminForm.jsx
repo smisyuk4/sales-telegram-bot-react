@@ -69,7 +69,7 @@ export const AdminForm = ({ queryId }) => {
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [typeAdvertisement, setTypeAdvertisement] = useState('sale');
+  const [typeAdvertisement, setTypeAdvertisement] = useState('');
 
   useEffect(() => {
     if (isLoading) {
