@@ -45,7 +45,7 @@ const DEFAULT_VALUES = {
   photoURL: [],
   user: null,
   payment: false,
-  type: 'sale',
+  type: '',
 };
 
 const AXIOS_CONFIG = {
