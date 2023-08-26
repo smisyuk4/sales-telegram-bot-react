@@ -69,7 +69,6 @@ export const AdminForm = ({ queryId }) => {
   const [previewImage, setPreviewImage] = useState([]);
   const [photoError, setPhotoError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const [typeAdvertisement, setTypeAdvertisement] = useState('');
 
   useEffect(() => {
     if (isLoading) {
@@ -134,12 +133,6 @@ export const AdminForm = ({ queryId }) => {
     }
   };
 
-  // const handlerChangeType = ({ target }) => {
-  //   console.log(target.value);
-  //   alert(target.value);
-  //   setTypeAdvertisement(prev => target.value);
-  // };
-
   return (
     <>
       {isLoading && <Loader />}
@@ -176,7 +169,6 @@ export const AdminForm = ({ queryId }) => {
                 value="sale"
                 id="sale"
                 defaultChecked
-                // onChange={e => handlerChangeType(e)}
               />
               <h5>Продати</h5>
             </label>
@@ -187,7 +179,6 @@ export const AdminForm = ({ queryId }) => {
                 type="radio"
                 value="buy"
                 id="buy"
-                // onChange={e => handlerChangeType(e)}
               />
               <h5>Придбати</h5>
             </label>
