@@ -6,6 +6,7 @@ import {
   collectionGroup,
   getCountFromServer,
   addDoc,
+  updateDoc,
   getDoc,
   getDocs,
   query,
@@ -66,24 +67,23 @@ export const getCountAdvertisement = async type => {
   }
 };
 
-export const getCountSubscribers = async () => {
+export const getCountSubscribersBot = async () => {
   try {
     const docRef = doc(db, VITE_COLLECTION, 'countSubscriber');
     const docSnap = await getDoc(docRef);
-
-    return docSnap.data();
+    const { installBot } = docSnap.data();
+    return installBot.length;
   } catch (error) {
     return error;
   }
 };
 
-export const setCountSubscribers = async (signedUp, count) => {
+export const updateCountSubscribers = async remains => {
   const docRef = doc(db, VITE_COLLECTION, 'countSubscriber');
 
   try {
-    const result = await setDoc(docRef, {
-      signedUp: signedUp,
-      remains: Number(count),
+    const result = await updateDoc(docRef, {
+      remains,
     })
       .then(() => {
         return 'Запис в базі оновлено';
@@ -92,6 +92,7 @@ export const setCountSubscribers = async (signedUp, count) => {
         return error.code;
       });
 
+    // console.log(result);
     return result;
   } catch (error) {
     return error;

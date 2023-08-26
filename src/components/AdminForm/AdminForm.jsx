@@ -96,7 +96,6 @@ export const AdminForm = ({ queryId }) => {
   const onSubmit = async obj => {
     setIsLoading(true);
     const data = removeEmptyValues(obj);
-    console.log('onSubmit ', data);
 
     const dataPackage = JSON.stringify({ ...data, queryId });
 
