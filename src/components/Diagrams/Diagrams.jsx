@@ -115,7 +115,7 @@ export const Diagrams = () => {
           color: ['#70e832', '#ff2f2f'],
           data: [
             {
-              value: subscribersCount,
+              value: subscribersCountBot,
               name: `Встановили бота ${subscribersCountBot} шт`,
             },
             {
