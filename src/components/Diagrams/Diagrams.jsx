@@ -2,16 +2,17 @@ import { useEffect, useState, useRef } from 'react';
 import * as echarts from 'echarts';
 import {
   getCountAdvertisement,
-  getCountSubscribers,
+  getCountSubscribersBot,
+  updateCountSubscribers,
 } from '../../firebase/services';
-
-import { SubscribersForm } from '../SubscribersForm/SubscribersForm';
+import { subscribersApi } from '../../salesApi';
 
 import { DivStyled, DiagramStyled } from './Diagrams.styled';
 
 export const Diagrams = () => {
   const [saleCount, setSaleCount] = useState(0);
   const [buyCount, setBuyCount] = useState(0);
+  const [subscribersCountBot, setSubscribersCountBot] = useState(0);
   const [subscribersCount, setSubscribersCount] = useState(0);
   const chartTypeRef = useRef(null);
   const chartSubscribersRef = useRef(null);
@@ -24,12 +25,16 @@ export const Diagrams = () => {
       const resultBuy = await getCountAdvertisement('buy');
       setBuyCount(prev => resultBuy);
 
-      const resultSubscribers = await getCountSubscribers();
-      setSubscribersCount(prev => resultSubscribers);
+      const { count } = await subscribersApi('/count-members-chat');
+      setSubscribersCount(prev => count);
+      await updateCountSubscribers(count);
+
+      const resultSubscribersBot = await getCountSubscribersBot();
+      setSubscribersCountBot(prev => resultSubscribersBot);
     };
 
     get();
-  }, [subscribersCount]);
+  }, []);
 
   useEffect(() => {
     if (saleCount == 0 && buyCount === 0) {
@@ -83,17 +88,17 @@ export const Diagrams = () => {
   }, [saleCount, buyCount]);
 
   useEffect(() => {
-    if (subscribersCount === 0) {
+    if (subscribersCount === 0 && subscribersCountBot === 0) {
       return;
     }
 
-    const count = subscribersCount.signedUp - subscribersCount.remains;
+    const difference = subscribersCount - subscribersCountBot;
     const chartSubscribers = echarts.init(chartSubscribersRef.current);
 
     const options = {
       title: {
         text: 'Підписники в каналі',
-        subtext: `Всього ${subscribersCount.signedUp} шт`,
+        subtext: `Всього ${subscribersCount} шт`,
         left: 'center',
       },
       tooltip: {
@@ -110,12 +115,12 @@ export const Diagrams = () => {
           color: ['#70e832', '#ff2f2f'],
           data: [
             {
-              value: subscribersCount.remains,
-              name: `Залишились ${subscribersCount.remains} шт`,
+              value: subscribersCount,
+              name: `Встановили бота ${subscribersCountBot} шт`,
             },
             {
-              value: count,
-              name: `Пішли ${count} шт`,
+              value: difference,
+              name: `Без бота ${difference} шт`,
             },
           ],
           label: {
@@ -127,12 +132,11 @@ export const Diagrams = () => {
     };
 
     chartSubscribers.setOption(options);
-  }, [subscribersCount]);
+  }, [subscribersCount, subscribersCountBot]);
 
   return (
     <DivStyled>
       <DiagramStyled ref={chartTypeRef} />
-      <SubscribersForm signedUp={subscribersCount.signedUp} />
       <DiagramStyled ref={chartSubscribersRef} />
     </DivStyled>
   );

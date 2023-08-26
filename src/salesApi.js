@@ -8,3 +8,9 @@ export const salesApi = async (path, data, config) => {
     return response.data;
   });
 };
+
+export const subscribersApi = async (path, data, config) => {
+  return await axios.get(path, data, config).then(response => {
+    return response.data;
+  });
+};
