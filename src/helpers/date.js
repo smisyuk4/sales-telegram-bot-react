@@ -1,13 +1,6 @@
 import { formatDistanceToNowStrict, formatDistance, format } from 'date-fns';
 import { uk } from 'date-fns/esm/locale';
 
-// export const dateConverterAdminSide = timestamp => {
-//   //   const date = new Date(timestamp.toDate());
-//   const date = new Date(timestamp * 1000);
-
-//   return format(Date.parse(date), 'dd MMMM, yyyy | HH:mm', { locale: uk });
-// };
-
 export const dateConverterAdminSide = (timestamp, template) => {
   const date = new Date(timestamp * 1000);
 
@@ -15,7 +8,7 @@ export const dateConverterAdminSide = (timestamp, template) => {
 };
 
 export const dateConverterClientSide = timestamp => {
-  const limit = 60; //minutes
+  const limit = 5; //minutes
   const date = new Date(timestamp * 1000);
 
   const timeBetween = formatDistanceToNowStrict(date, {

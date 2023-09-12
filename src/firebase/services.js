@@ -5,7 +5,6 @@ import {
   collection,
   collectionGroup,
   getCountFromServer,
-  addDoc,
   updateDoc,
   getDoc,
   getDocs,
@@ -13,11 +12,8 @@ import {
   where,
   orderBy,
   doc,
-  setDoc,
 } from 'firebase/firestore';
 import { dateConverterClientSide } from '../helpers/date';
-// import { formatDistanceToNowStrict, formatDistance } from 'date-fns';
-// import { uk } from 'date-fns/locale';
 
 const { VITE_COLLECTION } = import.meta.env;
 
@@ -41,20 +37,6 @@ export const logoutUser = async () => {
 
   return result;
 };
-
-// demo method
-// export const addDatatoDb = async () => {
-//   try {
-//     const docRef = await addDoc(collection(db, 'users'), {
-//       first: 'Ada',
-//       last: 'Lovelace',
-//       born: 1815,
-//     });
-//     console.log('Document written with ID: ', docRef.id);
-//   } catch (e) {
-//     console.error('Error adding document: ', e);
-//   }
-// };
 
 export const getCountAdvertisement = async type => {
   try {
@@ -92,7 +74,6 @@ export const updateCountSubscribers = async remains => {
         return error.code;
       });
 
-    // console.log(result);
     return result;
   } catch (error) {
     return error;
@@ -209,44 +190,3 @@ export const checkPermission = async (user, type) => {
     return error;
   }
 };
-
-// const dateConverter = timestamp => {
-//   const limit = 60; //minutes
-//   const date = new Date(timestamp * 1000);
-
-//   const timeBetween = formatDistanceToNowStrict(date, {
-//     unit: 'minute',
-//     locale: uk,
-//   });
-
-//   let minutes = timeBetween.split(' ');
-//   minutes = Number(minutes[0]);
-
-//   const difference = limit - minutes;
-
-//   if (difference === 60) {
-//     return {
-//       permission: false,
-//       text: `До розміщення наступного оголошення \nзалишилaсь 01 : 00 год`,
-//     };
-//   }
-
-//   if (minutes < limit) {
-//     return {
-//       permission: false,
-//       text: `До розміщення наступного оголошення \nзалишилось 00 : ${difference} хв`,
-//     };
-//   }
-
-//   const timeBetweenLastMsg = formatDistance(date, new Date(), {
-//     locale: uk,
-//   });
-
-//   return {
-//     permission: true,
-//     text: `Ваше останнє оголошення було \nопубліковано ${timeBetweenLastMsg} тому`,
-//   };
-// };
-
-// https://date-fns.org/v2.30.0/docs/formatDistance
-// https://date-fns.org/v2.30.0/docs/formatDistanceToNowStrict
