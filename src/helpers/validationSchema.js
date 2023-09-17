@@ -3,12 +3,14 @@ import { forbiddenWords } from './forbiddenWords';
 
 const URL_REGEX =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
-const CONTACT_AND_PHONE_REGEX = /^@[^0-9][a-zA-Z0-9_]{4,}(\/0[3-9]\d{8})?$/gim;
+// const CONTACT_AND_PHONE_REGEX = /^@[^0-9][a-zA-Z0-9_]{4,}(\/0[3-9]\d{8})?$/gim;
+// const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@\w+[^\s]+)/;
+const PHONE_OR_CONTACT_REGEX = /(^0[3-9]\d{8}$|^@[^0-9][a-zA-Z0-9_]{4,})/;
 const WORDS_REGEX = new RegExp(`${forbiddenWords.join('|')}`, 'gi');
 const COST_NUMBERS_REGEX = /^[1-9][0-9]+$/gi;
 
-const CONTACT_ERROR_DESC =
-  "Ім'я (обов`язкове значення) починається з @, потім першою не може бути цифра.\nЗагалом складається з латинських букв, цифр, нижніх підкреслень.\nНомер (не обов`язкове значення) складється тільки з 10 цифр";
+// const CONTACT_ERROR_DESC =
+//   "Ім'я (обов`язкове значення) починається з @, потім першою не може бути цифра.\nЗагалом складається з латинських букв, цифр, нижніх підкреслень.\nНомер (не обов`язкове значення) складється тільки з 10 цифр";
 
 export const LIMIT_CHAR_DESC = 100;
 
@@ -66,7 +68,11 @@ export const SaleSchema = yup
       .trim()
       .min(6, 'Довжина має бути більше 6 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
-      .matches(CONTACT_AND_PHONE_REGEX, CONTACT_ERROR_DESC)
+      // .matches(CONTACT_AND_PHONE_REGEX, CONTACT_ERROR_DESC)
+      .matches(
+        PHONE_OR_CONTACT_REGEX,
+        'Напишіть свій телеграм контакт, номер телефону або все разом через /\nПРИКЛАД: @alex_mnko/0639999999'
+      )
       .required('Обов`язкове поле'),
 
     photoURL: yup
@@ -120,7 +126,11 @@ export const BuySchema = yup
       .trim()
       .min(6, 'Довжина має бути більше 6 символів')
       .max(30, 'Довжина має бути не більше 30 символів')
-      .matches(CONTACT_AND_PHONE_REGEX, CONTACT_ERROR_DESC)
+      // .matches(CONTACT_AND_PHONE_REGEX, CONTACT_ERROR_DESC)
+      .matches(
+        PHONE_OR_CONTACT_REGEX,
+        'Напишіть свій телеграм контакт, номер телефону або все разом через /\nПРИКЛАД: @alex_mnko/0639999999'
+      )
       .required('Обов`язкове поле'),
   })
   .required();

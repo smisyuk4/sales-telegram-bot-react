@@ -20,9 +20,9 @@ export const Contact = ({ register, setContact, errors }) => {
             placeholder="Telegram/Номер телефону"
             className={'contact'}
           />
-          <ExampleStyled className={'example'}>
+          {/* <ExampleStyled className={'example'}>
             Приклад @qwe_3/0503523445 <br /> розділення через /
-          </ExampleStyled>
+          </ExampleStyled> */}
           <ContactButton
             onClick={setContact}
             type="button"
