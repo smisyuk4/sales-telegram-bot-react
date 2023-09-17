@@ -15,15 +15,15 @@ const BuyPage = () => {
 
   useEffect(() => {
     const get = async () => {
-      const permResult = await checkPermission('anonym', 'buy');
-      // const permResult = await checkPermission(user, 'buy');
+      // const permResult = await checkPermission('anonym', 'buy');
+      const permResult = await checkPermission(user, 'buy');
       setPermissionMsg(permResult);
     };
     get();
   }, [user, setPermissionMsg]);
 
-  // if (!user) {
-  if (user !== undefined) {
+  if (!user) {
+  // if (user !== undefined) {
     return (
       <>
         <MessageTransfer>
